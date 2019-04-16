@@ -1,0 +1,42 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+<title></title>
+
+<style>
+	/*html {height: 100%;}
+	body {height: 100%;background: #f0f0f0;}
+*/
+</style>
+</head>
+<body >
+
+
+</body>
+<script type="text/javascript" src="./script/api.js"></script>
+<script type="text/javascript" src="./script/common.js"></script>
+<script type="text/javascript" src="./script/map.js"></script>
+<script type="text/javascript" src="./script/mapzh.js"></script>
+<script type="text/javascript" src="./script/tuisong.js"></script>
+<!-- <script type="text/javascript" src="./script/jquery.cookie.js"></script> -->
+<script>
+
+
+function closeroot_f()
+{
+  reportLocation.stopLocation();
+  api.closeFrame({
+  	name:'root_f',
+  	animation: {type:'none'}
+  });
+}
+apiready = function () {
+
+  reportLocation = api.require('reportLocation');
+  getLocation411();
+}
+//getLocation411();
+</script>
+</html>

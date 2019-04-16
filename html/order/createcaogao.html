@@ -1,0 +1,275 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>砂石运单</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api1.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/style.css"/>
+	<link rel="stylesheet" type="text/css" href="../../css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="../../css/scCss.css">
+  <script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/common.js"></script>
+  <script type="text/javascript" src="../../script/jquery.min.js"></script>
+  <script type="text/javascript" src="../../script/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../script/order.js"></script>
+      <script type="text/javascript" src="../../script/caogao.js"></script>
+</head>
+
+<style>
+.cy_menu ul li{ float:left; width: 33.3%; text-align: center;}
+.cy_menu ul li.on{ color: #f00}
+
+</style>
+<body>
+
+
+  <div id="wrap" class="flex-wrap flex-vertical">
+    <div class="container grad">
+      <div class="i20"></div>
+      <div class="row">
+        <div class="col-xs-3 font1" onClick="sliding()" > <img src="../../image/Drback.png"></div>
+        <div class="col-xs-6 font2"> 草稿 </div>
+            <div class="col-xs-3 font3" > </div>
+      </div>
+      <div style="clear: both"></div>
+            <div class="i5"></div>
+    </div>
+
+
+    <div id="main" class="flex-con" >
+
+
+
+      <div class="tab-pane fade in active" id="itema">
+
+        <!-- <div class="tab-bg container">
+          <div class="row">
+            <div class="col-xs-9">
+              <div class="tab-font1"><strong>订单号：201801167309334794</strong></div>
+            </div>
+            <div class="col-xs-3">
+              <div class="tab-y tab-y-color1">已发布</div>
+            </div>
+          </div>
+          <div class="row tab-sx">
+            <div class="col-xs-6"> <span class="tab-f">发</span><span class="tab-font2">南沙群岛</span> </div>
+            <div class="col-xs-6"> <span class="tab-f">收</span><span class="tab-font2">东新沙场</span> </div>
+          </div>
+          <div class="row">
+            <div class="col-xs-7">
+              <div class="tab-font1">运砂船：8号</div>
+            </div>
+            <div class="col-xs-5">
+              <div class="tab-font1 tab-r">201801-16 09：33:48</div>
+            </div>
+          </div>
+        </div> -->
+
+
+
+
+      </div>
+
+    </div>
+
+
+
+</DIV>
+</body>
+</html>
+
+
+</body>
+<script>
+
+var timeOutEvent = 0;
+
+
+//开始按
+function gtouchstart(obj) {
+
+    timeOutEvent = setTimeout(function() {
+      //  alert("清除了"); //因为页面弹动会导致元素一直处于按住的状态，所以超过700毫秒自动清空变量，避免点击其他元素触发事件
+
+      api.confirm({
+          title: '提示',
+          msg: '确认删除此草稿',
+          buttons: ['确定', '取消']
+      }, function(ret, err) {
+          var index = ret.buttonIndex;
+          console.log(index);
+          if(index==1)
+          {
+
+            db.executeSql({
+                name: database,
+                sql: 'DELETE FROM ssydlist WHERE id='+obj
+
+            }, function(ret, err) {
+
+              window.location.reload();
+                if (ret.status) {
+                  $api.rmStorage('sandplantRemark'+obj);
+                  $api.rmStorage('sandboatRemark'+obj);
+                  //  alert(JSON.stringify(ret));
+                } else {
+                  //  alert(JSON.stringify(err));
+                }
+            });
+
+          }
+      });
+
+
+
+        Htmls = "";
+    }, 500);
+    return false;
+};
+
+//手释放，取消长按事件
+function gtouchend() {
+    clearTimeout(timeOutEvent);
+//alert("addd");
+    Htmls = "";
+};
+
+//如果手指有移动，则取消所有事件，此时说明用户只是要移动而不是长按
+function gtouchmove() {
+    clearTimeout(timeOutEvent);
+    Htmls = "";
+};
+
+
+function opencreateorder(uid)
+{
+
+        api.openWin({
+
+                   name : 'createcaogaoinfo',
+                   url : '../order/createcaogaoinfo.html',
+                   slidBackEnabled:false,
+                   hideHomeIndicator:true,
+                   reload:true,
+                   pageParam: {id: uid},
+
+           });
+
+}
+
+function sliding()
+{
+
+  api.closeWin({
+  	name:'createcaogao',
+    animation: {type:'none'}
+  });
+}
+
+var itema_el=document.getElementById("itema");
+
+function selectorderinfo()
+{
+  db.selectSql({
+      name: database,
+      sql: 'SELECT * FROM ssydlist  where deliver ='+$api.getStorage('usid')+' order by id desc'
+  }, function(ret, err) {
+ console.log(JSON.stringify(ret));
+      if (ret.status) {
+
+                       var html = '';
+
+              if( ret['data'].length>0)
+                    {
+                      for (i = 0; i < ret['data'].length; i++) {
+                        var item = ret['data'][i];
+
+                  //  console.log(JSON.stringify(item));
+
+                      html+='<div class="tab-bg container"  onclick="opencreateorder('+item['id']+')" ontouchstart=gtouchstart('+item['id']+') ontouchmove="gtouchmove()" ontouchend="gtouchend()">';
+
+
+
+                      html+='<div class="row">';
+                      html+='<div class="col-xs-9">';
+                      html+='<div class="tab-font1"><strong>订单号:null</strong></div>';
+                      html+='</div>';
+                      html+='<div class="col-xs-3">';
+var caiqu_name=item['caiqu_name'];
+if(caiqu_name=="")
+{ caiqu_name="null";}
+
+var shachang_name=item['shachang_name'];
+if(shachang_name=="")
+{ shachang_name="null";}
+
+var ysqname=item['ysqname'];
+if(ysqname=="")
+{ ysqname="null";}
+
+var fabu_time=item['fabu_time'];
+if(ysqname=="")
+{ fabu_time="null";}
+
+                      html+='<div class="tab-y " style="display:none"></div>';
+                      html+='  </div>';
+                      html+='</div>';
+                      html+='  <div class="row tab-sx">';
+                      html+='<div class="col-xs-6"> <span class="tab-f">发</span><span class="tab-font2">'+caiqu_name+'</span> </div>';
+                      html+='<div class="col-xs-6"> <span class="tab-f">收</span><span class="tab-font2">'+shachang_name+'</span> </div>';
+                      html+='</div>';
+                      html+='<div class="row">';
+                      html+='<div class="col-xs-7">';
+                      html+='<div class="tab-font1">运砂船:'+ysqname +'</div>';
+                      html+='</div>';
+                      html+='<div class="col-xs-5" >';
+                      html+='<div class="tab-font1 tab-r stalla " >'+fabu_time+'</div>';
+                      html+='</div>';
+                      html+='</div>';
+                      html+='</div>';
+
+
+                      }
+
+
+
+                    }
+
+                   $api.html(itema_el,html);
+
+
+
+      } else {
+        //  alert(JSON.stringify(err));
+      }
+  });
+}
+function loadinfo()
+{
+  console.log("数据"+database);
+  db.openDatabase({
+      name:database
+  }, function(ret, err) {
+      if (ret.status) {
+       //alert(JSON.stringify(ret));
+       selectorderinfo();
+
+      } else {
+        //  alert(JSON.stringify(err));
+      }
+  });
+
+
+
+}
+apiready = function(){
+db = api.require('db');
+loadinfo();
+};
+
+</script>
+
+
+</html>

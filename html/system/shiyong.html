@@ -1,0 +1,84 @@
+
+
+  <html>
+  <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+  <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+
+  	<link rel="stylesheet" type="text/css" href="../../css/bootstrap.css">
+      <link rel="stylesheet" type="text/css" href="../../css/scCss.css">
+      <script type="text/javascript" src="../../script/api.js"></script>
+      <script type="text/javascript" src="../../script/jquery.min.js"></script>
+
+  </head>
+
+
+  <body style="background:#ffffff">
+    <div id="wrap" class="flex-wrap flex-vertical">
+      <div class="container grad" style="position:fixed; margin-top:0">
+        <div class="i20"></div>
+        <div class="row">
+          <div class="col-xs-3 font1" onClick="sliding()" > <img src="../../image/Drback.png"></div>
+          <div class="col-xs-6 font2"> 使用说明 </div>
+            <div class="col-xs-3 font3" >  </div>
+
+        </div>
+        <div style="clear: both"></div>
+              <div class="i5"></div>
+      </div>
+  <style>
+  .scroll-wrapper {
+   /*   -webkit-overflow-scrolling: touch;
+      overflow-y: scroll;*/
+      /* 提示: 请在此处加上需要设置的大小(dimensions)或位置(positioning)信息! */
+  }
+  .scroll-wrapper iframe {
+      /* 你自己指定的样式 */
+  }
+  .demo-iframe-holder {
+    padding: 0 15PX;
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    top: 80px;  -webkit-overflow-scrolling: touch;
+    overflow-y: scroll;
+
+  }
+
+  .demo-iframe-holder iframe {
+    height: 100%;
+    -webkit-overflow-scrolling: touch;
+    overflow-y: scroll;
+  }
+
+  </style>
+      <div id="main" class="flex-con " >
+        <div style="height:70px"></div>
+  <div class="scroll-wrapper demo-iframe-holder ">
+  <script charset=utf-8 type="text/javascript" src="http://122.112.238.143:8080/usermanual/shouce.js"></script>
+    </div>
+
+  </div>
+  </div>
+
+
+
+
+  </body>
+  <script type="text/javascript">
+
+  function sliding()
+  {
+    api.closeWin({
+      name:'shiyong',
+      animation: {type:'none'}
+    });
+  }
+  $(document).ready(function(){
+  $("#myiframe").css("width",$(document.body).width()+"px");
+
+  });
+  </script>
+  </html>

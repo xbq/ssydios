@@ -1,0 +1,387 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>运单统计</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/style.css"/>
+    <link rel="stylesheet" href="../../css/weui.css"/>
+    <link rel="stylesheet" href="../../css/jquery-weui.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="../../css/scCss.css">
+    <link rel="stylesheet" type="text/css" href="../../css/glyindex.css">
+    <script type="text/javascript" src="../../script/api.js"></script>
+    <script type="text/javascript" src="../../script/common.js"></script>
+    <script type="text/javascript" src="../../script/jquery.min.js"></script>
+    <script type="text/javascript" src="../../script/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../script/jweixin-1.0.0.js"></script>
+    <script src="../../script/weui.min.js"></script>
+      <script type="text/javascript" src="../../script/gly.js"></script>
+          <script src="../../script/echarts.simple.min.js"></script>
+    <script src="../../script/week.js"></script>
+  <style>
+    a{ display:inline;}
+  </style>
+</head>
+<body>
+<div class="s-zd" id="s-zd"></div>
+  <div id="wrap" class="flex-wrap flex-vertical">
+    <div class="container grad" id="yd">
+      <div class="i20"></div>
+      <div class="row">
+    <div class="col-xs-3 font1" onClick="sliding()"> <img src="../../image/Drback.png"></div>
+        <div class="col-xs-6 font2"> 运单统计 </div>
+        <div class=" col-xs-6 " >  </div>
+
+      </div>
+      <div style="clear: both"></div>
+    </div>
+
+
+
+    <div id="main" class="flex-con"  style="position:relative; z-index:3">
+
+
+<div class="s-ydtj">
+<div class="s-clear"></div>
+   <div class="s-ydtj1"><span><img src="../../image/g6.png" ></span>选择时段</div>
+   <div class="s-ydtj2">
+   <span id="sbybd">自定义
+
+   </span>
+      <ul id="sby">
+     <li><a  onClick="sectime(1,'本周')">本周</a></li>
+     <li><a  onClick="sectime(2,'本月')">本月</a></li>
+     <li><a  onClick="sectime(3,'本季')">本季</a></li>
+     <li><a  onClick="sectime(4,'本年')">本年</a></li>
+     <li><a  onClick="sectime(5,'自定义')">自定义</a></li>
+   </ul>
+   </div>
+   <div class="s-ydtj3">
+       <ul>
+          <li><span id="ftime" ></span></li>
+          <li style="width:10px; text-align:center">-</li>
+          <li><span id="totime" ></span></li>
+       </ul>
+   </div>
+
+</div>
+
+<script>
+function sectime(num,stra)
+{
+	var ftimenum,totimenum;
+
+	totimenum=getday();
+	switch(num)
+	{
+		case 1:
+	ftimenum=getmonday();
+
+		  break;
+		case 2:
+	ftimenum=getCurrentMonth();
+
+    break;
+		case 3:
+	ftimenum=getFirstDayOfSeason();
+
+    break;
+		case 4:
+	ftimenum=getFirstDayOfYear();
+
+		  break;
+      case 5:
+        break;
+		default:
+
+	}
+
+$("#ftime").html(ftimenum);
+$("#totime").html(totimenum);
+$("#sbybd").html(stra);
+$("#sby").hide();
+
+
+
+}
+
+
+</script>
+
+<div class="mainaa" id="mainaa" style=" position:relative; z-index:1;  min-height: 390px; background:none">
+
+<div class="s-clear"></div>
+<div class="s-content" style=" position:relative; z-index:1;min-height: 390px; background:none">
+
+  <div class="gr-btn" id="dl" style="padding-top:50px; margin-top:5px">
+    <button id="onc"  onClick="openexcel()" ontouchstart=gtouchstart() ontouchend="gtouchend()" type="button">导出表格</button>
+  </div>
+
+</div>
+<script>
+
+function gtouchstart()
+{
+	document.getElementById('onc').style.background = "linear-gradient(to right, #c0ecfe, #17baff )";
+}
+function gtouchend()
+{
+	  setTimeout(function() {
+  	document.getElementById('onc').style.background = "linear-gradient(to right, #17baff, #178aff )";
+  }, 150) ;
+
+}
+
+</script>
+
+    </div>
+
+ </div>
+
+
+  </div>
+
+
+
+    <link rel="stylesheet" type="text/css" href="../../css/waves.css">
+      <script type="text/javascript" src="../../script/waves.min.js"></script>
+
+</body>
+</html>
+
+
+<script>
+$(document).on('ready', function () {
+  sectime(2,'自定义')
+$('#totime').on('click', function () {
+
+    weui.datePicker({
+        start: 1990,
+        end: new Date().getFullYear(),
+        defaultValue:[new Date().getFullYear(),(new Date().getMonth())+1,new Date().getDate()],
+        onChange: function (result) {
+            console.log(result);
+        },
+        onConfirm: function (result) {
+              str=JSON.stringify(result);
+      				str=str.replace("[","");
+      				str=str.replace("]","");
+
+      				str=str.split(",");
+              var sa=str[0]+'-'+str[1]+'-'+str[2];
+
+              	$('#totime').html(sa);
+                var ftime_el=document.getElementById("ftime");
+              var ftimenum=$api.html(ftime_el);
+              console.log("开始"+ftimenum);
+                console.log("结束"+sa);
+                $("#sbybd").html("自定义");
+
+        }
+    });
+});
+
+$('#ftime').on('click', function () {
+
+    weui.datePicker({
+        start: 1990,
+        end: new Date().getFullYear(),
+        defaultValue:[new Date().getFullYear(),(new Date().getMonth())+1,new Date().getDate()],
+        onChange: function (result) {
+            console.log(result);
+        },
+        onConfirm: function (result) {
+              str=JSON.stringify(result);
+      				str=str.replace("[","");
+      				str=str.replace("]","");
+
+      				str=str.split(",");
+              var sa=str[0]+'-'+str[1]+'-'+str[2];
+
+              	$('#ftime').html(sa);
+
+                var totime_el=document.getElementById("totime");
+              var totimenum=$api.html(totime_el);
+              console.log("开始"+sa);
+                console.log("结束"+totimenum);
+                  $("#sbybd").html("自定义");
+
+        }
+    });
+});
+
+
+$("#sbybd").click(function(){
+$("#sby").show();
+});
+
+$("#mainaa").click(function(){
+$("#sby").hide();
+
+});
+
+});
+function sliding() {
+
+  // GoToRefresh();
+  api.closeWin({
+    name:'order_yddc',
+    animation: {type:'none'}
+  });
+
+   }
+
+
+
+   function openexcelaa()
+   {
+
+
+       var downloadManager = api.require('downloadManager');
+   downloadManager.openManagerView({
+       title: '下载管理'
+   }, function(ret, err) {
+       if (ret) {
+                     downloadManager.openDownloadedFile({
+                   id: ret.id
+               }, function(ret, err) {
+                   if (res.status) {
+                       alert(JSON.stringify(res));
+                   } else {
+                       alert(JSON.stringify(err));
+                   }
+               });
+         //  alert(JSON.stringify(ret));
+       } else {
+         //  alert(JSON.stringify(err));
+       }
+   });
+
+
+   }
+   function openexcelaaaaa()
+   {
+     var begintime="";
+     var endtime="";
+     var zzname="";
+
+   begintime=$("#ftime").html();
+   endtime=$("#totime").html();
+   console.log(begintime);
+   console.log(endtime);
+    console.log("ewewqewq");
+   }
+   function openexcel()
+   {
+     var begintime="";
+     var endtime="";
+     var zzname="";
+
+   begintime=$("#ftime").html();
+   endtime=$("#totime").html();
+var begintimeaa=begintime.replace(/-/g, "/");
+var endtimeaa=endtime.replace(/-/g, "/");
+
+console.log(begintime);
+console.log(endtime);
+   var str="";
+  //  if($api.getStorage('uroles')=='管理员')
+  //  {
+   //
+  //    str="";
+  //  }
+
+   if($api.getStorage('uroles')=='片区负责人')
+   {
+     var pianquId=$api.getStorage('pianquid');
+     str="location_id="+pianquId;
+   }
+
+   if($api.getStorage('uroles')=='采砂船管理员')
+   {
+     var sandboatId=$api.getStorage('ucsc06id');
+     str="sandboatId="+sandboatId;
+   }
+
+   if($api.getStorage('uroles')=='采区负责人')
+   {
+       var  fromDistrict= $api.getStorage('fromDistrict');
+     str="fromDistrict="+fromDistrict;
+   }
+
+   if($api.getStorage('uroles')=='采砂船船主')
+   {
+     var  sandboatId= $api.getStorage('sandboatId');
+     str="sandboatId="+sandboatId;
+   }
+   if($api.getStorage('uroles')=='运砂船船主')
+   {
+
+     var  boatId= $api.getStorage('boatId');
+     str="boatId="+boatId;
+
+   }
+   if($api.getStorage('uroles')=='砂场收货员')
+   {
+     var  toDistrict= $api.getStorage('toDistrict');
+     str="toDistrict="+toDistrict;
+
+   }
+   if($api.getStorage('uroles')=='二级砂厂负责人')
+   {
+     var  toDistrict=$api.getStorage('toDistrict');
+     str="toDistrict="+toDistrict;
+
+   }
+var strcurl='';
+
+if($api.getStorage('uroles')=='砂场收货员')
+{
+
+    strcurl='exportScreen/exportWayBillListForSandPlant.json?'+str+"&begintime="+begintime+"&endtime="+endtime+"&remark=1";
+}
+else {
+  if($api.getStorage('uroles')=='管理员')
+  {
+      strcurl="exportScreen/getWayBillList.json?begintime="+begintime+"&endtime="+endtime+"&remark=1";
+  }
+  else {
+      strcurl='exportScreen/getWayBillList.json?'+str+"&begintime="+begintime+"&endtime="+endtime+"&remark=1";
+  }
+}
+
+
+   var savePath='fs://'+begintime+"-"+endtime+zzname+'.xls';
+   var title=begintimeaa+"-"+endtimeaa+zzname+'.xls';
+     var downloadManager = api.require('downloadManager');
+     downloadManager.enqueue({
+         url: functionURL +strcurl,
+         savePath: savePath,
+       //  savePath: 'fs://tongji.xls',
+         cache: true,
+         headers:
+         {
+           "login_token":$api.getStorage('loginToken')
+         },
+         allowResume: true,
+         title: title,
+         networkTypes: 'all'
+     }, function(ret, err) {
+         if (ret) {
+           openexcelaa();
+           //  alert(JSON.stringify(ret));
+         } else {
+           //  alert(JSON.stringify(err));
+         }
+     });
+
+
+
+   }
+
+
+
+</script>

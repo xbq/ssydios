@@ -1,0 +1,43 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+<title></title>
+
+<style>
+	html {height: 0; }
+	body {height:0;background: #f0f0f0;}
+
+</style>
+</head>
+<body >
+
+
+</body>
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/common.js"></script>
+<script type="text/javascript" src="../../script/map.js"></script>
+<script type="text/javascript" src="../../script/mapzh.js"></script>
+<script type="text/javascript" src="../../script/tuisong.js"></script>
+<!-- <script type="text/javascript" src="./script/jquery.cookie.js"></script> -->
+<script>
+
+function closeju()
+{
+  reportLocation.stopLocation();
+  api.closeFrame({
+  	name:'order_ju',
+  	animation: {type:'none'}
+  });
+}
+apiready = function () {
+
+    var sid = api.pageParam.id;
+console.log("jul");
+  reportLocation = api.require('reportLocation');
+getinfo_shj_sh(sid);
+}
+//getLocation411();
+</script>
+</html>

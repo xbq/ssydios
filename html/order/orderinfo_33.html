@@ -1,0 +1,1737 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>砂石运单</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/style.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="../../css/scCss.css">
+    <script type="text/javascript" src="../../script/api.js"></script>
+    <script type="text/javascript" src="../../script/common.js"></script>
+    <script type="text/javascript" src="../../script/jquery.min.js"></script>
+    <script type="text/javascript" src="../../script/bootstrap.min.js"></script>
+      <script type="text/javascript" src="../../script/map.js"></script>
+        <script type="text/javascript" src="../../script/mapzh.js"></script>
+        <script type="text/javascript" src="../../script/upimg.js"></script>
+        <script type="text/javascript" src="../../script/tuisong.js"></script>
+</head>
+
+
+<body>
+
+
+  <div id="wrap" class="flex-wrap flex-vertical">
+    <div class="i-ats" id="i-ats">
+       <ul>
+       <li onclick="tjzpaa()">添加照片</li>
+      </ul>
+    </div>
+    <style>
+
+    .i-ats{ display: none;position:absolute; background:#fff; right:0;top:30px; width:150px; line-height:36px; padding:12px 20px; z-index:9999; font-size: 16px;box-shadow: 0px 0px 6px #888888;}
+    </style>
+
+
+  <style>
+    #Memobox_y{ top:13%; padding:10px; }
+    #Memobox_y h4{ padding:5px 0}
+    #Memobox_y textarea{ width:96%}
+    #Memobox_y .set-style { margin:5px 0; font-size:16px;}
+    #Memobox_y p.error { font-size:12px;}
+    #Memobox_y  .modal-footer{ background:none}
+    #Memobox_y button{ padding:2px 10px; margin-top:5px}
+    </style>
+  <div class="modal fade Memobox" id="Memobox_y" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal"
+              aria-hidden="true">×
+          </button>
+          <h4 class="modal-title" id="myModalLabel">
+            核定运砂量
+          </h4>
+        </div>
+        <div class="modal-body">
+
+        <div class="form-group">
+
+  <input type="text" id="ydinfo" name="ydinfo" class="form-control" placeholder="运砂量(吨)">
+
+          </div>
+
+
+        </div>
+        <div class="modal-footer"  >
+  <button type="button" class="btn btn-info btn-block" style="height:40px;lineHeight:40px;background:#0ea9ff"  onclick="ydinfofun()">提交</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+    <div class="container grad">
+        <div class="i20"></div>
+      <div class="row">
+        <div class="col-xs-3 font1" onClick="sliding()"> <img src="../../image/Drback.png"></div>
+        <div class="col-xs-6 font2"> 订单详情 </div>
+        <div class="col-xs-3 font3" id="xs01">
+           <a  href="#" id="hdys" style=" float:right; margin-right:10px;display:none" data-toggle="modal" data-target="#Memobox_y" >
+         <img src="../../image/sbi.png"  >
+       </a>
+       <a  href="#" id="hdyss" style="  position:absolute; right:10px; top:5px;display:none; font-size:14px; color:#fff" onclick="jieshudd()" >
+  确认到达
+   </a>
+ <a    style="  position:absolute; right:10px; top:5px;display:none; font-size:14px; color:#fff"   onClick="glzpa_fb()"  id="bczpaa"  style="display:none"> <img src="../../image/ats.png"> </a>
+       </div>
+
+<script>
+var sszpinfo=0;
+function tjzpaa()
+{
+  $("#i-ats").hide();
+  var uid_el=document.getElementById("uid");
+  var uid=$api.val(uid_el);
+
+  api.openWin({
+             name : 'order_orderphoto',
+             url : '../order/orderphoto.html',
+              reload:true,
+             slidBackEnabled:false,
+               pageParam: {
+                 id: uid,
+                 fy:22
+               },
+
+         })
+
+}
+
+function glzpa_fb()
+{
+
+    api.actionSheet({
+        buttons: [ '添加照片']
+    }, function(ret, err) {
+  var index = ret.buttonIndex;
+  if(index==1)
+  {
+tjzpaa();
+
+  }
+
+    })
+}
+function glzpa()
+{
+$("#i-ats").show();
+}
+
+
+$(document).on('ready', function () {
+  $("#main").click(function(){
+$("#i-ats").hide();
+});
+
+   });
+</script>
+
+       <!-- <div class="col-xs-3 font3" onclick="takePhoto()"  id="xs02" style="display:block"> <img src="../../image/sxj.png"> </div> -->
+
+      </div>
+      <div style="clear: both"></div>
+        <div class="i5"></div>
+    </div>
+    <div id="main" class="flex-con " >
+
+      <input type="hidden" id="uid">
+      <input type="hidden" id="boatId">
+      <input type="hidden" id="sandboatId">
+        <input type="hidden" id="toDistrict">
+      <input type="hidden" id="realWeight">
+
+   <div id="order_detail"></div>
+
+
+
+    </div>
+  </div>
+
+
+
+  <!-- <div id="wrap" class="flex-wrap flex-vertical">
+
+    <div id="header_s">
+        <ul>
+            <li class="border-b active" >订单详情(沙厂收货员)<a class="menu" tapmode="" onClick="sliding()"></a><a class="member_gp01" id="hdys"  style="display:none" href="#" data-toggle="modal" data-target="#Memobox_y"></a></li>
+        </ul>
+    </div>
+
+    <style>
+      #Memobox_y{ top:13%; padding:10px; }
+      #Memobox_y h4{ padding:5px 0}
+      #Memobox_y textarea{ width:96%}
+      #Memobox_y .set-style { margin:5px 0; font-size:16px;}
+      #Memobox_y p.error { font-size:12px;}
+      #Memobox_y  .modal-footer{ background:none}
+      #Memobox_y button{ padding:2px 10px; margin-top:5px}
+      </style>
+    <div class="modal fade Memobox" id="Memobox_y" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"
+                aria-hidden="true">×
+            </button>
+            <h4 class="modal-title" id="myModalLabel">
+              核定运沙量
+            </h4>
+          </div>
+          <div class="modal-body">
+
+          <div class="form-group">
+
+    <input type="text" id="ydinfo" name="ydinfo" class="form-control" placeholder="运单信息">
+
+            </div>
+
+
+          </div>
+          <div class="modal-footer"  >
+    <button type="button" class="btn btn-danger btn-block" style="height:40px;lineHeight:40px;" onclick="ydinfofun()">提交</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+    <div id="main" class="flex-con" >
+
+     <div style="padding：10px">
+       <div id="order_detail"></div>
+     </div>
+
+
+
+<input type="text" id="uid">
+<input type="text" id="realWeight">
+    </div>
+
+
+
+</DIV> -->
+</body>
+</html>
+
+
+</body>
+<script>
+function jieshudd(){
+  api.confirm({
+    title: '消息提示',
+    msg: '确认到达砂场',
+      buttons: ['确定', '取消']
+  }, function(ret, err) {
+      var index = ret.buttonIndex;
+if(index==1)
+{
+
+  var uid_el=document.getElementById("uid");
+
+ var   uid=$api.val(uid_el);
+
+api.ajax({
+    url: functionURL + 'wayBillScreen/forceStopCarry.json',
+    method: 'post',
+    dataType:'json',
+    headers:
+    {
+
+      login_token:$api.getStorage('loginToken')
+    },
+    data: {
+        values: {
+            waybillId: uid,
+            forceStoper:$api.getStorage('usid')
+
+        },
+        files: {
+            file: 'fs://a.gif'
+        }
+    }
+}, function(ret, err) {
+
+
+    if (ret) {
+        if(ret['code']==1){
+        api.alert({ title: '',msg:ret['msg'] });
+
+        api.closeWin({
+            name: 'order_orderlist'
+        });
+
+
+
+                api.openWin({
+                           name : 'order_orderlist',
+                           url : '../order/orderlist.html',
+                            reload:true,
+                           slidBackEnabled:false,
+                           delay:150,
+                           animation:{
+                             type:"fade",
+                             subType:"from_bottom",
+                         }
+
+                       })
+
+      }
+      else {
+          api.alert({   title: '',msg: ret['msg'] });
+      }
+
+    } else {
+        api.alert({ title: '修改失败' });
+    }
+});
+
+}
+
+  });
+
+
+}
+function ydinfofun()
+{
+
+    // if($api.getStorage('shybut')==1)
+    // {
+    //     api.toast({
+    //         msg: '与砂船距离过大,请移至距离砂船1000m范围内',
+    //         duration: 2000,
+    //         location: 'middle'
+    //     });
+    // }
+    // else{
+     var ydinfo_el=document.getElementById("ydinfo");
+     var ydinfo_sel_el=document.getElementById("ydinfo_sel");
+
+     var reg=/(^[1-9]{1}[0-9]*$)|(^[0-9]*\.[0-9]*$)/
+            if(!reg.test($api.val(ydinfo_el))){
+
+              api.toast({
+            msg: '请输入大于0的数字',
+            duration: 2000,
+            location: 'middle'
+            });
+          $api.val(ydinfo_el,"");
+             return false;
+
+
+            }
+
+      $('#Memobox_y').modal('hide');
+
+     $api.html(ydinfo_sel_el,$api.val(ydinfo_el));
+  //  }
+}
+
+function sliding()
+{
+  api.closeWin({
+    name:'order_orderinfo_33',
+    animation: {type:'none'}
+  });
+}
+
+function closeinfo3()
+{
+
+ api.execScript({
+     frameName:'order_ju',
+
+ script: 'closeju();'
+ });
+}
+
+// function submit3()
+// {
+//
+//         // if($api.getStorage('shybut')==1)
+//         // {
+//         //     api.toast({
+//         //         msg: '与砂船距离过大,请移至距离砂船1000m范围内',
+//         //         duration: 2000,
+//         //         location: 'middle'
+//         //     });
+//         // }
+//         // else{
+//                     var ydinfo_el=document.getElementById("ydinfo");
+//                     var ydinfo_sel_el=document.getElementById("ydinfo_sel");
+//                     var realWeight_el=document.getElementById("realWeight");
+//
+//                     var uid_el=document.getElementById("uid");
+//                     var  uid=$api.val(uid_el);
+//                     var boatId_el=document.getElementById("boatId");
+//                     var  boatId=$api.val(boatId_el);
+//                     var sandboatId_el=document.getElementById("sandboatId");
+//                     var  sandboatId=$api.val(sandboatId_el);
+//
+//                     var ydinfo_el=$api.val(ydinfo_el);
+//                     var realWeight_el=$api.val(realWeight_el);
+//                     var ydinfo_sel_el=$api.html(ydinfo_sel_el);
+//                     //  console.log(uid);
+//                       //  console.log(ydinfo_sel_el);
+//                       //    console.log(realWeight_el);
+//                     if(ydinfo_sel_el==realWeight_el)
+//                     {
+//
+//                       api.ajax({
+//                           url: functionURL + 'wayBillScreen/update.json',
+//                           dataType:'text',
+//                           method: 'post',
+//                           data: {
+//                               values: {
+//                                   uid: uid,
+//                                   status:7
+//                               },
+//                               files: {
+//                                   file: 'fs://a.gif'
+//                               }
+//                           }
+//                       }, function(ret, err) {
+//                           if (ret) {
+//
+//                             if(ret==1){
+//                               api.alert({
+//                                    msg: '修改成功'
+//                                });
+//                             //api.stopLocation();
+//
+// // var reportLocation = api.require('reportLocation');
+// // reportLocation.stopLocation();
+//                             api.openWin({
+//                                        name : 'order_orderlist',
+//                                        url : '../order/orderlist.html',
+//                                         reload:true,
+//                                        slidBackEnabled:false,
+//                                        delay:150,
+//                                        animation:{
+//                                          type:"fade",
+//                                          subType:"from_bottom",
+//                                      }
+//
+//                                    })
+//                                  }
+//                           }
+//                       });
+//
+//                     }
+//                     else {
+//
+//                       api.ajax({
+//                           url: functionURL + 'wayBillScreen/update.json',
+//                           dataType:'text',
+//                           method: 'post',
+//                           data: {
+//                               values: {
+//                                   uid: uid,
+//                                   status:6,
+//                                   realWeight:ydinfo_sel_el
+//                               },
+//                               files: {
+//                                   file: 'fs://a.gif'
+//                               }
+//                           }
+//                       }, function(ret, err) {
+//                           if (ret) {
+//
+//                             if(ret==1){
+//                               api.alert({
+//                                    msg: '修改成功'
+//                                });
+//
+//
+//  serverSendMessage6(boatId,uid);
+//  serverSendMessage62(sandboatId,uid);
+//                             //api.stopLocation();
+// // var reportLocation = api.require('reportLocation');
+// // reportLocation.stopLocation();
+//                             api.openWin({
+//                                        name : 'order_orderlist',
+//                                        url : '../order/orderlist.html',
+//                                         reload:true,
+//                                        slidBackEnabled:false,
+//                                        delay:150,
+//                                        animation:{
+//                                          type:"fade",
+//                                          subType:"from_bottom",
+//                                      }
+//
+//                                    })
+//                                  }
+//                           }
+//                       });
+//
+//                     }
+//
+//
+//         //}
+// }
+
+//同意卸货
+function submit7()
+{
+$("#submit7button").css("display","none");
+  // if($api.getStorage('shybut')==1)
+  // {
+  //     api.toast({
+  //         msg: '与砂船距离过大,请移至距离砂船1000m范围内',
+  //         duration: 2000,
+  //         location: 'middle'
+  //     });
+  // }
+  // else{
+
+
+
+
+  var uid_el=document.getElementById("uid");
+  var  uid=$api.val(uid_el);
+
+  api.ajax({
+      url: functionURL + 'wayBillScreen/getListForApp.json',
+      method: 'post',
+      headers:
+      {
+
+        login_token:$api.getStorage('loginToken')
+      },
+      data: {
+          values: {
+              uid: uid,
+
+          },
+          files: {
+              file: 'fs://a.gif'
+          }
+      }
+  }, function(ret, err) {
+
+      if (ret) {
+                      if( ret['data'].length>0){
+                  var item = ret['data'][0];
+if(item['status']==7)
+{
+
+
+if($api.getStorage('fpsdw'+uid)==0)
+{
+
+   api.openFrame({
+   									name : 'order_ju',
+   									url : 'ju.html',
+   									 reload:true,
+   									slidBackEnabled:false,
+   									delay:150,
+                       pageParam: {id: uid},
+   									animation:{
+   										type:"fade",
+   										subType:"from_bottom",
+   								},
+                  rect: {
+                          x: 0,
+                          y: 0,
+                          w: 0,
+                          h: 0
+                      },
+   							})
+  //getinfo_shj_sh(uid);
+
+}
+
+
+              }
+              else {
+                // api.alert({
+                //      msg: '运砂船主未确认！'
+                //  });
+              }
+}
+
+
+}
+});
+
+
+
+//}
+}
+
+//签收
+function submit8()
+{
+  var uid_el=document.getElementById("uid");
+  var  uid=$api.val(uid_el);
+  console.log(uid);
+  api.ajax({
+      url: functionURL + 'wayBillScreen/receiveBill.json',
+      dataType:'text',
+      headers:
+      {
+
+        login_token:$api.getStorage('loginToken')
+      },
+      method: 'post',
+      data: {
+          values: {
+              waybillId: uid,
+              //status:9,
+              acceptor:$api.getStorage('usid')
+          },
+          files: {
+              file: 'fs://a.gif'
+          }
+      }
+  }, function(ret, err) {
+      if (ret) {
+
+        if(ret==1){
+          api.alert({
+               title: '修改成功'
+           });
+
+
+           var boatId_el=document.getElementById("boatId");
+          var boatId=$api.val(boatId_el);
+
+
+api.closeWin({
+    name: 'order_orderlist'
+});
+
+
+
+        api.openWin({
+                   name : 'order_orderlist',
+                   url : '../order/orderlist.html',
+                    reload:true,
+                   slidBackEnabled:false,
+                   delay:150,
+                   animation:{
+                     type:"fade",
+                     subType:"from_bottom",
+                 }
+
+               })
+
+// serverSendMessage9(boatId,uid);
+
+             }
+      }
+  });
+
+}
+var Htmls = "";
+var timeOutEvent = 0;
+
+apiready = function(){
+console.log("usid"+$api.getStorage('usid'));
+   api.execScript({
+       frameName:'order_ju',
+
+   script: 'closeju();'
+   });
+  api.addEventListener({
+      name: 'longpress'
+  }, function(ret, err) {
+      if (Htmls != "") {
+          alert(Htmls);
+          Htmls = "";
+      }
+  });
+$api.setStorage('imgid',0);
+$api.setStorage('shybut',0);
+    var sid = api.pageParam.id;
+$api.setStorage('fpsdw'+sid,0);
+console.log("fpsdw:"+$api.getStorage('fpsdw'+sid));
+  var uid_el=document.getElementById("uid");
+    var realWeight_el=document.getElementById("realWeight");
+    $api.val(uid_el,sid);
+    //console.log(sid);
+    api.ajax({
+        url: functionURL + 'wayBillScreen/getListForApp.json',
+        method: 'get',
+        headers:
+        {
+
+          login_token:$api.getStorage('loginToken')
+        },
+        data: {
+            values: {
+                uid: sid
+            },
+            files: {
+                file: 'fs://a.gif'
+            }
+        }
+    }, function(ret, err) {
+        if (ret) {
+console.log(JSON.stringify(ret));
+      if( ret['data'].length>0){
+  var item = ret['data'][0];
+console.log(item['status']);
+  var boatId_el=document.getElementById("boatId");
+  $api.val(boatId_el,item['boatId']);
+  var sandboatId_el=document.getElementById("sandboatId");
+  $api.val(sandboatId_el,item['sandboatId']);
+
+  var toDistrict_el=document.getElementById("toDistrict");
+    $api.val(toDistrict_el,item['toDistrict']);
+
+//if(item['status']==7){
+//uid
+//getinfo_shjl(item['uid']);
+
+//}
+
+           var html = '';
+           $api.val(realWeight_el,item['weight']);
+           var order_detail_el=document.getElementById("order_detail");
+
+
+           html+='<div class="tab-bg container ">';
+          html+='<div class="row">';
+               html+='<div class="col-xs-9">';
+                 html+='<div class="tab-font1"><strong>订单号：'+item['waybillUuid']+'</strong></div>';
+               html+='</div>';
+               html+='<div class="col-xs-3">';
+
+               var str_color;
+              var statusdd=0;
+              if(item['status']==5)
+               {
+                  str_color="tab-y-colorc5";
+                  statusdd=1;
+               }
+               else if(item['status']==7)
+                {
+                   str_color="tab-y-colorc5";
+                     statusdd=1;
+                }
+
+               else {
+                str_color="tab-y-color1";
+               }
+
+                 html+='<div class="tab-y '+str_color+'">'+item['statusName']+'</div>';
+               html+='</div>';
+            html+=' </div>';
+             html+='<div class="row tab-sx">';
+               html+='<div class="col-xs-6"> <span class="tab-f">发</span><span class="tab-font2">'+item['fromName']+'</span> </div>';
+               html+='<div class="col-xs-6"> <span class="tab-f">收</span><span class="tab-font2">'+item['toName']+'</span> </div>';
+             html+='</div>';
+             html+='<div class="row">';
+               html+='<div class="col-xs-7">';
+                 html+='<div class="tab-font1">运砂船:'+item['boatName']+' <bdi onclick="openguiji('+item['waybillUuid']+')" style="color:#178aff">查看轨迹</bdi></div>';
+               html+='</div>';
+               html+='<div class="col-xs-5">';
+                 html+='<div class="tab-font1 tab-r stalla">'+item['starttime']+'</div>';
+              html+='</div>';
+             html+='</div>';
+           html+='</div>';
+ html+=initNote(item,item['status'],item['sandboatId'],item['boatId'],item['sandplantOwnerId'],statusdd,item['expectTime']);
+
+           html+='<div class="tab-bg container ddxq-t">';
+             html+='<div class="row">';
+               html+='<div class="col-xs-7 ddxq-font1">';
+                 html+='<div><span>订单信息</span></div>';
+               html+='</div>';
+
+              //  var lcimg="";
+              //  if(item['createType']==2)
+              //  {
+               //
+              //          if(item['sandplantLevel']==1)
+              //          {
+              //                if(item['status']==2)
+              //                {
+              //                  lcimg ="liucheng/2/2.png";
+              //                }
+              //                if(item['status']==3)
+              //                {
+              //                lcimg ="liucheng/2/3.png";
+              //                }
+              //                if(item['status']==4)
+              //                {
+              //                lcimg ="liucheng/2/4.png";
+              //                }
+              //                if(item['status']==5)
+              //                {
+              //                lcimg ="liucheng/2/5.png";
+              //                }
+              //                if(item['status']==6)
+              //                {
+              //                lcimg ="liucheng/2/6.png";
+              //                }
+              //                if(item['status']==7)
+              //                {
+              //                lcimg ="liucheng/2/7.png";
+              //                }
+              //                if(item['status']==10)
+              //                {
+              //                lcimg ="liucheng/2/8.png";
+              //                }
+               //
+              //                if(item['status']==8)
+              //                {
+              //                lcimg ="liucheng/2/9.png";
+              //                }
+               //
+              //                if(item['status']==9)
+              //                {
+              //                lcimg ="liucheng/2/10.png";
+              //                }
+              //          }
+              //          else {
+               //
+              //                if(item['status']==2)
+              //                {
+              //                  lcimg ="liucheng/4/2.png";
+              //                }
+              //                if(item['status']==3)
+              //                {
+              //                lcimg ="liucheng/4/3.png";
+              //                }
+              //                if(item['status']==4)
+              //                {
+              //                lcimg ="liucheng/4/4.png";
+              //                }
+              //                if(item['status']==5)
+              //                {
+              //                lcimg ="liucheng/4/5.png";
+              //                }
+              //                if(item['status']==7)
+              //                {
+              //                lcimg ="liucheng/4/6.png";
+              //                }
+              //                if(item['status']==7)
+              //                {
+              //                lcimg ="liucheng/4/7.png";
+              //                }
+              //                if(item['status']==10)
+              //                {
+              //                lcimg ="liucheng/4/10.png";
+              //                }
+               //
+              //                if(item['status']==8)
+              //                {
+              //                lcimg ="liucheng/4/8.png";
+              //                }
+               //
+              //                if(item['status']==9)
+              //                {
+              //                lcimg ="liucheng/4/9.png";
+              //                }
+               //
+              //          }
+              //  }
+              //  else {
+               //
+              //            if(item['sandplantLevel']==1)
+              //            {
+              //                if(item['status']==2)
+              //                {
+              //                  lcimg ="liucheng/1/1.png";
+              //                }
+              //                if(item['status']==3)
+              //                {
+              //                lcimg ="liucheng/1/2.png";
+              //                }
+              //                if(item['status']==4)
+              //                {
+              //                lcimg ="liucheng/1/3.png";
+              //                }
+              //                if(item['status']==5)
+              //                {
+              //                lcimg ="liucheng/1/4.png";
+              //                }
+              //                if(item['status']==6)
+              //                {
+              //                lcimg ="liucheng/1/5.png";
+              //                }
+              //                if(item['status']==7)
+              //                {
+              //                lcimg ="liucheng/1/6.png";
+              //                }
+              //                if(item['status']==10)
+              //                {
+              //                lcimg ="liucheng/1/7.png";
+              //                }
+               //
+              //                if(item['status']==8)
+              //                {
+              //                lcimg ="liucheng/1/8.png";
+              //                }
+               //
+              //                if(item['status']==9)
+              //                {
+              //                lcimg ="liucheng/1/9.png";
+              //                }
+              //            }
+              //            else {
+               //
+              //                      if(item['sandtype']=='砾石')
+              //                      {
+              //                        if(item['status']==2)
+              //                        {
+              //                          lcimg ="liucheng/1/1.png";
+              //                        }
+              //                        if(item['status']==3)
+              //                        {
+              //                        lcimg ="liucheng/1/2.png";
+              //                        }
+              //                        if(item['status']==4)
+              //                        {
+              //                        lcimg ="liucheng/1/3.png";
+              //                        }
+              //                        if(item['status']==5)
+              //                        {
+              //                        lcimg ="liucheng/1/4.png";
+              //                        }
+              //                        if(item['status']==6)
+              //                        {
+              //                        lcimg ="liucheng/1/5.png";
+              //                        }
+              //                        if(item['status']==7)
+              //                        {
+              //                        lcimg ="liucheng/1/6.png";
+              //                        }
+              //                        if(item['status']==10)
+              //                        {
+              //                        lcimg ="liucheng/1/7.png";
+              //                        }
+               //
+              //                        if(item['status']==8)
+              //                        {
+              //                        lcimg ="liucheng/1/8.png";
+              //                        }
+               //
+              //                        if(item['status']==9)
+              //                        {
+              //                        lcimg ="liucheng/1/9.png";
+              //                        }
+               //
+              //                      }
+              //                      else {
+               //
+              //                        if(item['status']==2)
+              //                        {
+              //                          lcimg ="liucheng/3/2.png";
+              //                        }
+              //                        if(item['status']==3)
+              //                        {
+              //                        lcimg ="liucheng/3/3.png";
+              //                        }
+              //                        if(item['status']==4)
+              //                        {
+              //                        lcimg ="liucheng/3/4.png";
+              //                        }
+              //                        if(item['status']==5)
+              //                        {
+              //                        lcimg ="liucheng/3/5.png";
+              //                        }
+              //                        if(item['status']==6)
+              //                        {
+              //                        lcimg ="liucheng/3/6.png";
+              //                        }
+              //                        if(item['status']==7)
+              //                        {
+              //                        lcimg ="liucheng/3/7.png";
+              //                        }
+              //                        if(item['status']==10)
+              //                        {
+              //                        lcimg ="liucheng/3/10.png";
+              //                        }
+               //
+              //                        if(item['status']==8)
+              //                        {
+              //                        lcimg ="liucheng/3/8.png";
+              //                        }
+               //
+              //                        if(item['status']==9)
+              //                        {
+              //                        lcimg ="liucheng/3/9.png";
+              //                        }
+               //
+              //                      }
+               //
+               //
+               //
+              //            }
+              //  }
+
+
+                            html+='<div class="col-xs-5 ddxq-font22" onmousedown=ondown_lc("'+initliuchengimg(item)+'","'+item['statusName']+'",'+item['uid']+')>';
+                              html+='<div><span>查看流程图</span></div>';
+                            html+='</div>';
+
+
+             html+='</div>';
+             html+='<div class="row ddxq-l">';
+               html+='<div class="col-xs-4 ddxq-font2"> 订单号： </div>';
+               html+='<div class="col-xs-8 ddxq-font3"> '+item['waybillUuid']+' </div>';
+             html+='</div>';
+             html+='<div class="row ddxq-l">';
+               html+='<div class="col-xs-4 ddxq-font2"> 运砂船： </div>';
+               html+='<div class="col-xs-8 ddxq-font3" onclick="opentelboat('+item['boatId']+')"><span class="glyphicon glyphicon-earphone icphone"></span> '+item['boatName']+'</div>';
+             html+='</div>';
+
+             if(item['createType']==2)
+             {
+               var sccf="方";
+             }
+             else {
+               var sccf="吨";
+             }
+
+             html+='<div class="row ddxq-l">';
+               html+='<div class="col-xs-4 ddxq-font2"> 运砂量： </div>';
+               html+='<div class="col-xs-8 ddxq-font3"> '+item['weight']+sccf+' ('+item['sandtype']+')</div>';
+             html+='</div>';
+             html+='<div class="row ddxq-l">';
+               html+='<div class="col-xs-4 ddxq-font2"> 核定运砂量： </div>';
+               html+='<div class="col-xs-8 ddxq-font3" class="cff" style="color:#178aff"> <bdi id="ydinfo_sel" class="cff">'+item['realWeight']+'</bdi>吨 </div>';
+             html+='</div>';
+
+             var eatWaterLineaa="";
+             if(item['eatWaterLine']!=null)
+             {
+               eatWaterLineaa=item['eatWaterLine'];
+               html+='<div class="row ddxq-l" >';
+                 html+='<div class="col-xs-4 ddxq-font2" > 减载高度： </div>';
+                 html+='<div class="col-xs-8 ddxq-font3 " > '+eatWaterLineaa+'cm </div>';
+               html+='</div>';
+             }
+             else {
+        //       eatWaterLineaa="0.0";
+             }
+
+             var containWateraa="";
+             if(item['containWater']!=null)
+             {
+               containWateraa=item['containWater'];
+               html+='<div class="row ddxq-l" >';
+                 html+='<div class="col-xs-4 ddxq-font2" > 含水系数： </div>';
+                 html+='<div class="col-xs-8 ddxq-font3 " > '+containWateraa+'% </div>';
+               html+='</div>';
+             }
+             else {
+            //   containWateraa="0.0";
+             }
+
+
+
+             html+='<div class="row ddxq-l">';
+               html+='<div class="col-xs-4 ddxq-font2"> 采砂船： </div>';
+               html+='<div class="col-xs-8 ddxq-font3" onclick="opentelsandboat('+item['sandboatId']+')"><span class="glyphicon glyphicon-earphone icphone"></span> '+item['sandboatName'];
+
+               if(item['sandboatRemark']!=null)
+               {
+
+                              html+=' ('+item['sandboatRemark']+')';
+
+               }
+
+                html+='</div>';
+             html+='</div>';
+             html+='<div class="row ddxq-l">';
+               html+='<div class="col-xs-4 ddxq-font2"> 发货员： </div>';
+               html+='<div class="col-xs-8 ddxq-font3"  onclick="openteldeliver('+item['deliver']+')"><span class="glyphicon glyphicon-earphone icphone"></span> '+item['deliverName']+'</div>';
+             html+='</div>';
+
+
+             html+='<div class="row ddxq-l">';
+               html+='<div class="col-xs-4 ddxq-font2"> 采区： </div>';
+               html+='<div class="col-xs-8 ddxq-font3"> '+item['fromName'];
+
+              //  if(item['sandboatRemark']!=null)
+              //  {
+               //
+              //                 html+=' ('+item['sandboatRemark']+')';
+               //
+              //  }
+
+
+               html+='</div>';
+             html+='</div>';
+
+
+             html+='<div class="row ddxq-l">';
+               html+='<div class="col-xs-4 ddxq-font2"> 砂场： </div>';
+              // html+='<div class="col-xs-8 ddxq-font3"> '+item['toName']+'</div>';
+                           html+='<div class="col-xs-8 ddxq-font3" onclick=opentelsandplantOwner('+item['sandplantOwnerId']+')><span class="glyphicon glyphicon-earphone icphone"></span> '+item['toName'];
+
+
+                           if(item['sandplantRemark']!=null)
+                           {
+
+                                          html+=' ('+item['sandplantRemark']+')';
+
+                           }
+
+                           html+='</div>';
+             html+='</div>';
+
+
+
+ if(item['sandplantLevel']==2)
+ {
+             html+='<div class="row ddxq-l">';
+               html+='<div class="col-xs-4 ddxq-font2"yiji >一级砂场： </div>';
+                           html+='<div class="col-xs-8 ddxq-font3" onclick=opentelparentSandplantOwner('+item['parentSandplantOwnerId']+')><span class="glyphicon glyphicon-earphone icphone"></span> '+item['parentSandplantName']+' </div>';
+             html+='</div>';
+}
+              if(item['sandplantAux1']!=null)
+             {
+                          html+='<div class="row ddxq-l">';
+                            html+='<div class="col-xs-4 ddxq-font2"> 辅测人员1： </div>';
+                            html+='<div class="col-xs-8 ddxq-font3" onclick=opentelfc('+item['sandplantAux1']+',"辅测人员1")><span class="glyphicon glyphicon-earphone icphone"></span> '+item['sandplantAux1Name']+' </div>';
+                          html+='</div>';
+
+             }
+
+             if(item['sandplantAux2']!=null)
+             {
+                         html+='<div class="row ddxq-l">';
+                           html+='<div class="col-xs-4 ddxq-font2"> 辅测人员2： </div>';
+                           html+='<div class="col-xs-8 ddxq-font3" onclick=opentelfc('+item['sandplantAux2']+',"辅测人员1")><span class="glyphicon glyphicon-earphone icphone"></span> '+item['sandplantAux2Name']+' </div>';
+                         html+='</div>';
+
+             }
+
+             if(item['sandplantManager']!=null)
+             {
+                         html+='<div class="row ddxq-l">';
+                           html+='<div class="col-xs-4 ddxq-font2"> 负责人： </div>';
+                           html+='<div class="col-xs-8 ddxq-font3" onclick=opentelfc('+item['sandplantManager']+',"负责人")><span class="glyphicon glyphicon-earphone icphone"></span> '+item['sandplantManagerName']+' </div>';
+                         html+='</div>';
+
+             }
+
+           if(item['accepttime']!=null)
+               {
+                 html+='<div class="row ddxq-l">';
+                   html+='<div class="col-xs-4 ddxq-font2"> 收货时间： </div>';
+                   html+='<div class="col-xs-8 ddxq-font3"> '+item['accepttime']+' </div>';
+                 html+='</div>';
+
+            // html+='<div>收货时间：'+item['accepttime']+'</div>';
+            }
+
+
+            html+='<div class="row">';
+              html+='<div class="col-xs-12 ddxq-font1">';
+                html+='<div><span>装载照片</span></div>';
+              html+='</div>';
+              html+='<div class="row ddxq-picw">';
+
+               if(item['fullpicture']!=null)
+               {
+
+                   $api.setStorage('fullpicture', item['fullpicture']);
+                 var fullpicture=item['fullpicture'].split(",");
+
+                 for (i = 0; i < fullpicture.length; i++) {
+                      //console.log(strArr[i]);
+                      html+='<div class="col-xs-4">';
+
+                       //html+='<a href="#" class="ddxq-pic" onmousedown=ondown("'+fullpicture[i]+'")> <img src="'+functionURLimg+fullpicture[i]+'" alt=""> </a>';
+                           html+='<a class="ddxq-pic" onmousedown=ondown("'+fullpicture[i]+'")> <img src="" alt="" id="sssa'+i+'"></a>';
+                      html+='</div>';
+
+                  }
+
+               }
+
+              html+='</div>';
+            html+='</div>';
+
+
+            if(item['unloadpicture']!=null)
+            {
+              if(item['status']!=5){
+                 $api.setStorage('unloadpicture', item['unloadpicture']);
+              html+='<div class="row">';
+              html+='<div class="col-xs-12 ddxq-font1">';
+              html+='<div><span>卸货前装载照片</span></div>';
+              html+='</div>';
+              html+='<div class="row ddxq-picw">';
+
+
+                 var unloadpicture=item['unloadpicture'].split(",");
+
+                 for (i = 0; i < unloadpicture.length; i++) {
+                      //console.log(strArr[i]);
+                      html+='<div class="col-xs-4">';
+
+                       //html+='<a href="#" class="ddxq-pic"  onmousedown=ondown("'+emptypicture[i]+'")> <img src="'+functionURLimg+emptypicture[i]+'" alt=""> </a>';
+                         html+='<a href="#" class="ddxq-pic"  onmousedown=ondown("'+unloadpicture[i]+'")> <img src="" alt="" id="sssc'+i+'"> </a>';
+                      html+='</div>';
+
+                  }
+
+
+
+              html+='</div>';
+              html+='</div>';
+            }
+            }
+
+            if(item['emptypicture']!=null)
+            {
+                 $api.setStorage('emptypicture', item['emptypicture']);
+              html+='<div class="row">';
+              html+='<div class="col-xs-12 ddxq-font1">';
+              html+='<div><span>卸货照片</span></div>';
+              html+='</div>';
+              html+='<div class="row ddxq-picw">';
+
+
+                 var emptypicture=item['emptypicture'].split(",");
+
+                 for (i = 0; i < emptypicture.length; i++) {
+                      //console.log(strArr[i]);
+                      html+='<div class="col-xs-4">';
+
+                       //html+='<a href="#" class="ddxq-pic"  onmousedown=ondown("'+emptypicture[i]+'")> <img src="'+functionURLimg+emptypicture[i]+'" alt=""> </a>';
+                         html+='<a href="#" class="ddxq-pic"  onmousedown=ondown("'+emptypicture[i]+'")> <img src="" alt="" id="sssb'+i+'"> </a>';
+                      html+='</div>';
+
+                  }
+
+
+
+              html+='</div>';
+              html+='</div>';
+            }
+
+                       if(item['status']==5){
+                         if(item['sandplantAux2']==null){
+if(item['sandplantAux1']==null)
+{
+                         html+='<div class="row" id="x02" style="display:block">';
+                         html+='<div class="col-xs-12 ddxq-font1">';
+                         html+='<div ><button type="button" id="ssphoto" onclick="ssphotoup()"  class="btn btn-info" style="float:right;background:#42a5f6;padding:2px 5px">上传照片</button><span>卸货前装载照片</span>  <span class="glyphicon glyphicon-camera" style="display:none"></span></div>';
+                         html+='</div>';
+                         html+='<div class="row ddxq-picw" id="simg">';
+
+
+                               html+='<div class="col-xs-4"  onclick="takePhoto()" >  <a  class="ddxq-pic-cc"   ></a> </div>';
+                         html+='</div>';
+                         html+='</div>';
+}
+                       }
+}
+
+
+
+
+                  //  html+='<div class="row">';
+                  //    html+='<div class="col-xs-12 ddxq-font1">';
+                  //      html+='<div><span>装载照片</span></div>';
+                  //    html+='</div>';
+                  //    html+='<div class="row ddxq-picw">';
+                  //      html+='<div class="col-xs-4"> <a href="#" class="ddxq-pic"> <img src="image/sto.png" alt=""> </a> </div>';
+                   //
+                  //    html+='</div>';
+                  //  html+='</div>';
+          //  html+='<div class="row">';
+          //      html+='<div class="col-xs-12 ddxq-font1">';
+          //        html+='<div><span>卸货照片</span></div>';
+          //      html+='</div>';
+          //      html+='<div class="row ddxq-picw">';
+          //        html+='<div class="col-xs-4"> <a href="#" class="ddxq-pic"> <img src="image/sto.png" alt=""> </a> </div>';
+           //
+          //      html+='</div>';
+          //    html+='</div>';
+           html+='</div>';
+
+ if(item['status']==4){
+
+   var hdyss_el=document.getElementById("hdyss");
+ $api.css(hdyss_el,"display:block");
+ }
+
+
+           if(item['status']==5){
+if(item['sandplantAux1']==null)
+{
+  var x02_el=document.getElementById("x02");
+$api.css(x02_el,"display:block");
+
+  //   var hdys_el=document.getElementById("hdys");
+  // $api.css(hdys_el,"display:block");
+  html+='<div class="ddxq-btn" id="subpz1button">';
+  html+='<button type="button" onClick="subpz1()" >确认</button>';
+  html+='</div>';
+
+}
+else if(item['sandplantAux2']==null)
+{
+
+  var bczpaa_el=document.getElementById("bczpaa");
+$api.css(bczpaa_el,"display:block");
+  html+='<div class="ddxq-btn">';
+  html+='<button type="button" onClick="subpz2()" >确认</button>';
+  html+='</div>';
+}
+// else {
+//
+//   var hdys_el=document.getElementById("hdys");
+// $api.css(hdys_el,"display:block");
+//
+// html+='<div class="ddxq-btn">';
+// html+='<button type="button" onClick="submit3()" >确认运输</button>';
+// html+='</div>';
+//
+// }
+
+
+
+              // html+='<button type="button" class="btn btn-danger" onClick="submit3()" style="color:#ffffff" >确认运输</button>';
+            }
+            if(item['status']==7){
+              var bczpaa_el=document.getElementById("bczpaa");
+            $api.css(bczpaa_el,"display:block");
+              html+='<div class="ddxq-btn" id="submit7button">';
+              html+='<button type="button" onClick="submit7()" >签收</button>';
+              html+='</div>';
+
+              //  html+='<button type="button" class="btn btn-danger" onClick="submit8()" style="color:#ffffff" >确认</button>';
+             }
+
+            // if(item['status']==8){
+            //
+            //   html+='<div class="ddxq-btn">';
+            //   html+='<button type="button" onClick="submit8()" >确认</button>';
+            //   html+='</div>';
+            //
+            //   //  html+='<button type="button" class="btn btn-danger" onClick="submit8()" style="color:#ffffff" >确认</button>';
+            //  }
+
+                $api.html(order_detail_el,html);
+
+      //
+      //      html+='<div>订单号：'+item['waybillUuid']+'|'+item['statusName']+'</div>';
+      //      html+='<div>发：'+item['fromName']+'|收'+item['toName']+'|'+item['starttime']+'</div>';
+      //      html+='<div  style="height:10px;"></div>';
+      //      html+='<div>'+item['waybillUuid']+'</div>';
+      //      html+='<div>运砂船：'+item['boatName']+'</div>';
+      //      html+='<div>运砂量：'+item['weight']+'</div>';
+      //      html+='<div id="">核定运沙量：<bdi id="ydinfo_sel">'+item['realWeight']+'</bdi></div>';
+      //      html+='<div>采砂船：'+item['sandboatName']+'</div>';
+      //      html+='<div>发货员：'+item['deliverName']+'</div>';
+      //      html+='<div>发货时间：'+item['starttime']+'</div>';
+      //      html+='<div>采区：'+item['fromName']+'</div>';
+      //      html+='<div>砂厂：'+item['toName']+'</div>';
+      //     // console.log(item['accepttime']);
+      //      if(item['accepttime'] == ''|| item['accepttime']!=null)
+      //      {
+      //      html+='<div>收货时间：'+item['accepttime']+'</div>';
+      //      }
+      // if(item['status']==5){
+      //            var hdys_el=document.getElementById("hdys");
+      //    $api.css(hdys_el,"display:block");
+      //    html+='<button type="button" class="btn btn-danger" onClick="submit3()" style="color:#ffffff" >确认运输</button>';
+      //  }
+      //
+      //  if(item['status']==8){
+      //     html+='<button type="button" class="btn btn-danger" onClick="submit8()" style="color:#ffffff" >确认</button>';
+      //   }
+      //           $api.html(order_detail_el,html);
+
+
+              }
+              if(item['fullpicture']!=null){
+                imageCache_a();
+              }
+                  if(item['emptypicture']!=null){
+                imageCache_b();
+              }
+
+              if(item['unloadpicture']!=null){
+            imageCache_c();
+          }
+        }
+    });
+};
+
+
+
+function subpz33status()
+{var uid_el=document.getElementById("uid");
+
+var   uid=$api.val(uid_el);
+// console.log(realWeight);
+//  console.log(uid);
+//    console.log($api.setStorage('usid'));
+
+var realWeight_el=document.getElementById("realWeight");
+realWeight=$api.val(realWeight_el);
+console.log("realWeight"+realWeight);
+   api.ajax({
+       url: functionURL + 'wayBillScreen/auxEnsure.json',
+       dataType:'text',
+       headers:
+       {
+
+         login_token:$api.getStorage('loginToken')
+       },
+       method: 'post',
+       data: {
+           values: {
+               waybillId: uid,
+               realWeight:realWeight,
+               sandplantAux1:$api.getStorage('usid')
+           },
+           files: {
+               file: 'fs://a.gif'
+           }
+       }
+   }, function(ret, err) {
+       if (ret) {
+
+         if(ret==1){
+           api.alert({
+                title: '修改成功'
+            });
+         //api.stopLocation();
+
+
+window.location.reload();
+
+
+
+
+
+
+              }
+       }
+   });
+
+}
+
+function ssphotoup()
+{
+
+  var uid_el=document.getElementById("uid");
+ var   uid=$api.val(uid_el);
+  var strArr_aa=document.getElementById("simg").getElementsByTagName('IMG');
+  if(strArr_aa.length==0)
+  {
+     api.alert({
+
+            title: '请添加运砂船满载照片'
+        });
+    return false;
+  }
+
+
+  api.ajax({
+      url: functionURL + 'wayBillScreen/judgeUnloadPic.json',
+      dataType:'text',
+      headers:
+      {
+
+        login_token:$api.getStorage('loginToken')
+      },
+      method: 'post',
+      data: {
+          values: {
+              waybillId: uid,
+
+          },
+          files: {
+              file: 'fs://a.gif'
+          }
+      }
+  }, function(ret, err) {
+
+      if (ret) {
+
+        if(ret==1){
+
+                    api.ajax({
+                        url: functionURL + 'wayBillScreen/clearUnloadPic.json',
+                        dataType:'text',
+                        headers:
+                        {
+
+                          login_token:$api.getStorage('loginToken')
+                        },
+                        method: 'post',
+                        data: {
+                            values: {
+                                waybillId: uid,
+
+                            },
+                            files: {
+                                file: 'fs://a.gif'
+                            }
+                        }
+                    }, function(ret, err) {
+
+                        if (ret) {
+
+                          if(ret==1){
+
+
+s_updateimg_pz33newadd(uid);
+sszpinfo=0;
+                               }
+                        }
+                    });
+
+             }
+        else{
+s_updateimg_pz33newadd(uid);
+sszpinfo=0;
+        }
+
+
+      }
+  });
+
+}
+
+
+
+function subpz1()
+{
+
+// if(sszpinfo==1)
+// {
+//   api.alert({
+//
+//          title: '请上传满载照片'
+//      });
+//  return false;
+// }
+
+
+
+  var uid_el=document.getElementById("uid");
+
+ var   uid=$api.val(uid_el);
+
+
+ var strArr_aa=document.getElementById("simg").getElementsByTagName('IMG');
+ //$("#subpz1button").css("display","none");
+
+ if(strArr_aa.length>0)
+ {
+    if(sszpinfo==1)
+    {
+      api.alert({
+             title: '请上传照片'
+         });
+     return false;
+   }
+   else {
+     $("#subpz1button").css("display","none");
+     subpz33status();
+   }
+ }
+ else{
+ $("#subpz1button").css("display","none");
+ subpz33status();
+ }
+//  s_updateimg_pz33(uid);
+//
+
+ }
+
+
+//砂厂辅测人员1确认
+
+// function subpz1()
+// {
+//
+//   var uid_el=document.getElementById("uid");
+//
+//  var   uid=$api.val(uid_el);
+//  // console.log(realWeight);
+//  //  console.log(uid);
+//  //    console.log($api.setStorage('usid'));
+//
+//  var strArr_aa=document.getElementById("simg").getElementsByTagName('IMG');
+//  // if(strArr_aa.length==0)
+//  // {
+//  //    api.alert({
+//  //           msg: '请上传照片'
+//  //       });
+//  //   return false;
+//  // }
+//
+// //  if($("#simg").html()=="")
+// // {
+// //
+// //   api.alert({
+// //        msg: '请上传照片'
+// //    });
+// //    return false;
+// // }
+// var realWeight_el=document.getElementById("realWeight");
+// realWeight=$api.val(realWeight_el);
+// console.log("realWeight"+realWeight);
+//      api.ajax({
+//          url: functionURL + 'wayBillScreen/auxEnsure.json',
+//          dataType:'text',
+//          headers:
+//          {
+//
+//            login_token:$api.getStorage('loginToken')
+//          },
+//          method: 'post',
+//          data: {
+//              values: {
+//                  waybillId: uid,
+//                  realWeight:realWeight,
+//                  sandplantAux1:$api.getStorage('usid')
+//              },
+//              files: {
+//                  file: 'fs://a.gif'
+//              }
+//          }
+//      }, function(ret, err) {
+//          if (ret) {
+//
+//            if(ret==1){
+//              api.alert({
+//                   msg: '修改成功'
+//               });
+//            //api.stopLocation();
+//            if(strArr_aa.length>0)
+//            {
+//                s_updateimg_pz(uid);
+// }
+//
+//   window.location.reload();
+//
+//
+//
+//
+//
+//
+//                 }
+//          }
+//      });
+// }
+
+
+
+
+
+
+
+//开始按
+function gtouchstart(obj) {
+Htmls=obj;
+//alert(obj);
+  //  Htmls = $(obj).parent().html();
+      console.log(Htmls);
+    timeOutEvent = setTimeout(function() {
+      //  alert("清除了"); //因为页面弹动会导致元素一直处于按住的状态，所以超过700毫秒自动清空变量，避免点击其他元素触发事件
+
+      api.confirm({
+          title: '提示',
+          msg: '确定删除此图片吗？',
+          buttons: ['确定', '取消']
+      }, function(ret, err) {
+          var index = ret.buttonIndex;
+          console.log(index);
+          if(index==1)
+          {
+            console.log(obj);
+          var simga_el=document.getElementById(obj);
+
+            $api.remove(simga_el);
+          }
+      });
+
+
+
+        Htmls = "";
+    }, 500);
+    return false;
+};
+
+//手释放，取消长按事件
+function gtouchend() {
+    clearTimeout(timeOutEvent);
+//alert("addd");
+    Htmls = "";
+};
+
+//如果手指有移动，则取消所有事件，此时说明用户只是要移动而不是长按
+function gtouchmove() {
+    clearTimeout(timeOutEvent);
+    Htmls = "";
+};
+
+function takePhoto() {
+       api.getPicture({
+           sourceType: 'camera', //（可选项）图片源类型，从相册、图片库或相机获取图片
+           encodingType: 'jpg', //（可选项）返回图片类型，jpg或png
+           mediaValue: 'pic', //（可选项）媒体类型，图片或视频
+           destinationType: 'url', //（可选项）返回数据类型，指定返回图片地址或图片经过base64编码后的字符串
+           allowEdit: true,
+           quality: 100, //（可选项）图片质量，只针对jpg格式图片（0-100整数）
+          targetWidth: 800, //（可选项）压缩后的图片宽度，图片会按比例适配此宽度
+          //targetHeight: 800, //（可选项）压缩后的图片高度，图片会按比例适配此高度
+           saveToPhotoAlbum: true
+       }, function(ret, err) {
+           if (ret) {
+            //   alert(JSON.stringify(ret));
+               var imgSrc = ret.data;
+                 var simg_el=document.getElementById("simg");
+
+               var html='';
+               var simgid=$api.getStorage('imgid');
+                  // html+='<div class="col-xs-4" id="asimg0" >  <a  class="ddxq-pic" > <img src="../../image/sto.png" alt=""></a> <a onclick=removimg("asimg0")>删除</a></div>';
+            html+='<div class="col-xs-4" id="asimg'+simgid+'" >  <a  class="ddxq-pic" onclick=ondown_y("'+imgSrc+'")  ontouchstart=gtouchstart("asimg'+simgid+'") ontouchmove="gtouchmove()" ontouchend="gtouchend()"> <img src="'+imgSrc+'" alt=""></a> <a onclick=removimg("asimg'+simgid+'") style="display:none"><span class="glyphicon glyphicon-remove"></span>删除</a></div>';
+
+               $api.append(simg_el,html);
+               simgid= simgid+1;
+
+               if(simgid==1)
+               {
+                 api.toast({
+               msg: '长按照片可删除',
+               duration: 2000,
+               location: 'middle'
+               });
+
+               }
+sszpinfo=1;
+               $api.setStorage('imgid',simgid);
+
+
+           } else {
+
+             api.toast({
+           msg: '照片传输失败！请重试',
+           duration: 2000,
+           location: 'middle'
+           });
+               //alert(JSON.stringify(err));
+           }
+       });
+   }
+
+</script>
+</html>

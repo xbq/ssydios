@@ -1,0 +1,218 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>采砂船统计</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/style.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="../../css/scCss.css">
+        <link rel="stylesheet" type="text/css" href="../../css/glyindex.css">
+    <script type="text/javascript" src="../../script/api.js"></script>
+    <script type="text/javascript" src="../../script/common.js"></script>
+    <script type="text/javascript" src="../../script/jquery.min.js"></script>
+    <script type="text/javascript" src="../../script/bootstrap.min.js"></script>
+</head>
+
+
+<body >
+
+
+  <div id="wrap" class="flex-wrap flex-vertical">
+
+    <div class="container grad" id="yd">
+      <div class="i20"></div>
+      <div class="row ">
+        <div class="col-xs-3 font1 pal10" onClick="sliding()" ><img src="../../image/Drback.png"></div>
+        <div class="col-xs-6 font2"> 通讯录 </div>
+        <div class="col-xs-3 font3"> </div>
+
+      </div>
+      <div style="clear: both">
+
+
+        <div  class="a-searchbb"  >
+     <div class="a-searbutton" onClick="searchboxtxla()"> </div>
+<div class="a-searchboxbb"><input type="text" id="name" class="a-input"></div>
+
+  </div>
+
+      </div>
+    </div>
+
+
+
+
+
+
+    <div id="main" class="flex-con"  >
+
+
+
+<div class="container " id="containerida" style="margin-top:-5px; padding-top:0">
+
+
+
+</div>
+
+
+  </div>
+
+    </div>
+<script>
+
+
+          // kkkw.style.display = "block";
+
+
+// $("#aaa1").click(function(){
+//   $("#aab1").toggle(50);
+//     $("#aad1").toggle(50);
+//     $("#aae1").toggle(50);
+// });
+// $("#aaa2").click(function(){
+//   $("#aab2").toggle(50);
+//     $("#aad2").toggle(50);
+//       $("#aae2").toggle(50);
+// });
+
+function sliding()
+{
+  api.closeWin({
+    name:'systemtxlsc',
+    animation: {type:'none'}
+  });
+}
+function searchboxtxla()
+{
+ var name_el=document.getElementById("name");
+
+
+console.log("name_el"+ $api.val(name_el));
+
+api.ajax({
+    url: functionURL + 'sysUserScreen/searchPhoneBook.json',
+    method: 'get',
+
+    headers:
+    {
+
+      login_token:$api.getStorage('loginToken')
+    },
+    data: {
+        values: {
+        name: $api.val(name_el)
+        },
+        files: {
+            file: 'fs://a.gif'
+        }
+    }
+}, function(ret, err) {
+console.log(JSON.stringify(ret));
+
+        if(ret){
+          var html="";
+           var containerida_el=document.getElementById("containerida");
+            if( ret.length>0)
+            {
+              for (i = 0; i < ret.length; i++) {
+                var ssi=i+1;
+                var item = ret[i];
+
+
+               html+='<div class="row itemas01 " onClick="javascript: func('+i+')" style=" clear:both">';
+                    html+='<div class="itemas01-bba">';
+                    html+='<div class="col-xs-7" ><div  class="tabscc01 tabcaa01" >'+item['role']+'</div> </div>';
+                    html+='<div class="col-xs-5 icooa" style=" text-align:right" ><div class="tabscc01" style="float:right; margin-left:5px"> <span class="glyphicon glyphicon-chevron-up icoo"  id="aad'+i+'"></span></div>';
+                            if( item['list'].length>0)
+                            {
+                            html+=item['list'].length+'人';
+                            }
+                            else
+                            {  html+='0人';
+
+                            }
+                    html+='</div>';
+                    html+='</div>';
+
+
+                html+='</div>';
+                if( item['list'].length>0)
+                {
+                html+='<div class="s-itema aadisplay s-boxg"  id="aab'+i+'">';
+
+                         html+='<div class="s-item-boxa01" >';
+                              html+='<ul>';
+
+                              for (ai = 0; ai < item['list'].length; ai++) {
+                                var itemaa = item['list'][ai];
+
+
+                                  html+='<li>';
+                                  html+='<div class="atx-title">'+itemaa['real_name']+'</div>';
+                                  html+='<div onClick="opensystemxltel('+itemaa['mobile']+')"><span>电话：</span>'+itemaa['mobile']+'</div>';
+                                  html+='</li>';
+                }
+
+                              html+='</ul>';
+                         html+='</div>';
+
+                 html+='</div>';
+}
+
+
+
+
+
+
+            }
+       $api.html(containerida_el,html);
+    }
+
+
+  }
+      });
+
+
+}
+
+
+apiready = function(){
+
+
+
+
+  }
+  function opensystemxltel(tela)
+  {
+    api.call({
+        type: 'tel_prompt',
+        number: tela
+    });
+  }
+  function func(ai) {
+  // var kkkw = document.getElementById("aab"+ai);
+  //    if(kkkw.style.display == "block")
+//  alert($("#aab"+ai).css("display"));
+  if($("#aab"+ai).css("display")=="block")
+        {$("#aab"+ai).slideUp();
+         $("#aad"+ai).removeClass("glyphicon-chevron-down").addClass("glyphicon-chevron-up");
+       }
+       //$("#aab1").hide();
+       //   kkkw.style.display = "none";
+      else
+      {
+         // $("#aab1").show(500);
+          $("#aad"+ai).removeClass("glyphicon-chevron-up").addClass("glyphicon-chevron-down");
+          $("#aab"+ai).slideDown();
+          $("#aab"+ai).css("display","block");
+        }
+     //      $("#aad1").show();
+       //  kkkw.style.display = "block";
+  }
+</script>
+
+</body>
+</html>

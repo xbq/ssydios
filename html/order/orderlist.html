@@ -1,0 +1,474 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>砂石</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/style.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="../../css/scCss.css">
+    <script type="text/javascript" src="../../script/api.js"></script>
+    <script type="text/javascript" src="../../script/common.js"></script>
+    <script type="text/javascript" src="../../script/jquery.min.js"></script>
+    <script type="text/javascript" src="../../script/bootstrap.min.js"></script>
+      <script type="text/javascript" src="../../script/map.js"></script>
+      <script type="text/javascript" src="../../script/mapzh.js"></script>
+  <style>
+    a{ display:inline;}
+  </style>
+</head>
+<body>
+
+  <div id="wrap" class="flex-wrap flex-vertical">
+    <div class="container grad" id="yd">
+      <div class="i20"></div>
+      <div class="row">
+        <div class="col-xs-3 font1" >
+          <bdi id="fdw" style="display:none;" >
+          <div id="sdwa" onclick="opendw();" style="display:none"><img src="../../image/sdw.png" ></div>
+          <div id="sdwa1" onclick="opendw1();" style="display:none"><img src="../../image/vcredist.bmp" ></div>
+        </bdi>
+      </div>
+        <div class="col-xs-6 font2" id="jrydd"> 今日运单 </div>
+        <div class="col-xs-3 font3" onclick="fabu()"  id="fabu" style="display:none;"> <img src="../../image/stj.png"  style=" float:right; margin-right:10px;"> </div>
+      </div>
+      <div style="clear: both"></div>
+    </div>
+<style>
+#myTab .list_bar{
+    position: absolute;
+    z-index: 999;
+    bottom: 0;
+    left: 0%;
+    height: 2px;
+    width: 33.3%;
+    -webkit-transform: translateX(0%);
+            transform: translateX(0%);
+    -webkit-transition: all .25s ease;
+            transition: all .25s ease;
+
+}
+#myTab .list_bar .list_bar_inner{
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    /*top: 0;*/
+    bottom:0;
+    left: 50%;
+    background-color: #C50000;
+        background-color: #ffffff;
+    -webkit-transform: translateX(-50%);
+            transform: translateX(-50%);
+}
+</style>
+
+    <ul id="myTab" class="tab grad" style="padding-bottom:2px; position:relative">
+      <li class="active"  onClick="myorderstate(0)"> <a > 未完成 </a> </li>
+      <li  onClick="myorderstate(1)"><a >已完成</a></li>
+      <li  onClick="myorderstate(2)"><a >全部</a></li>
+      <li class="list_bar">
+                 <div class="list_bar_inner"></div>
+             </li>
+      <div style="clear: both"></div>
+    </ul>
+    <!--
+    <header >
+      <ul>
+        <li class="border-b active" >新闻详情<a class="menu" tapmode="" onClick="sliding()"></a></li>
+      </ul>
+    </header>
+  -->
+    <div id="main" class="flex-con" >
+
+      <div id="myTabContent" class="tab-content">
+        <div class="tab-pane fade in active" id="wwc">
+          <!--已发布-->
+          <!-- <div class="tab-bg container">
+            <div class="row">
+              <div class="col-xs-8">
+                <div class="tab-font1"><strong>订单号：201801167309334794</strong></div>
+              </div>
+              <div class="col-xs-4">
+                <div class="tab-y tab-y-color1">已发布</div>
+              </div>
+            </div>
+            <div class="row tab-sx">
+              <div class="col-xs-6"> <span class="tab-f">发</span><span class="tab-font2">南沙群岛</span> </div>
+              <div class="col-xs-6"> <span class="tab-f">收</span><span class="tab-font2">东新沙场</span> </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-4">
+                <div class="tab-font1">运砂船：8号</div>
+              </div>
+              <div class="col-xs-8">
+                <div class="tab-font1 tab-r">201801-16 09：33:48</div>
+              </div>
+            </div>
+
+
+
+          </div> -->
+
+
+
+
+        </div>
+
+      </div>
+    </div>
+
+    <!--	底部菜单-->
+    <div id="footer" class="border-t">
+      <ul class="flex-wrap" >
+        <li tapmode="hover" onClick="randomS(0)" class="flex-con active  waves-effect  " >今日订单</li>
+        <li tapmode="hover" onClick="randomS(1)" class="flex-con  waves-effect  " >历史订单</li>
+        <li tapmode="hover" onClick="randomS(3)" class="flex-con  waves-effect " >通讯录</li>
+  <li tapmode="hover" onClick="randomS(2)" class="flex-con  waves-effect " >个人中心</li>
+      </ul>
+    </div>
+  </div>
+
+    <link rel="stylesheet" type="text/css" href="../../css/waves.css">
+      <script type="text/javascript" src="../../script/waves.min.js"></script>
+<!-- <div id="wrap" class="flex-wrap flex-vertical">
+
+  <div id="header_s">
+      <ul>
+          <li class="border-b active" >今日运单<a class="member_gp01" onclick="fabu()"  id="fabu" style="display:none"></a></li>
+      </ul>
+  </div>
+    <div id="fc-mj" >
+         <ul>
+           <li style="float:left;width:33.3%;text-align:center" onClick="myorderstate(0)">未完成</h3>
+           <li style="float:left;width:33.3%;text-align:center" onClick="myorderstate(1)">已完成</h3>
+           <li style="float:left;width:33.3%;text-align:center" onClick="myorderstate(2)">全部</h3>
+        </ul>
+
+    </div>
+      <div id="main" class="flex-con">
+
+      </div>
+
+          <div id="footer" class="border-t">
+             <ul class="flex-wrap" >
+               <li tapmode="hover" onClick="randomS(0)" class="flex-con  active" >今日订单</li>
+               <li tapmode="hover" onClick="randomS(1)" class="flex-con" >历史订单</li>
+               <li tapmode="hover" onClick="randomS(2)" class="flex-con " >个人中心</li>
+             </ul>
+         </div>
+</div> -->
+</body>
+</html>
+
+
+<script>
+   var listBar = $api.dom('#myTab .list_bar');
+$(document).on('ready', function () {
+
+           Waves.init();
+   });
+function myorderstate(type) {
+      eHeaderLis = $api.domAll('#myTab li');
+
+  switch(type)
+      {
+          case 0:
+          api.closeFrame({
+              name: 'order_order1'
+          });
+          api.closeFrame({
+              name: 'order_order2'
+          });
+              api.openFrame({
+                name : 'order_order0',
+                url : 'order0.html',
+                pageParam: {id: 1},
+              reload:true,
+              bounces:true,
+              animation:{
+
+                 type:"none",
+                 subType:"from_right",
+                 duration:300
+              },
+              rect: {
+                  x: 0,
+                  y: $api.dom('#yd').offsetHeight+$api.dom('#myTab').offsetHeight,
+                  w: api.winWidth,
+                  h: $api.dom('#main').offsetHeight
+              },
+                 })
+                 $api.removeCls(eHeaderLis[2], 'active');
+                 $api.removeCls(eHeaderLis[1], 'active');
+                 $api.addCls( eHeaderLis[0], 'active');
+                  listBar.style.webkitTransform = 'translateX('+0*100+'%)';
+          break;
+          case 1:
+          api.closeFrame({
+              name: 'order_order0'
+          });
+          api.closeFrame({
+              name: 'order_order2'
+          });
+          api.openFrame({
+            name : 'order_order1',
+            url : 'order1.html',
+              pageParam: {id: 2},
+              reload:true,
+              bounces:true,
+              animation:{
+
+                 type:"none",
+                 subType:"from_right",
+                 duration:300
+              },
+              rect: {
+                  x: 0,
+                        y: $api.dom('#yd').offsetHeight+$api.dom('#myTab').offsetHeight,
+                  w: api.winWidth,
+                  h: $api.dom('#main').offsetHeight
+              },
+             })
+             $api.removeCls(eHeaderLis[0], 'active');
+             $api.removeCls(eHeaderLis[2], 'active');
+             $api.addCls( eHeaderLis[1], 'active');
+             listBar.style.webkitTransform = 'translateX('+1*100+'%)';
+
+          break;
+          case 2:
+          api.closeFrame({
+              name: 'order_order0'
+          });
+          api.closeFrame({
+              name: 'order_order1'
+          });
+          api.openFrame({
+            name : 'order_order2',
+            url : 'order2.html',
+              pageParam: {id: 3},
+              reload:true,
+              bounces:true,
+              animation:{
+
+                 type:"none",
+                 subType:"from_right",
+                 duration:300
+              },
+              rect: {
+                  x: 0,
+                          y: $api.dom('#yd').offsetHeight+$api.dom('#myTab').offsetHeight,
+                  w: api.winWidth,
+                  h: $api.dom('#main').offsetHeight
+              },
+             })
+              $api.removeCls(eHeaderLis[0], 'active');
+              $api.removeCls(eHeaderLis[1], 'active');
+              $api.addCls( eHeaderLis[2], 'active');
+               listBar.style.webkitTransform = 'translateX('+2*100+'%)';
+          break;
+          default:
+          break;
+      }
+}
+
+function opendw()
+{
+
+$("#sdwa").css("display","none");
+$("#sdwa1").css("display","block");
+api.toast({
+   msg: '开始定位',
+   duration: 2000,
+   location: 'middle'
+});
+console.log(1);
+$api.setStorage('sy_uid',1);
+console.log($api.getStorage('sy_daa'));
+api.execScript({
+      name: 'root',
+script: 'mapdw();'
+});
+
+  // if($api.getStorage('sy_daa')==1)
+  // {
+  //   api.execScript({
+  //         name: 'root',
+  //   script: 'mapdw();'
+  //   });
+  //
+  // $api.setStorage('sy_daa',0);
+  // }
+
+ //getLocation3(trace_interval, trace_accuracy, trace_filter);
+}
+//
+// function mapdwa()
+// {
+//  getLocation311();
+// }
+function opendw1()
+{
+
+$("#sdwa").css("display","block");
+$("#sdwa1").css("display","none");
+api.toast({
+   msg: '结束定位',
+   duration: 2000,
+   location: 'middle'
+});
+$api.rmStorage('sy_uid');
+api.execScript({
+      name: 'root',
+script: 'closeroot();'
+});
+
+}
+
+
+// function GoToRefresh(){
+//
+//     api.execScript({
+//           name: 'slide',
+//
+//     script: 'location.reload();'
+// });
+//
+// }
+
+// function getLocation411() {
+//
+//         //console.log("进入方法 getLocation3");
+// alert("12333");
+//
+//         var juli_elc=$api.getStorage('juli_el'+$api.getStorage('usid'));
+//         var jingdu_elc=$api.getStorage('jingdu_el'+$api.getStorage('usid'));
+//         var shijian_elc=$api.getStorage('shijian_el'+$api.getStorage('usid'));
+//          var trace_interval = shijian_elc;
+//          var trace_accuracy = juli_elc+"m"; //定位最小间隔距离
+//          var trace_filter = jingdu_elc; //过滤定位精度
+//          console.log(trace_filter);
+//          console.log(trace_accuracy);
+//          console.log(trace_interval);
+// console.log("1234f");
+// console.log(uid);
+// //var uid=$api.getStorage('yx_uid');
+// var uid=321;
+// alert("12333");
+// alert(trace_filter);
+// alert(trace_interval);
+//          var reportLocation;
+//          reportLocation = api.require('reportLocation');
+//          reportLocation.startLocation({
+//            accuracy: 'battery_saving', //取值范围：1.battery_saving：低功耗模式(65) 2.device_sensors：仅设备（Gps）模式(165) 3.hight_accuracy：高精度模式(69)  对应android过滤定位精度
+//              filter: trace_filter, //（可选项）位置更新所需最小距离（单位米）  对应android 定位最小间隔距离
+//              autoStop: false,
+//              report: {
+//                  uid: '0123456789', //字符串类型；上报数据时携带的用户id（用于服务器端唯一标识用户）
+//                   url: functionURL + 'boatPositionScreen/add.json',
+//                  interval: trace_interval,
+//                  type: 'post'
+//              }
+//          }, function(ret) {
+//              if (ret.status) {
+//
+//                         var bd09togcj02 = coordtransform.bd09togcj02(ret.loc.lon, ret.loc.lat);
+//                        // console.log("国测:" + JSON.stringify(bd09togcj02));
+//                         //国测局坐标转wgs84坐标
+//                         var gcj02towgs84 = coordtransform.gcj02towgs84(bd09togcj02[0], bd09togcj02[1]);
+//                      //   console.log("GPS:" + JSON.stringify(gcj02towgs84));
+//
+//                  //alert(JSON.stringify(ret));
+//                  console.log(JSON.stringify(ret));
+//                  api.ajax({
+//                     url: functionURL + 'boatPositionScreen/add.json',
+//                      method: 'post',
+//                      dataType: 'text',
+//                      data: {
+//                          values: {
+//                              waybillId: uid, //订单ID
+//                              longitude: gcj02towgs84[0], //经度
+//                              latitude: gcj02towgs84[1] //纬度
+//                              // longitude: ret.loc.lon, //经度
+//                              // latitude: ret.loc.lat //纬度
+//                          }
+//                      }
+//                  }, function(ret, err) {
+//                      if (ret) {
+//                        var date = new Date();
+//                        console.log(date.toLocaleTimeString() + "---" + JSON.stringify(ret));
+//                      } else {
+//                          //alert(JSON.stringify(err));
+//                          console.log(JSON.stringify(err));
+//                         	getLocation411();
+//                      }
+//                  });
+//              } else {
+//                  //alert(JSON.stringify(err));
+//                  console.log(JSON.stringify(err));
+//               	getLocation411();
+//              }
+//          });
+//
+//
+//     }
+//
+// function mapdw()
+// {
+// 	api.toast({
+// 			msg: '开始定位',
+// 			duration: 2000,
+// 			location: 'middle'
+// 	});
+//
+//   $("#jrydd").html("123");
+// 	getLocation411();
+// }
+function sliding() {
+
+  // GoToRefresh();
+  api.closeWin({
+    name:'order_myorder',
+    animation: {type:'none'}
+  });
+
+   }
+
+   apiready = function () {
+
+$api.fixTabBar($api.byId('footer'));
+
+$api.setStorage('sy_daa',1);
+    reportLocation = api.require('reportLocation');
+
+
+     var fabu_el=document.getElementById("fabu");
+ var fdw_el=document.getElementById("fdw");
+     if($api.getStorage('uroles')=='采砂船管理员')
+       {
+        $api.css(fabu_el,"display:block");
+  $api.css(fdw_el,"display:block");
+       }
+
+       if($api.getStorage('uroles')=='采区负责人')
+         {
+          // $api.css(fabu_el,"display:block");
+    $api.css(fdw_el,"display:block");
+         }
+  //   $api.fixStatusBar($api.dom('header') );
+        //  api.addEventListener({
+        //      name: 'keyback'
+        //  }, function(ret, err){
+        //     //  api.closeWidget();
+        //     api.closeWin({
+        //       name:'order_myorder',
+        //       animation: {type:'none'}
+        //     });
+        //  });
+      myorderstate(0);
+
+     };
+
+
+</script>

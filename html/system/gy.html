@@ -1,0 +1,198 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>沙石运单</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/style.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="../../css/scCss.css">
+    <script type="text/javascript" src="../../script/api.js"></script>
+    <script type="text/javascript" src="../../script/common.js"></script>
+    <script type="text/javascript" src="../../script/jquery.min.js"></script>
+    <script type="text/javascript" src="../../script/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../script/tuisong.js"></script>
+
+</head>
+
+<style>
+.gy_zhd_a img{ width: 100%; max-width:80px;}
+.gy_zhd_b{ text-align: center; padding-top: 5px;}
+.gy_zhd{ padding: 10px 0px  25px 0px;}
+</style>
+<body>
+
+  <div id="wrap" class="flex-wrap flex-vertical">
+    <div class="container grad" id="heada">
+        <div class="i20"></div>
+      <div class="row">
+        <div class="col-xs-3 font1" onClick="sliding()"> <img src="../../image/Drback.png"></div>
+        <div class="col-xs-6 font2"> 关于 </div>
+        <div class="col-xs-3 font3" onClick="gpwin()" style="display:none" id="gpwin"> <img src="../../image/sgp.png"> </div>
+      </div>
+      <div style="clear: both"></div>
+        <div class="i5"></div>
+    </div>
+    <div id="main" class="flex-con " style="padding:0px" >
+
+<div style="padding-bottom:10px;" id="lczt"></div>
+
+   <div class="container" style="padding:0; margin:0">
+
+<div class="row" style="padding:0; margin:0">
+
+<div class="gy_zhd">
+        <div class="gy_zhd_a" align="center">
+        <img src="../../image/gzzhd.png">
+      </div>
+      <div class="gy_zhd_b">
+    <span>砂石运单 v <bdi id="appVersion"></bdi></span>
+      </div>
+</div>
+
+</div>
+
+
+      <div class="row" style="background:#fff; padding:0; margin:0">
+           <!-- <div class="col-xs-12 sz" style=" border-bottom:1px solid #e1e1e1" > -->
+
+
+
+                    <div class="col-xs-12 sz"  >
+
+               <div  class="sz_box"  style="height:40px; line-height:40px; font-size:16px; " onclick="openshiyong()">
+
+            <a   style="margin-left:10px" >使用说明</a> <span class="glyphicon glyphicon-comment" style="height:40px; line-height:40px;color:#1797ff; float:left "></span>
+
+              </div>
+
+              <div  class="sz_box"  style="height:40px; line-height:40px;font-size:16px;" onclick="openwrong()">
+
+            <a  style="margin-left:10px" >常见问题</a><span class="glyphicon glyphicon-exclamation-sign" style="height:40px; line-height:40px;color:#1797ff; float:left"></span>
+
+             </div>
+
+           </div>
+
+       </div>
+
+<div style="height:20px"></div>
+       <div class="row" style="padding:0; margin:0">
+
+            <div class="col-xs-12 " style="padding:0; margin:0" >
+
+                <div  class="sz_box_img" style="padding:0; margin:0" >
+
+                  <div class="col-xs-6 "><img src="../../image/android.png"><p>安卓下载</p></div>
+                  <div class="col-xs-6 "><img src="../../image/ios.png"><p>IOS下载</p></div>
+
+               </div>
+
+            </div>
+
+        </div>
+<style>
+.sz_box_img img{ width:100%; max-width:500px}
+.sz_box_img { text-align:center}
+</style>
+       <!-- <div class="row" style="background:#fff; padding:0; margin:0">
+            <div class="col-xs-12 sz" >
+
+                <div  class="sz_box"  style="height:40px; line-height:40px;">
+
+              <a href="#"  >已是最新版本</a>
+
+               </div>
+
+            </div>
+
+        </div> -->
+
+   </div>
+
+    </div>
+  </div>
+
+
+
+
+</body>
+</html>
+
+
+</body>
+<script>
+
+function openshiyong()
+{
+
+  api.openWin({
+
+             name : 'shiyong',
+             url : '../system/shiyong.html',
+             slidBackEnabled:false,
+             hideHomeIndicator:true,
+             reload:true
+
+     });
+
+}
+function openwrong()
+{
+
+  api.openWin({
+
+             name : 'wrong',
+             url : '../system/wrong.html',
+             slidBackEnabled:false,
+             hideHomeIndicator:true,
+             reload:true
+
+     });
+
+}
+function sliding()
+{
+  api.closeWin({
+    name:'system_gy',
+    animation: {type:'none'}
+  });
+}
+apiready = function(){
+
+  // var reportLocation = api.require('reportLocation');
+  // reportLocation.startLocation({
+  //     accuracy: 'battery_saving',
+  //     filter: 100,
+  //     autoStop: false,
+  //     report: {
+  //         uid: '123456789',
+  //         url: "https://",
+  //         interval: 5,
+  //         type: 'post',
+  //         headerField: {
+  //            timestamp: '',
+  //            ContentType: 'text/plain',
+  //            custid: '123456',
+  //            Accept: '*/*'
+  //          },
+  //          aesKey: 'apicloud'
+  //     }
+  // }, function(ret) {
+  //     if (ret.status) {
+  //       console.log(JSON.stringify(ret));
+  //       //  api.alert({ msg: JSON.stringify(ret) });
+  //     } else {
+  //         api.alert({ msg: '定位失败' });
+  //     }
+  // });
+console.log(123);
+  var appVersion = api.appVersion;
+       var appVersion_el=document.getElementById("appVersion");
+         $api.html(appVersion_el,appVersion);
+
+}
+</script>
+</html>

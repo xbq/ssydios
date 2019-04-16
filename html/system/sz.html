@@ -1,0 +1,576 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+<title>设置</title>
+<link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+<link rel="stylesheet" type="text/css" href="../../css/style.css"/>
+<link rel="stylesheet" type="text/css" href="../../css/bootstrap.css">
+<link rel="stylesheet" type="text/css" href="../../css/scCss.css">
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/common.js"></script>
+<script type="text/javascript" src="../../script/jquery.min.js"></script>
+<script type="text/javascript" src="../../script/bootstrap.min.js"></script>
+</head>
+<style>
+.sz {
+	border-bottom: 1px solid #e1e1e1;
+}
+.sz-font1 {
+	/*font-size: 16px;*/
+	/*font-size: 12px;*/
+	color: #888888;
+	background: #e9e9e9;
+	padding-top: 15px;
+	padding-bottom: 10px;
+	padding-left: 15px; padding-right: 15px;
+}
+.sz-font2 {
+	font-size: 16px;
+	/*color: #212121;*/
+	color: #323232;
+	padding-bottom: 10px;
+	padding-top: 15px;
+}
+.sz-font3 {
+	font-size: 16px;
+		color: #888888;
+	/*color: #888888;*/
+	/*padding-bottom: 10px;*/
+	padding-bottom: 10px;
+	padding-top: 15px;
+	margin-right: 10px;
+}
+.sz-font4 {
+	font-weight: normal;
+	font-size: 16px;
+		color: #888888;
+	/*color: #888888;*/
+	/*padding-bottom: 10px;*/
+	padding-bottom: 10px;
+	padding-top: 17px;
+}
+.sz-sx {
+	margin-top: 20%
+}
+.sz-color {
+	color: #ff0000;
+	border: none;
+}
+
+.sz_box{ clear: both; padding-left: 15px; padding-right: 15px; position: relative;; zoom:1; overflow: hidden; width: 100%;padding-bottom: 0; padding-top: 0}
+.sca{ padding: 0; margin: 0px 0 5px; position: relative;zoom:1; overflow: hidden;}
+.ca1{
+	/*padding:0; margin: 0; width: 20px; */
+	float: right;
+	height: 40px;line-height: 40px;
+	width: 20px;
+
+}
+.col-xs-12{ padding-left: 0; padding-right: 0}
+/*.ca1 input[type="radio"]  {padding-top: 10px;
+}*/
+.ca2{  padding: 0; margin: 0; width: 80%;float:left; height: 40px; line-height: 40px;}
+.ca3{ width: 100%; padding: 0}
+</style>
+<body>
+<div id="wrap" class="flex-wrap flex-vertical">
+  <div class="container grad">
+		  <div class="i20"></div>
+    <div class="row">
+          <div class="col-xs-3 font1" onClick="sliding()"> <img src="../../image/Drback.png"></div>
+      <div class="col-xs-6 font2"> 设置 </div>
+      <div class="col-xs-3 font3"> </div>
+    </div>
+    <div style="clear: both"></div>
+  </div>
+  <div id="main" class="flex-con " >
+    <div class="container" style="padding-top:0; padding-bottom:0">
+      <div class="row">
+        <div class="col-xs-12 sz" ><!--定位最小间隔 时间-->
+          <p class="sz-font1" >巡查轨迹</p>
+
+				  	<div  class="sz_box">
+<a href="#" data-toggle="modal" data-target="#shijian" style="width:100%; padding:0; margin:0">
+          <p  class="sz-font2"  style="width:70%; float:left">定位最小间隔时间</p>
+					<span class="glyphicon glyphicon-chevron-right sz-font4" style=" float:right" ></span>
+          <p class="sz-font3" id="shijian_el" style=" float:right">10秒</p>
+</a>
+				   </div>
+
+        </div>
+
+				<div class="col-xs-12 sz">
+
+					<div  class="sz_box" >
+<a href="#" data-toggle="modal" data-target="#juli" style="width:100%; padding:0; margin:0">
+				<p href="#" class="sz-font2"  style="width:70%; float:left">定位最小间隔距离</p>
+				<span class="glyphicon glyphicon-chevron-right sz-font4" style=" float:right" ></span>
+				<p class="sz-font3" id="juli_el" style=" float:right">0米</p>
+</a>
+				 </div>
+
+        </div>
+
+        <!-- <div class="col-xs-12 sz">
+          <a href="#" class="sz-font2" data-toggle="modal" data-target="#juli">定位最小间隔距离</a>
+          <p class="sz-font3" id="juli_el">0米</p>
+        </div> -->
+        <div class="col-xs-12 "><!--过滤定位精度-->
+
+					<div  class="sz_box" >
+
+<a href="#" data-toggle="modal" data-target="#jingdu" style="width:100%; padding:0; margin:0">
+				<p href="#" class="sz-font2"  style="width:70%; float:left">过滤定位精度</p>
+				<span class="glyphicon glyphicon-chevron-right sz-font4" style=" float:right" ></span>
+				<p class="sz-font3" id="jingdu_el" style=" float:right">0米</p>
+</a>
+				 </div>
+
+        </div>
+
+				<div class="col-xs-12 " ><!--定位最小间隔 时间-->
+          <p class="sz-font1">照片大小</p>
+				  	<div  class="sz_box" >
+
+<a href="#" data-toggle="modal" data-target="#zhaopian"style="width:100%; padding:0; margin:0">
+          <p href="#" class="sz-font2"  style="width:70%; float:left">采集照片的大小上限</p>
+					<span class="glyphicon glyphicon-chevron-right sz-font4" style=" float:right" ></span>
+          <p class="sz-font3" id="zhaopian_el" style=" float:right">512K</p>
+</a>
+				   </div>
+        </div>
+
+        <!-- <div class="col-xs-12 sz">
+          <p class="sz-font1">照片大小</p>
+          <a href="#" class="sz-font2" data-toggle="modal" data-target="#zhaopian">采集照片的大小上限</a>
+          <p class="sz-font3" id="zhaopian_el">512K</p>
+        </div> -->
+        <div class="col-xs-12 sz"><!--通用-->
+          <p class="sz-font1">通用</p>
+					<div  class="sz_box" onclick="clearimga()">
+          <a class="sz-font2"  style="width:70%; float:left">清除图片缓存</a>
+				  </div>
+        </div>
+        <div class="col-xs-12 "><!--关于-->
+					<div  class="sz_box" data-toggle="modal" data-target="#">
+          <p class="sz-font2" >关于</p>
+					  </div>
+        </div>
+      </div>
+      <!-- 模态框1定位最小间隔  时间 -->
+
+
+			<style>
+		    #shijian{ top:13%; padding:10px; }
+		    #shijian h4{ padding:5px 0}
+		    #shijian textarea{ width:96%}
+		    #shijian .set-style { margin:5px 0; font-size:16px;}
+		    #shijian p.error { font-size:12px;}
+		    #shijian  .modal-footer{ background:none}
+		    #shijian button{ padding:2px 10px; margin-top:5px}
+				#shijian  .modal-body{position; zoom:1;overflow:hidden}
+		    </style>
+		  <div class="modal fade Memobox" id="shijian" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		    <div class="modal-dialog">
+		      <div class="modal-content">
+		        <div class="modal-header">
+		          <button type="button" class="close" data-dismiss="modal"
+		              aria-hidden="true">×
+		          </button>
+		          <h4 class="modal-title" id="myModalLabel">
+		            定位最小时间间隔
+		          </h4>
+		        </div>
+		        <div class="modal-body" >
+
+							 <div class="col-xs-12  sca" >
+										  <div class=" ca1" onclick="opensj(0)"><input type="radio" name="shijian" id="shijian0" value="0" ></div>
+											<div class=" ca2" >
+											<label for="shijian0" class="ca3">0s</label>
+											</div>
+
+								 </div>
+
+							   	<div class="col-xs-12  sca" >
+		 										<div class=" ca1" onclick="opensj(10)"><input type="radio" name="shijian" id="shijian10" value="10"></div>
+		 									  <div class=" ca2" >
+		 										<label for="shijian10" class="ca3">10s</label>
+		 										</div>
+								 	  </div>
+
+										<div class="col-xs-12  sca">
+												<div class=" ca1"  onclick="opensj(30)"><input type="radio" name="shijian" id="shijian30" value="30"></div>
+												<div class=" ca2"  >
+												<label for="shijian30" class="ca3">30s</label>
+												</div>
+										</div>
+
+										<div class="col-xs-12  sca">
+												<div class=" ca1"  onclick="opensj(60)"><input type="radio" name="shijian" id="shijian60" value="60"></div>
+												<div class=" ca2"  >
+												<label for="shijian60" class="ca3">1min</label>
+												</div>
+										</div>
+										<div class="col-xs-12  sca">
+												<div class=" ca1"  onclick="opensj(120)"><input type="radio" name="shijian" id="shijian120" value="120"></div>
+												<div class=" ca2"  >
+												<label for="shijian120" class="ca3">2min</label>
+												</div>
+										</div>
+
+		        </div>
+		        <div class="modal-footer"  >
+		           <button type="button" class="btn btn-default " data-dismiss="modal">取消</button>
+		        </div>
+		      </div>
+		    </div>
+		  </div>
+
+
+
+
+      <!-- 模态框1定位最小间隔  距离 -->
+
+
+			<style>
+		    #juli{ top:13%; padding:10px; }
+		    #juli h4{ padding:5px 0}
+		    #juli textarea{ width:96%}
+		    #juli .set-style { margin:5px 0; font-size:16px;}
+		    #juli p.error { font-size:12px;}
+		    #juli  .modal-footer{ background:none}
+		    #juli button{ padding:2px 10px; margin-top:5px}
+				#juli  .modal-body{position; zoom:1;overflow:hidden}
+		    </style>
+		  <div class="modal fade Memobox" id="juli" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+		    <div class="modal-dialog">
+		      <div class="modal-content">
+		        <div class="modal-header">
+		          <button type="button" class="close" data-dismiss="modal"
+		              aria-hidden="true">×
+		          </button>
+		          <h4 class="modal-title" id="myModalLabel">
+		            定位最小间隔距离
+		          </h4>
+		        </div>
+		        <div class="modal-body" >
+
+							 <div class="col-xs-12  sca" >
+										  <div class=" ca1" onclick="openjl(0)"><input type="radio" name="juli" id="juli0" value="0" ></div>
+											<div class=" ca2" >
+											<label for="juli0" class="ca3">0米</label>
+											</div>
+
+								 </div>
+
+							   	<div class="col-xs-12  sca" >
+		 										<div class=" ca1" onclick="openjl(10)"><input type="radio" name="juli" id="juli10" value="10"></div>
+		 									  <div class=" ca2" >
+		 										<label for="juli10" class="ca3">10米</label>
+		 										</div>
+								 	  </div>
+
+										<div class="col-xs-12  sca">
+												<div class=" ca1"  onclick="openjl(50)"><input type="radio" name="juli" id="juli50" value="50"></div>
+												<div class=" ca2"  >
+												<label for="juli50" class="ca3">50米</label>
+												</div>
+										</div>
+
+										<div class="col-xs-12  sca">
+												<div class=" ca1"  onclick="openjl(100)"><input type="radio" name="juli" id="juli100" value="100"></div>
+												<div class=" ca2"  >
+												<label for="juli100" class="ca3">100米</label>
+												</div>
+										</div>
+										<div class="col-xs-12  sca">
+												<div class=" ca1"  onclick="openjl(500)"><input type="radio" name="juli" id="juli500" value="500"></div>
+												<div class=" ca2"  >
+												<label for="juli500" class="ca3">500米</label>
+												</div>
+										</div>
+
+		        </div>
+		        <div class="modal-footer"  >
+		           <button type="button" class="btn btn-default " data-dismiss="modal">取消</button>
+		        </div>
+		      </div>
+		    </div>
+		  </div>
+
+
+       <!-- 模态框1过滤定位精度  -->
+
+
+
+			 			<style>
+			 		    #jingdu{ top:13%; padding:10px; }
+			 		    #jingdu h4{ padding:5px 0}
+			 		    #jingdu textarea{ width:96%}
+			 		    #jingdu .set-style { margin:5px 0; font-size:16px;}
+			 		    #jingdu p.error { font-size:12px;}
+			 		    #jingdu  .modal-footer{ background:none}
+			 		    #jingdu button{ padding:2px 10px; margin-top:5px}
+			 				#jingdu  .modal-body{position; zoom:1;overflow:hidden}
+			 		    </style>
+			 		  <div class="modal fade Memobox" id="jingdu" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+			 		    <div class="modal-dialog">
+			 		      <div class="modal-content">
+			 		        <div class="modal-header">
+			 		          <button type="button" class="close" data-dismiss="modal"
+			 		              aria-hidden="true">×
+			 		          </button>
+			 		          <h4 class="modal-title" id="myModalLabel">
+			 		            过滤定位精度
+			 		          </h4>
+			 		        </div>
+			 		        <div class="modal-body" >
+
+			 							 <div class="col-xs-12  sca" >
+			 										  <div class=" ca1" onclick="openjd(10)"><input type="radio" name="jingdu" id="jingdu10" value="10" ></div>
+			 											<div class=" ca2" >
+			 											<label for="jingdu10" class="ca3">10米</label>
+			 											</div>
+
+			 								 </div>
+
+			 							   	<div class="col-xs-12  sca" >
+			 		 										<div class=" ca1" onclick="openjd(20)"><input type="radio" name="jingdu" id="jingdu20" value="20"></div>
+			 		 									  <div class=" ca2" >
+			 		 										<label for="jingdu20" class="ca3">20米</label>
+			 		 										</div>
+			 								 	  </div>
+
+			 										<div class="col-xs-12  sca">
+			 												<div class=" ca1"  onclick="openjd(30)"><input type="radio" name="jingdu" id="jingdu30" value="30"></div>
+			 												<div class=" ca2"  >
+			 												<label for="jingdu30" class="ca3">30米</label>
+			 												</div>
+			 										</div>
+
+													<div class="col-xs-12  sca" >
+				 		 										<div class=" ca1" onclick="openjd(50)"><input type="radio" name="jingdu" id="jingdu50" value="50"></div>
+				 		 									  <div class=" ca2" >
+				 		 										<label for="jingdu50" class="ca3">50米</label>
+				 		 										</div>
+				 								 	  </div>
+
+														<div class="col-xs-12  sca" >
+					 		 										<div class=" ca1" onclick="openjd(100)"><input type="radio" name="jingdu" id="jingdu100" value="100"></div>
+					 		 									  <div class=" ca2" >
+					 		 										<label for="jingdu100" class="ca3">100米</label>
+					 		 										</div>
+					 								 	  </div>
+
+			 										<div class="col-xs-12  sca">
+			 												<div class=" ca1"  onclick="openjd(3000)"><input type="radio" name="jingdu" id="jingdu3000" value="3000"></div>
+			 												<div class=" ca2"  >
+			 												<label for="jingdu3000" class="ca3">不过滤</label>
+			 												</div>
+			 										</div>
+
+
+			 		        </div>
+			 		        <div class="modal-footer"  >
+			 		           <button type="button" class="btn btn-default " data-dismiss="modal">取消</button>
+			 		        </div>
+			 		      </div>
+			 		    </div>
+			 		  </div>
+
+
+
+      <!-- 模态框1照片大小 -->
+
+			<style>
+				#zhaopian{ top:13%; padding:10px; }
+				#zhaopian h4{ padding:5px 0}
+				#zhaopian textarea{ width:96%}
+				#zhaopian .set-style { margin:5px 0; font-size:16px;}
+				#zhaopian p.error { font-size:12px;}
+				#zhaopian  .modal-footer{ background:none}
+				#zhaopian button{ padding:2px 10px; margin-top:5px}
+				#zhaopian  .modal-body{position; zoom:1;overflow:hidden}
+				</style>
+			<div class="modal fade Memobox" id="zhaopian" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+				<div class="modal-dialog">
+					<div class="modal-content">
+						<div class="modal-header">
+							<button type="button" class="close" data-dismiss="modal"
+									aria-hidden="true">×
+							</button>
+							<h4 class="modal-title" id="myModalLabel">
+								采集照片的大小上限
+							</h4>
+						</div>
+						<div class="modal-body" >
+
+							 <div class="col-xs-12  sca" >
+											<div class=" ca1" onclick="openzp(256)"><input type="radio" name="zhaopian" id="zhaopian256" value="256" ></div>
+											<div class=" ca2" >
+											<label for="zhaopian256" class="ca3">256K</label>
+											</div>
+
+								 </div>
+
+									<div class="col-xs-12  sca" >
+												<div class=" ca1" onclick="openzp(512)"><input type="radio" name="zhaopian" id="zhaopian512" value="512"></div>
+												<div class=" ca2" >
+												<label for="zhaopian512" class="ca3">512K</label>
+												</div>
+										</div>
+
+										<div class="col-xs-12  sca">
+												<div class=" ca1"  onclick="openzp(1024)"><input type="radio" name="zhaopian" id="zhaopian1024" value="1024"></div>
+												<div class=" ca2"  >
+												<label for="zhaopian1024" class="ca3">1M</label>
+												</div>
+										</div>
+
+										<div class="col-xs-12  sca">
+												<div class=" ca1"  onclick="openzp(2048)"><input type="radio" name="zhaopian" id="zhaopian2048" value="2048"></div>
+												<div class=" ca2"  >
+												<label for="zhaopian2048" class="ca3">2M</label>
+												</div>
+										</div>
+
+										<div class="col-xs-12  sca">
+												<div class=" ca1"  onclick="openzp(0)"><input type="radio" name="zhaopian" id="zhaopian0" value="0"></div>
+												<div class=" ca2"  >
+												<label for="zhaopian0" class="ca3">原图</label>
+												</div>
+										</div>
+
+						</div>
+						<div class="modal-footer"  >
+							 <button type="button" class="btn btn-default " data-dismiss="modal">取消</button>
+						</div>
+					</div>
+				</div>
+			</div>
+
+
+
+    </div>
+  </div>
+</div>
+</body>
+</html>
+
+<script>
+function opensj(s)
+{
+	console.log($("#shijian"+s).val());
+	if(s=="60")
+	{
+			$("#shijian_el").html("1min");
+	}
+else if(s=="120"){
+			$("#shijian_el").html("2min");
+}
+else{
+	$("#shijian_el").html(s+"秒");
+}
+	 $('#shijian').modal('hide');
+
+	 $api.setStorage('shijian_el'+$api.getStorage('usid'),s);
+//alert($("#shijian"+s).val());
+}
+
+function openjl(s)
+{
+	console.log($("#juli"+s).val());
+	$("#juli_el").html(s+"米");
+	 $('#juli').modal('hide');
+//alert($("#shijian"+s).val());
+	 $api.setStorage('juli_el'+$api.getStorage('usid'),s);
+}
+
+function openjd(s)
+{
+	console.log($("#jingdu"+s).val());
+	if(s=="3000")
+	{
+			$("#jingdu_el").html("不过滤");
+	}
+
+else{
+	$("#jingdu_el").html(s+"米");
+}
+	 $('#jingdu').modal('hide');
+
+	  $api.setStorage('jingdu_el'+$api.getStorage('usid'),s);
+//alert($("#shijian"+s).val());
+}
+
+
+function openzp(s)
+{
+	console.log($("#zhaopian"+s).val());
+	if(s=="1024")
+	{
+			$("#zhaopian_el").html("1M");
+	}
+else if(s=="2048"){
+			$("#zhaopian_el").html("2M");
+}
+else if(s=="0"){
+			$("#zhaopian_el").html("原图");
+}
+else{
+	$("#zhaopian_el").html(s+"k");
+}
+	 $('#zhaopian').modal('hide');
+	   $api.setStorage('zhaopian_el'+$api.getStorage('usid'),s);
+//alert($("#shijian"+s).val());
+}
+function clearimga()
+{
+	api.clearCache(function(ret, err) {
+            api.toast({
+                msg: '清除完成'
+            });
+        });
+}
+function sliding()
+{
+  api.closeWin({
+    name:'system_sz',
+    animation: {type:'none'}
+  });
+}
+   apiready = function () {
+  //    var usname_el=document.getElementById("usname");
+  //    var uroles_el=document.getElementById("uroles");
+	//
+  // $api.html(usname_el,$api.getStorage('usname'));
+  //   $api.html(uroles_el,$api.getStorage('uroles'));
+ var shijian_el=document.getElementById("shijian_el");
+ var juli_el=document.getElementById("juli_el");
+ var jingdu_el=document.getElementById("jingdu_el");
+ var zhaopian_el=document.getElementById("zhaopian_el");
+var shijian_ela=$api.getStorage('shijian_el'+$api.getStorage('usid'));
+var juli_ela=$api.getStorage('juli_el'+$api.getStorage('usid'));
+var jingdu_ela=$api.getStorage('jingdu_el'+$api.getStorage('usid'));
+var zhaopian_ela=$api.getStorage('zhaopian_el'+$api.getStorage('usid'));
+
+$("#shijian"+shijian_ela).attr("checked","checked");
+$("#juli"+juli_ela).attr("checked","checked");
+$("#jingdu"+jingdu_ela).attr("checked","checked");
+$("#zhaopian"+zhaopian_ela).attr("checked","checked");
+
+opensj(shijian_ela);
+openjl(juli_ela);
+openjd(jingdu_ela);
+openzp(zhaopian_ela);
+// console.log(shijian_ela);
+// console.log(juli_ela);
+// console.log(jingdu_ela);
+// console.log(zhaopian_ela);
+
+   }
+
+</script>

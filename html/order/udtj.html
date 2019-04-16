@@ -1,0 +1,1440 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>砂石运单</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/style.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/bootstrap.css">
+      <link rel="stylesheet" href="../../css/weui.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/scCss.css">
+    <!-- <link rel="stylesheet" href="../../css/weui.css"/>
+    <link rel="stylesheet" href="../../css/example.css"/> -->
+    <script type="text/javascript" src="../../script/api.js"></script>
+    <script type="text/javascript" src="../../script/common.js"></script>
+    <script type="text/javascript" src="../../script/jquery.min.js"></script>
+    <script type="text/javascript" src="../../script/bootstrap.min.js"></script>
+    <script src="../../script/zepto.min.js"></script>
+    <script type="text/javascript" src="../../script/jweixin-1.0.0.js"></script>
+    <script src="../../script/weui.min.js"></script>
+    <script src="../../script/echarts.simple.min.js"></script>
+    <!-- <script src="../../script/datePicker.js"></script> -->
+    <script src="../../script/week.js"></script>
+
+</head>
+
+
+<body>
+
+
+  <div id="wrap" class="flex-wrap flex-vertical">
+    <div class="container grad">
+          <div class="i20"></div>
+      <div class="row">
+        <div class="col-xs-3 font1" onClick="sliding()"> <img src="../../image/Drback.png"></div>
+        <div class="col-xs-6 font2"> 运单统计 </div>
+        <div class="col-xs-3 font3"  style="font-size:16px; padding-left:0; padding-right:0; padding-top:5px; display:block" > <span onclick="openexcelwin()">导出表格</span></div>
+        <div class="col-xs-3 font3" id="zbg1xg" style="font-size:16px; padding-left:0; padding-right:0; padding-top:5px; display:none" > <span onclick="openexcel(1)">导出月表格</span></div>
+        <div class="col-xs-3 font3" id="zbg2xg" style="font-size:16px; padding-left:0; padding-right:0; padding-top:5px; display:none" > <span onclick="openexcel(2)">导出周表格</span></div>
+      </div>
+      <div style="clear: both"></div>
+    </div>
+    <div id="main" class="flex-con " >
+      <div class="tab-bg container" >
+        <div class="ydtj-width1"  style="width:30%">
+          <ul id="tongji" class="navs">
+            <li class="active"> <a href="#" onclick="openy()"> 月 </a> </li>
+            <li><a href="#" onclick="openz()" >周</a></li>
+          </ul>
+        </div>
+
+      <div class="ydtj-width3" style=" width:15%; float:right" > <span class="glyphicon glyphicon-calendar" id="showMonthPicker" style="display:block; font-size:20px; float:right"></span><span class="glyphicon glyphicon-th-list"  id="showWeekPicker"  style="display:none;font-size:20px; float:right" ></span></div>
+
+
+      <div style="float:left;width:55%">
+        <div class=" ydtj-font1"  id="curDate_y">1123</div>
+        <div class=" ydtj-font1"  id="curDate" style="display:none"></div>
+      </div>
+
+
+      </div>
+      <div id="tongjiContent" class="tab-content">
+
+
+        <div class="tab-pane fade in active " id="yue" style="display:block">
+          <div class="ydtj-gk tab-bg container"><!--每月订单概况-->
+            <div class="x">
+              <p>订单概况</p>
+            </div>
+            <div class="row">
+              <div class="col-xs-5 ydtj-w">运单量:<bdi id="ysum_yd">57</bdi>单 </div>
+              <div class="col-xs-7 ydtj-w">总砂量:<bdi id="ysum_zs">57</bdi>吨</div>
+              <input type="hidden" name="ybegintime" id="ybegintime" value="" />
+              <input type="hidden" name="yendtime" id="yendtime" value="" />
+            </div>
+
+          </div>
+          <div class="ydtj-gk tab-bg container"><!--每月运单趋势图表-->
+            <div class="x">
+              <p>运单趋势</p>
+            </div>
+
+            <div id="yd-body" style="margin-top:-20px;">
+
+              <div id="ztj" >
+                  <div id="ymaina" style="width:100%;height:300px;"></div>
+                  <div id="ylinea" style="width:100%;height:300px;"></div>
+              </div>
+
+            </div>
+
+
+          </div>
+        </div>
+
+        <div class="tab-pane " id="zhou"  style="display:none">
+          <div class="ydtj-gk tab-bg container"><!--每周订单概况-->
+            <div class="x">
+              <p>订单概况</p>
+            </div>
+            <div class="row">
+              <div class="col-xs-5 ydtj-w">运单量:<bdi id="sum_yd">57</bdi>单</div>
+              <div class="col-xs-7 ydtj-w">总砂量:<bdi id="sum_zs">125</bdi>吨 </div>
+
+              <input type="hidden" name="zbegintime" id="zbegintime" value="" />
+              <input type="hidden" name="zendtime" id="zendtime" value="" />
+
+            </div>
+          </div>
+          <div class="ydtj-gk tab-bg container"><!--每周运单趋势图表-->
+            <div class="x">
+              <p>运单趋势</p>
+            </div>
+
+            <div id="yd-body" style="margin-top:-20px;">
+
+              <div id="ztj" >
+                  <div id="maina" style="width:100%;height:300px;"></div>
+                  <div id="linea" style="width:100%;height:300px;"></div>
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <script>
+
+function openexcelwin()
+{
+  api.openWin({
+      name : 'order_yddc',
+      url : '../order/yddc.html',
+      slidBackEnabled:false,
+        hideHomeIndicator:true
+    });
+}
+
+  function openexcelaa()
+  {
+
+
+      var downloadManager = api.require('downloadManager');
+  downloadManager.openManagerView({
+      title: '下载管理'
+  }, function(ret, err) {
+      if (ret) {
+                    downloadManager.openDownloadedFile({
+                  id: ret.id
+              }, function(ret, err) {
+                  if (res.status) {
+                      alert(JSON.stringify(res));
+                  } else {
+                      alert(JSON.stringify(err));
+                  }
+              });
+        //  alert(JSON.stringify(ret));
+      } else {
+        //  alert(JSON.stringify(err));
+      }
+  });
+
+
+  }
+  function openexcel(num)
+  {
+    var begintime="";
+    var endtime="";
+    var zzname="";
+  if(num==1)
+  {
+  begintime=$("#ybegintime").val();
+  endtime=$("#yendtime").val();
+  zzname="月统计";
+  }
+  else {
+    begintime=$("#zbegintime").val();
+    endtime=$("#zendtime").val();
+  zzname="周统计";
+  }
+  var str="";
+  if($api.getStorage('uroles')=='采砂船管理员')
+  {
+    var sandboatId=$api.getStorage('ucsc06id');
+    str="sandboatId="+sandboatId;
+  }
+
+  if($api.getStorage('uroles')=='采区负责人')
+  {
+    var sandboatId=$api.getStorage('ucsc06id');
+    str="sandboatId="+sandboatId;
+  }
+
+  if($api.getStorage('uroles')=='采砂船船主')
+  {
+    var  sandboatId= $api.getStorage('sandboatId');
+    str="sandboatId="+sandboatId;
+  }
+  if($api.getStorage('uroles')=='运砂船船主')
+  {
+
+    var  boatId= $api.getStorage('boatId');
+    str="boatId="+boatId;
+
+  }
+  if($api.getStorage('uroles')=='砂场收货员')
+  {
+    var  toDistrict= $api.getStorage('toDistrict');
+    str="toDistrict="+toDistrict;
+
+  }
+  if($api.getStorage('uroles')=='二级砂厂负责人')
+  {
+    var  toDistrict=$api.getStorage('toDistrict');
+    str="toDistrict="+toDistrict;
+
+  }
+var strc=str+"&begintime="+begintime+"&endtime="+endtime;
+var savePath='fs://'+begintime+"-"+endtime+zzname+'.xls';
+var title=begintime+"-"+endtime+zzname+'.xls';
+    var downloadManager = api.require('downloadManager');
+    downloadManager.enqueue({
+        url: functionURL+'exportScreen/getWayBillList.json?'+strc,
+        savePath: savePath,
+      //  savePath: 'fs://tongji.xls',
+        cache: true,
+        headers:
+        {
+          "login_token":$api.getStorage('loginToken')
+        },
+        allowResume: true,
+        title: title,
+        networkTypes: 'all'
+    }, function(ret, err) {
+        if (ret) {
+             openexcelaa();
+          //  alert(JSON.stringify(ret));
+        } else {
+          //  alert(JSON.stringify(err));
+        }
+    });
+
+
+
+  }
+  function openy()
+  {
+    $("#tongji li:eq(0)").addClass("active").siblings().removeClass("active");
+    $("#zhou").css({ "display": "none"});
+      $("#yue").css({ "display": "block"});
+    $("#showWeekPicker").css({ "display": "none"});
+    $("#showMonthPicker").css({ "display": "block"});
+      // $("#ztj").css({ "display": "none"});
+      $("#curDate_y").css({ "display": "block"});
+      $("#curDate").css({ "display": "none"});
+      $("#zbg1").css({ "display": "block"});
+      $("#zbg2").css({ "display": "none"});
+
+  }
+  function openz()
+  {
+
+
+      $("#tongji li:eq(1)").addClass("active").siblings().removeClass("active");
+      $("#zhou").css({ "display": "block"});
+      $("#yue").css({ "display": "none"});
+    $("#showWeekPicker").css({ "display": "block"});
+    $("#showMonthPicker").css({ "display": "none"});
+    // $("#ztj").css({ "display": "block"});
+        $("#curDate_y").css({ "display": "none"});
+        $("#curDate").css({ "display": "block"});
+        $("#zbg1").css({ "display": "none"});
+        $("#zbg2").css({ "display": "block"});
+  }
+
+  </script>
+
+
+</body>
+</html>
+
+
+</body>
+<script type="text/javascript">
+
+var worldMapContainer1 = document.getElementById('maina');
+var worldMapContainer2 = document.getElementById('linea');
+var yworldMapContainer1 = document.getElementById('ymaina');
+var yworldMapContainer2 = document.getElementById('ylinea');
+
+var resizeWorldMapContainer = function () {
+    worldMapContainer1.style.width = (window.innerWidth-40)+'px';
+    worldMapContainer2.style.width = (window.innerWidth-40)+'px';
+  //  worldMapContainer.style.height = window.innerHeight+'px';
+};
+
+var yresizeWorldMapContainer = function () {
+
+    yworldMapContainer1.style.width = (window.innerWidth-40)+'px';
+    yworldMapContainer2.style.width = (window.innerWidth-40)+'px';
+  //  worldMapContainer.style.height = window.innerHeight+'px';
+};
+resizeWorldMapContainer();
+yresizeWorldMapContainer();
+var myChart1 = echarts.init(worldMapContainer1);
+var myChart2 = echarts.init(worldMapContainer2);
+var ymyChart1 = echarts.init(yworldMapContainer1);
+var ymyChart2 = echarts.init(yworldMapContainer2);
+
+// var myChart1 = echarts.init(document.getElementById('maina'));
+// var myChart2 = echarts.init(document.getElementById('linea'));
+myChart1.setOption({
+    title : {
+        text: '运砂量[吨]',
+      show:false
+    },
+    // color: ['#3398DB'],
+    color: ['#18bbfe'],
+    // tooltip : {
+    //     trigger: 'axis',
+    //     axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+    //         type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+    //     }
+    // },
+    grid: {
+        left: '13%',
+        right: '4%',
+        bottom: '3%',
+        containLabel: true
+    },
+    xAxis : [
+        {
+          axisLabel: {
+rotate: 60,
+},
+            type : 'category',
+            data : ['周一', '周二', '周三', '周四', '周五', '周六', '周日'],
+            axisTick: {
+                alignWithLabel: true
+            }
+        }
+    ],
+    yAxis : [
+        {
+            type : 'value',
+            offset:0,
+            nameTextStyle:{
+              // fontSize:9,
+              align: 'left',
+              // width:'100%',
+              // padding: 4
+            },
+              name:'运砂量[吨]',
+              nameLocation:'middle',
+              nameGap:40,
+        }
+    ],
+    series : [
+        {
+
+          itemStyle: {
+            // color: "#2ec7c9",
+              // lineStyle: {
+              //     color: "#2ec7c9"
+              // }
+                       },
+          label: {normal: {
+
+               show: true,
+               position: 'top',
+               textStyle: {
+                              // fontWeight:'bolder',
+                              fontSize : '12',
+                              color:'#000000',
+
+                              // fontFamily : '微软雅黑',
+                          }
+
+           }},
+            name:'直接访问',
+            type:'bar',
+            barWidth: '60%',
+            data:[]
+        }
+    ]
+});
+myChart1.showLoading();
+myChart1.setOption({
+    series:{data:[]}
+});
+myChart1.hideLoading();
+myChart2.setOption({
+    title : {
+        text: '运单量[单]',
+            show:false,
+    },
+    color: ['#18bbfe'],
+    grid: {
+        left: '13%',
+        right: '4%',
+        bottom: '3%',
+        containLabel: true
+    },
+    xAxis: {
+      axisLabel: {
+rotate: 60,
+},
+        type: 'category',
+        data : ['周一', '周二', '周三', '周四', '周五', '周六', '周日'],
+    },
+    yAxis : [
+        {
+            type : 'value',
+            offset:0,
+            nameTextStyle:{
+              // fontSize:9,
+              align: 'left',
+              // width:'100%',
+              // padding: 4
+            },
+              name:'运单量[单]',
+              nameLocation:'middle',
+              nameGap:40,
+        }
+    ],
+    series: [{
+        // data: [820, 932, 901, 934, 1290, 1330, 1320],
+        symbol: "circle",      // 默认是空心圆（中间是白色的），改成实心圆
+        itemStyle: {
+          normal: {
+                color: "ee926b",  // 会设置点和线的颜色，所以需要下面定制 line
+               borderColor: "ee926b"  // 点边线的颜色
+           }
+
+        },
+        lineStyle: {
+            normal: {
+                color: "#18bbfe"   // 线条颜色
+            }
+        },
+        label: {normal: {
+
+
+               show: true,
+               position: 'top',
+               textStyle: {
+                              //  fontWeight:'bolder',
+                              fontSize : '12',
+                              color:'#000000',
+
+                              //  fontFamily : '微软雅黑',
+                          }
+           }},
+        data:[],
+        type: 'line'
+    }]
+});
+myChart2.setOption({ //动态加载数据
+    // xAxis:{data:[]},
+    series:{data:[]}
+});
+
+//月统计
+ymyChart1.setOption({
+    title : {
+        text: '运砂量[吨]',
+        show:false
+    },
+    // color: ['#3398DB'],
+    color: ['#18bbfe'],
+    // tooltip : {
+    //     trigger: 'axis',
+    //     axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+    //         type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+    //     }
+    // },
+    grid: {
+        left: '13%',
+        right: '4%',
+        bottom: '3%',
+        containLabel: true
+    },
+    xAxis : [
+        {
+          axisLabel: {
+rotate: 60,
+},
+            type : 'category',
+            data : ['第一周', '第二周', '第三周', '第四周', '第五周', '第六周'],
+            axisTick: {
+                alignWithLabel: true
+            }
+        }
+    ],
+    yAxis : [
+        {
+            type : 'value',
+            offset:0,
+            nameTextStyle:{
+              // fontSize:9,
+              align: 'left',
+              // width:'100%',
+              // padding: 4
+            },
+              name:'运砂量[吨]',
+              nameLocation:'middle',
+              nameGap:40,
+        }
+    ],
+    series : [
+        {
+          label: {normal: {
+            show: true,
+            position: 'top',
+               textStyle: {
+                              // fontWeight:'bolder',
+                              fontSize : '12',
+                              color:'#000000',
+                              // fontFamily : '微软雅黑',
+                          }
+
+           }},
+            name:'直接访问',
+            type:'bar',
+            barWidth: '60%',
+            data:[]
+        }
+    ]
+});
+ymyChart1.showLoading();
+ymyChart1.setOption({
+    series:{data:[ ]}
+});
+ymyChart1.hideLoading();
+ymyChart2.setOption({
+    title : {
+        text: '运单量[单]',
+        show:false
+    },
+    grid: {
+        left: '13%',
+        right: '4%',
+        bottom: '3%',
+        containLabel: true
+    },
+    xAxis: {
+      axisLabel: {
+rotate: 60,
+},
+        type: 'category',
+         data : ['第一周', '第二周', '第三周', '第四周', '第五周', '第六周'],
+    },
+    yAxis : [
+        {
+            type : 'value',
+            offset:0,
+            nameTextStyle:{
+              // fontSize:9,
+              align: 'left',
+              // width:'100%',
+              // padding: 4
+            },
+              name:'运单量[单]',
+              nameLocation:'middle',
+              nameGap:40,
+        }
+    ],
+    series: [{
+        // data: [820, 932, 901, 934, 1290, 1330, 1320],
+        symbol: "circle",      // 默认是空心圆（中间是白色的），改成实心圆
+        itemStyle: {
+          normal: {
+                color: "ee926b",  // 会设置点和线的颜色，所以需要下面定制 line
+               borderColor: "ee926b"  // 点边线的颜色
+           }
+
+        },
+        lineStyle: {
+            normal: {
+                color: "#18bbfe"   // 线条颜色
+            }
+        },
+        label: {normal: {
+
+               show: true,
+               textStyle: {
+                            // fontWeight:'bolder',
+                            fontSize : '12',
+                            color:'#000000',
+                            // fontFamily : '微软雅黑',
+                          }
+
+           }},
+        data:[],
+        type: 'line'
+    }]
+});
+ymyChart2.setOption({ //动态加载数据
+    // xAxis:{data:[]},
+    series:{data:[]}
+});
+
+
+
+
+function setrez()
+{
+  var sum_zs=parseFloat($api.getStorage('z0'))+parseFloat($api.getStorage('z1'))+parseFloat($api.getStorage('z2'))+parseFloat($api.getStorage('z3'))+parseFloat($api.getStorage('z4'))+parseFloat($api.getStorage('z5'))+parseFloat($api.getStorage('z6'));
+$('#sum_zs').html(sum_zs);
+
+
+  myChart1.setOption({
+      //series:{data:[ ]}
+        series:{data:[$api.getStorage('z0'), $api.getStorage('z1'), $api.getStorage('z2'), $api.getStorage('z3'), $api.getStorage('z4'), $api.getStorage('z5'), $api.getStorage('z6')]}
+  });
+
+  myChart1.setOption({
+      series:{data:[$api.getStorage('z0'), $api.getStorage('z1'), $api.getStorage('z2'), $api.getStorage('z3'), $api.getStorage('z4'), $api.getStorage('z5'), $api.getStorage('z6')]}
+  });
+
+//  setTimeout(function(){
+  window.onresize = function () {
+      //重置容器高宽
+      resizeWorldMapContainer();
+      myChart1.resize();
+  };
+//   }, 150);
+
+}
+
+function setrez1()
+{
+
+  var sum_yd=parseInt($api.getStorage('z10'))+parseInt($api.getStorage('z11'))+parseInt($api.getStorage('z12'))+parseInt($api.getStorage('z13'))+parseInt($api.getStorage('z14'))+parseInt($api.getStorage('z15'))+parseInt($api.getStorage('z16'));
+$('#sum_yd').html(sum_yd);
+  myChart2.setOption({
+    //  series:{data:[ ]}
+            series:{data:[$api.getStorage('z10'), $api.getStorage('z11'), $api.getStorage('z12'), $api.getStorage('z13'), $api.getStorage('z14'), $api.getStorage('z15'), $api.getStorage('z16')]}
+  });
+  myChart2.setOption({ //动态加载数据
+      // xAxis:{data:[]},
+        series:{data:[$api.getStorage('z10'), $api.getStorage('z11'), $api.getStorage('z12'), $api.getStorage('z13'), $api.getStorage('z14'), $api.getStorage('z15'), $api.getStorage('z16')]}
+  });
+
+//  setTimeout(function(){
+  window.onresize = function () {
+      //重置容器高宽
+      resizeWorldMapContainer();
+      myChart2.resize();
+  };
+  // }, 150);
+
+
+}
+
+function ysetrez()
+{
+  var ysum_zs_el=document.getElementById("ysum_zs");
+  var ysum_yd_el=document.getElementById("ysum_yd");
+  var ysum_zs=parseFloat($api.getStorage('yz0'))+parseFloat($api.getStorage('yz1'))+parseFloat($api.getStorage('yz2'))+parseFloat($api.getStorage('yz3'))+parseFloat($api.getStorage('yz4'))+parseFloat($api.getStorage('yz5'));
+  $api.html(ysum_zs_el,ysum_zs);
+
+  ymyChart1.setOption({
+      //series:{data:[ ]}
+
+      series:{data:[$api.getStorage('yz0'), $api.getStorage('yz1'), $api.getStorage('yz2'), $api.getStorage('yz3'), $api.getStorage('yz4'), $api.getStorage('yz5')]}
+  });
+
+  ymyChart1.setOption({
+      series:{data:[$api.getStorage('yz0'), $api.getStorage('yz1'), $api.getStorage('yz2'), $api.getStorage('yz3'), $api.getStorage('yz4'), $api.getStorage('yz5')]}
+  });
+
+  //setTimeout(function(){
+  window.onresize = function () {
+      //重置容器高宽
+      yresizeWorldMapContainer();
+      ymyChart1.resize();
+  };
+   //}, 150);
+
+}
+
+function ysetrez1()
+{
+  var ysum_zs_el=document.getElementById("ysum_zs");
+  var ysum_yd_el=document.getElementById("ysum_yd");
+  var ysum_yd=parseInt($api.getStorage('yz10'))+parseInt($api.getStorage('yz11'))+parseInt($api.getStorage('yz12'))+parseInt($api.getStorage('yz13'))+parseInt($api.getStorage('yz14'))+parseInt($api.getStorage('yz15'));
+  $api.html(ysum_yd_el,ysum_yd);
+  ymyChart2.setOption({
+    //  series:{data:[ ]}
+      series:{data:[$api.getStorage('yz10'), $api.getStorage('yz11'), $api.getStorage('yz12'), $api.getStorage('yz13'), $api.getStorage('yz14'), $api.getStorage('yz15')]}
+  });
+
+  ymyChart2.setOption({ //动态加载数据
+      // xAxis:{data:[]},
+        series:{data:[$api.getStorage('yz10'), $api.getStorage('yz11'), $api.getStorage('yz12'), $api.getStorage('yz13'), $api.getStorage('yz14'), $api.getStorage('yz15')]}
+  });
+
+//  setTimeout(function(){
+  window.onresize = function () {
+      //重置容器高宽
+      yresizeWorldMapContainer();
+      ymyChart2.resize();
+  };
+  // }, 150);
+
+
+}
+
+</script>
+
+<script>
+var arr_sum=new Array();
+// var calendar = new datePicker();
+// calendar.init({
+// 	'trigger': '#yd', /*按钮选择器，用于触发弹出插件*/
+// 	'type': 'ym',/*模式：date日期；datetime日期时间；time时间；ym年月；*/
+// 	'minDate':'1900-1-1',/*最小日期*/
+// 	'maxDate':'2100-12-31',/*最大日期*/
+// 	'onSubmit':function(){/*确认时触发事件*/
+// 		var theSelectData=calendar.value;
+//     console.log(theSelectData);
+// 	},
+// 	'onClose':function(){/*取消时触发事件*/
+// 	}
+// });
+
+$('#showWeekPicker').on('click', function () {
+		//获取当天为今年第几周
+		var time,week,checkDate = new Date(new Date());
+        checkDate.setDate(checkDate.getDate() + 4 - (checkDate.getDay() || 7));
+        time = checkDate.getTime();
+        checkDate.setMonth(0);
+        checkDate.setDate(1);
+        week=Math.floor(Math.round((time - checkDate) / 86400000) / 7) + 1;
+
+//alert("今天是本年当中的第"+week+"周");return;
+		//alert(startDate);return;
+
+		var arr=new Array();
+		var curWeek=new Array();
+		for (var i=(new Date()).getFullYear(); i>=2017; i--){
+			if(i==(new Date()).getFullYear()){ //为当前年份
+				for(var j=week;j>0;j--){
+					if(j==week){ curWeek[0]=i+','+j; }
+					var pickers={label:i+'年 第'+j+'周',value:i+','+j};
+					arr.push(pickers);
+				}
+			}else{
+				for(var j=getNumOfWeeks(i);j>0;j--){
+					var pickers={label:i+'年 第'+j+'周',value:i+','+j};
+					arr.push(pickers);
+				}
+			}
+		}
+		var str=JSON.stringify(arr);
+		eval('arr = ' + str);
+		str=JSON.stringify(curWeek);
+		eval('curWeek='+str);
+		weui.picker(arr,{
+			defaultValue:curWeek,
+			onChange: function (result) {
+				console.log(result);
+			},
+			onConfirm: function (result) {
+				//console.log(result);
+				str=JSON.stringify(result);
+				str=str.replace("[\"","");
+				str=str.replace("\"]","");
+				str=str.split(",");
+				var startDate =convertWeekNumberToFirstDate(parseInt(str[0]),parseInt(str[1]));
+				//alert(startDate);return;
+				start = (startDate.getMonth()+1)+"/"+startDate.getDate();
+				startDate = startDate.getFullYear()+"-"+(startDate.getMonth()+1)+"-"+startDate.getDate();
+
+                //   setTimeout(function(){
+                //     var endDate=new Date(startDate);
+                //     endDate.setDate(endDate.getDate()+6);
+                //  end = (endDate.getMonth()+1)+"/"+endDate.getDate();
+                //     $('#curDate').html(str[0]+'年第'+str[1]+'周 ('+start+'-'+end+')');
+                //   }, 500);
+                 //curdate=result.split(",");
+         var myArray=new Array();
+         myArray=add_time_arr(startDate);
+
+$("#zbegintime").val(myArray[0]);
+$("#zendtime").val(myArray[6]);
+
+         var html_a=str[0]+"年第"+str[1]+"周"+t_today_aa(myArray[0])+"-"+t_today_aa(myArray[6]);
+           $('#curDate').html(html_a);
+           $('#sum_zs').html("");
+              $('#sum_yd').html("");
+              //
+              // $api.setStorage(z0,0);
+              // $api.setStorage(z1,0);
+              // $api.setStorage(z2,0);
+              // $api.setStorage(z3,0);
+              // $api.setStorage(z4,0);
+              // $api.setStorage(z5,0);
+              // $api.setStorage(z6,0);
+              // $api.setStorage(z10,0);
+              // $api.setStorage(z11,0);
+              // $api.setStorage(z12,0);
+              // $api.setStorage(z13,0);
+              // $api.setStorage(z14,0);
+              // $api.setStorage(z15,0);
+              // $api.setStorage(z16,0);
+           $api.rmStorage('z0');
+           $api.rmStorage('z1');
+           $api.rmStorage('z2');
+           $api.rmStorage('z3');
+           $api.rmStorage('z4');
+           $api.rmStorage('z5');
+                    $api.rmStorage('z6');
+           $api.rmStorage('z10');
+           $api.rmStorage('z11');
+           $api.rmStorage('z12');
+           $api.rmStorage('z13');
+           $api.rmStorage('z14');
+           $api.rmStorage('z15');
+ $api.rmStorage('z16');
+         //console.log(startDate);
+              //setTimeout(function(){
+         myArraysum_arr(myArray);
+      // }, 100);
+      //   setTimeout(function(){
+         myArraycount_arr(myArray);
+       //}, 300);
+ setTimeout(function(){
+          var sum_zs=parseFloat($api.getStorage('z0'))+parseFloat($api.getStorage('z1'))+parseFloat($api.getStorage('z2'))+parseFloat($api.getStorage('z3'))+parseFloat($api.getStorage('z4'))+parseFloat($api.getStorage('z5'))+parseFloat($api.getStorage('z6'));
+        $('#sum_zs').html(sum_zs);
+          var sum_yd=parseInt($api.getStorage('z10'))+parseInt($api.getStorage('z11'))+parseInt($api.getStorage('z12'))+parseInt($api.getStorage('z13'))+parseInt($api.getStorage('z14'))+parseInt($api.getStorage('z15'))+parseInt($api.getStorage('z16'));
+      $('#sum_yd').html(sum_yd);
+  setrez();
+   setrez1();
+      console.log($api.getStorage('z10'));
+      console.log($api.getStorage('z11'));
+      console.log($api.getStorage('z12'));
+      console.log($api.getStorage('z13'));
+      console.log($api.getStorage('z14'));
+      console.log($api.getStorage('z15'));
+        console.log($api.getStorage('z16'));
+      console.log($api.getStorage('z0'));
+      console.log($api.getStorage('z1'));
+      console.log($api.getStorage('z2'));
+      console.log($api.getStorage('z3'));
+      console.log($api.getStorage('z4'));
+      console.log($api.getStorage('z5'));
+        console.log($api.getStorage('z6'));
+
+}, 3000);
+			}
+		});
+		// $('.weui-picker__content').css('transform','translate3d(0px, 102px, 0px)');
+    });
+
+
+ //根据年份获取周次
+ function getNumOfWeeks(sYear){
+ 　　var myDate = new Date();
+   var year = sYear;  //获取当前年
+ 　　var d=new Date(year,0,1);
+ 　　var yt=(( year%4==0 && year%100!=0) || year%400==0)? 366:365;
+ 　　var allwk = Math.ceil((yt-d.getDay())/7.0);
+ 　　return allwk;
+ }
+ //根据年份 第几周 获取当周星期一的日期
+
+ function convertWeekNumberToFirstDate(sYear, sWeek, startFromFirstMonday)  {
+		if (startFromFirstMonday == undefined) startFromFirstMonday = true;
+		var weekIndex = 1;
+		var year = parseInt(sYear);
+		var week = parseInt(sWeek);
+		var i = 1;
+		var dFirstDate = new Date(year, 0, i);
+		if (!startFromFirstMonday){
+			if (weekIndex  < week){
+				weekIndex++;
+				//alert(weekIndex);
+			}else
+			return dFirstDate;
+		}
+		if (dFirstDate.getDay() != 1){ //第1周
+			// i += 7 - dFirstDate.getDay() + 1;
+			i+=dFirstDate.getDay()-6;
+		  	// var tdate= (new Date(2017,0,1)).setFullYear(2017, 0, 1);
+			if(isLeapYear(year-1)){
+				dFirstDate.setFullYear(year-1, 0, 366+i);
+			}else{
+				dFirstDate.setFullYear(year-1, 0, 365+i);
+			}
+		}
+		if (weekIndex  < week){
+			i += 7*(week-weekIndex);
+			dFirstDate.setFullYear(year, 0, i);
+		}
+		return dFirstDate;
+	}
+	//JS判断闰年代码
+	function isLeapYear (Year) {
+		if (((Year % 4)==0) && ((Year % 100)!=0) || ((Year % 400)==0)) { //是闰年
+			return (true);
+		} else { //是平年
+			return (false);
+		}
+	}
+
+  $('#showMonthPicker').on('click', function () {
+		var arr=new Array();
+		var curMonth=new Array();
+		for (var i=(new Date()).getFullYear(); i>=2017; i--){
+			if(i==(new Date()).getFullYear()){ //为当前年份
+				for(var j=(new Date()).getMonth()+1;j>0;j--){
+					if(j==(new Date()).getMonth()+1){ curMonth[0]=i+','+j; }
+					var pickers={label:i+'年 第'+j+'月',value:i+','+j};
+					arr.push(pickers);
+				}
+			}else{
+				for(var j=12;j>0;j--){
+					var pickers={label:i+'年 第'+j+'月',value:i+','+j};
+					arr.push(pickers);
+				}
+			}
+		}
+		var str=JSON.stringify(arr);
+		eval('arr = ' + str);
+		str=JSON.stringify(curMonth);
+		eval('curMonth='+str);
+        weui.picker(arr,{
+			defaultValue:curMonth,
+            onChange: function (result) {
+                console.log(result);
+            },
+            onConfirm: function (result) {
+                console.log(result);
+				str=JSON.stringify(result);
+				str=str.replace("[\"","");
+				str=str.replace("\"]","");
+				str=str.split(",");
+				var countDays =getDaysInMonth(parseInt(str[0]),parseInt(str[1]));
+				var firstMonthDate=parseInt(str[0])+'/'+parseInt(str[1])+'/1';
+				var endMonthDate=parseInt(str[0])+'-'+parseInt(str[1])+'-'+countDays;
+		var firstMonthDateaa=parseInt(str[0])+'-'+parseInt(str[1])+'-1';
+        $("#ybegintime").val(firstMonthDateaa);
+        $("#yendtime").val(endMonthDate);
+
+				var week=(new Date(firstMonthDate.replace(/-/g,"/"))).getDay();
+				// alert(week);
+				var firstWeek=new Date(firstMonthDate.replace(/-/g,"/"));
+			 	firstWeek.setDate(firstWeek.getDate()+7-week); //第一周周日
+				firstWeekEnd=format_date(firstWeek);
+
+				firstWeek.setDate(firstWeek.getDate()+1); //第二周周一
+				scdWeekStart=format_date(firstWeek);
+				firstWeek.setDate(firstWeek.getDate()+6); //第二周周日
+				scdWeekEnd=format_date(firstWeek);
+
+				firstWeek.setDate(firstWeek.getDate()+1); //第三周周一
+				thdWeekStart=format_date(firstWeek);
+				firstWeek.setDate(firstWeek.getDate()+6); //第三周周日
+				thdWeekEnd=format_date(firstWeek);
+
+				firstWeek.setDate(firstWeek.getDate()+1); //第四周周一
+				fourWeekStart=format_date(firstWeek);
+				firstWeek.setDate(firstWeek.getDate()+6); //第四周周日
+				fourWeekEnd=format_date(firstWeek);
+
+				firstWeek.setDate(firstWeek.getDate()+1);
+				if(countDays>=firstWeek.getDate()&&firstWeek.getMonth()<parseInt(str[1])){ //存在第五周
+					fiveWeekStart=format_date(firstWeek); //第五周第一天
+					firstWeek.setDate(firstWeek.getDate()+6);
+					if(countDays>firstWeek.getDate()&&firstWeek.getMonth()<parseInt(str[1])){ //存在第六周
+						fiveWeekEnd=format_date(firstWeek);
+						firstWeek.setDate(firstWeek.getDate()+1); //第六周第一天
+						sixWeekStart=format_date(firstWeek);
+						sixWeekEnd=parseInt(str[0])+'/'+parseInt(str[1])+'/'+countDays; //当月最后一天
+					}else{
+						fiveWeekEnd=parseInt(str[0])+'/'+parseInt(str[1])+'/'+countDays; //当月最后一天
+						sixWeekStart='';
+						sixWeekEnd=''
+					}
+				}else{
+					fiveWeekStart='';
+					fiveWeekEnd='';
+				}
+        var ystr=new Array();
+
+      $('#curDate_y').html(str[0]+"年"+str[1]+"月");
+				//$('#curDate_y').html('第1周 ('+firstMonthDate+'-'+firstWeekEnd+')第2周('+scdWeekStart+'-'+scdWeekEnd+')第3周('+thdWeekStart+'-'+thdWeekEnd+')第4周('+fourWeekStart+'-'+fourWeekEnd+')第5周('+fiveWeekStart+'-'+fiveWeekEnd+')第6周('+sixWeekStart+'-'+sixWeekEnd+')');
+        for(var i=0;i<6;i++){
+        ystr[i]=new Array();
+        }
+        ystr[0][0]=add_time_a(firstMonthDate);
+        ystr[0][1]=t_todaa(add_time_b(firstWeekEnd));
+        ystr[1][0]=add_time_a(scdWeekStart);
+        ystr[1][1]=t_todaa(add_time_b(scdWeekEnd));
+        ystr[2][0]=add_time_a(thdWeekStart);
+        ystr[2][1]=t_todaa(add_time_b(thdWeekEnd));
+        ystr[3][0]=add_time_a(fourWeekStart);
+        ystr[3][1]=t_todaa(add_time_b(fourWeekEnd));
+
+        if(fiveWeekStart=='')
+        {
+          ystr[4][0]=0;
+            ystr[4][1]=0;
+        }
+        else {
+          ystr[4][0]=add_time_a(fiveWeekStart);
+          ystr[4][1]=t_todaa(add_time_b(fiveWeekEnd));
+        }
+        if(sixWeekStart=='')
+        {
+          ystr[5][0]=0;
+            ystr[5][1]=0;
+        }
+        else {
+          ystr[5][0]=add_time_a(sixWeekStart);
+          ystr[5][1]=t_todaa(add_time_b(sixWeekEnd));
+        }
+
+      console.log(JSON.stringify(ystr));
+      var ysum_zs_el=document.getElementById("ysum_zs");
+      var ysum_yd_el=document.getElementById("ysum_yd");
+      $api.html(ysum_zs_el,"");
+      $api.html(ysum_yd_el,"");
+        // $api.setStorage(yz0,0);
+        // $api.setStorage(yz1,0);
+        // $api.setStorage(yz2,0);
+        // $api.setStorage(yz3,0);
+        // $api.setStorage(yz4,0);
+        // $api.setStorage(yz5,0);
+        // $api.setStorage(yz10,0);
+        // $api.setStorage(yz11,0);
+        // $api.setStorage(yz12,0);
+        // $api.setStorage(yz13,0);
+        // $api.setStorage(yz14,0);
+        // $api.setStorage(yz15,0);
+
+      $api.rmStorage('yz0');
+      $api.rmStorage('yz1');
+      $api.rmStorage('yz2');
+      $api.rmStorage('yz3');
+      $api.rmStorage('yz4');
+      $api.rmStorage('yz5');
+      $api.rmStorage('yz10');
+      $api.rmStorage('yz11');
+      $api.rmStorage('yz12');
+      $api.rmStorage('yz13');
+      $api.rmStorage('yz14');
+      $api.rmStorage('yz15');
+
+        //setTimeout(function(){
+        ymyArraysum_arr(ystr);
+
+    //  }, 100);
+    //    setTimeout(function(){
+        ymyArraycount_arr(ystr);
+  //    }, 300);
+
+
+
+         setTimeout(function(){
+        var ysum_zs=parseFloat($api.getStorage('yz0'))+parseFloat($api.getStorage('yz1'))+parseFloat($api.getStorage('yz2'))+parseFloat($api.getStorage('yz3'))+parseFloat($api.getStorage('yz4'))+parseFloat($api.getStorage('yz5'));
+        $api.html(ysum_zs_el,ysum_zs);
+        var ysum_yd=parseInt($api.getStorage('yz10'))+parseInt($api.getStorage('yz11'))+parseInt($api.getStorage('yz12'))+parseInt($api.getStorage('yz13'))+parseInt($api.getStorage('yz14'))+parseInt($api.getStorage('yz15'));
+        $api.html(ysum_yd_el,ysum_yd);
+        ysetrez();
+        ysetrez1();
+        console.log($api.getStorage('yz10'));
+        console.log($api.getStorage('yz11'));
+        console.log($api.getStorage('yz12'));
+        console.log($api.getStorage('yz13'));
+        console.log($api.getStorage('yz14'));
+        console.log($api.getStorage('yz15'));
+        console.log($api.getStorage('yz0'));
+        console.log($api.getStorage('yz1'));
+        console.log($api.getStorage('yz2'));
+        console.log($api.getStorage('yz3'));
+        console.log($api.getStorage('yz4'));
+        console.log($api.getStorage('yz5'));
+
+      }, 2000);
+
+            }
+        });
+    });
+	// 获取某月有几天
+	function getDaysInMonth(year, month) {
+		var date = new Date(year, month, 1);
+		date= new Date(date.getTime() - 864e5).getDate();
+		return date;
+	}
+	function format_date(date){
+		return date.getFullYear()+'/'+(date.getMonth()+1)+'/'+date.getDate();
+	}
+
+function sliding()
+{
+  api.closeWin({
+    name:'order_udti',
+    animation: {type:'none'}
+  });
+}
+
+
+
+
+
+
+    function t_todaa(mm)
+    {
+       var arr = mm.split("-");
+
+
+
+     var today=new Date(arr[0], arr[1]-1 ,arr[2]);
+     var yesterday_milliseconds=today.getTime()-1000*60*60*24;
+
+     var yesterday=new Date();
+     yesterday.setTime(yesterday_milliseconds);
+
+     var strYear=yesterday.getFullYear();
+     var strDay=yesterday.getDate();
+     var strMonth=yesterday.getMonth()+1;
+     if(strMonth<10)
+     {
+         strMonth="0"+strMonth;
+     }
+     var strYesterday=strYear+"-"+strMonth+"-"+strDay;
+     //alert(strYesterday);
+     return strYesterday;
+
+    }
+    var myVar = setInterval(function(){ myTimer() }, 3000);
+    function myTimer(){
+    ysetrez();
+    ysetrez1();
+   setrez();
+    setrez1();
+  }
+apiready = function(){
+  api.execScript({
+  // name: 'order_orderhistory',
+  name:'order_orderlist',
+  frameName:'order_orderhistory',
+  script: 'closePr()'
+});
+api.execScript({
+// name: 'order_orderhistory',
+name:'order_orderlist7',
+frameName:'order_orderhistory',
+script: 'closePr()'
+});
+$api.setStorage('z0',0);
+$api.setStorage('z1',0);
+$api.setStorage('z2',0);
+$api.setStorage('z3',0);
+$api.setStorage('z4',0);
+$api.setStorage('z5',0);
+$api.setStorage('z6',0);
+$api.setStorage('z10',0);
+$api.setStorage('z11',0);
+$api.setStorage('z12',0);
+$api.setStorage('z13',0);
+$api.setStorage('z14',0);
+$api.setStorage('z15',0);
+$api.setStorage('z16',0);
+$api.setStorage('yz0',0);
+$api.setStorage('yz1',0);
+$api.setStorage('yz2',0);
+$api.setStorage('yz3',0);
+$api.setStorage('yz4',0);
+$api.setStorage('yz5',0);
+$api.setStorage('yz10',0);
+$api.setStorage('yz11',0);
+$api.setStorage('yz12',0);
+$api.setStorage('yz13',0);
+$api.setStorage('yz14',0);
+$api.setStorage('yz15',0);
+
+
+// $api.rmStorage('z0');
+// $api.rmStorage('z1');
+// $api.rmStorage('z2');
+// $api.rmStorage('z3');
+// $api.rmStorage('z4');
+// $api.rmStorage('z5');
+//          $api.rmStorage('z6');
+// $api.rmStorage('z10');
+// $api.rmStorage('z11');
+// $api.rmStorage('z12');
+// $api.rmStorage('z13');
+// $api.rmStorage('z14');
+// $api.rmStorage('z15');
+// $api.rmStorage('z16');
+//
+// $api.rmStorage('yz0');
+// $api.rmStorage('yz1');
+// $api.rmStorage('yz2');
+// $api.rmStorage('yz3');
+// $api.rmStorage('yz4');
+// $api.rmStorage('yz5');
+// $api.rmStorage('yz10');
+// $api.rmStorage('yz11');
+// $api.rmStorage('yz12');
+// $api.rmStorage('yz13');
+// $api.rmStorage('yz14');
+// $api.rmStorage('yz15');
+//月统计
+
+var str=new Array();
+var ystr=new Array();
+var sa=t_today();
+str=sa.split("-");
+var countDays =getDaysInMonth(parseInt(str[0]),parseInt(str[1]));
+var firstMonthDate=parseInt(str[0])+'/'+parseInt(str[1])+'/1';
+var endMonthDate=parseInt(str[0])+'-'+parseInt(str[1])+'-'+countDays;
+var firstMonthDateaa=parseInt(str[0])+'-'+parseInt(str[1])+'-1';
+console.log("一月第1天"+firstMonthDate);
+console.log("一月最后1天"+endMonthDate);
+$("#ybegintime").val(firstMonthDateaa);
+$("#yendtime").val(endMonthDate);
+var week=(new Date(firstMonthDate.replace(/-/g,"/"))).getDay();
+// alert(week);
+var firstWeek=new Date(firstMonthDate.replace(/-/g,"/"));
+firstWeek.setDate(firstWeek.getDate()+7-week); //第一周周日
+firstWeekEnd=format_date(firstWeek);
+
+firstWeek.setDate(firstWeek.getDate()+1); //第二周周一
+scdWeekStart=format_date(firstWeek);
+firstWeek.setDate(firstWeek.getDate()+6); //第二周周日
+scdWeekEnd=format_date(firstWeek);
+
+firstWeek.setDate(firstWeek.getDate()+1); //第三周周一
+thdWeekStart=format_date(firstWeek);
+firstWeek.setDate(firstWeek.getDate()+6); //第三周周日
+thdWeekEnd=format_date(firstWeek);
+
+firstWeek.setDate(firstWeek.getDate()+1); //第四周周一
+fourWeekStart=format_date(firstWeek);
+firstWeek.setDate(firstWeek.getDate()+6); //第四周周日
+fourWeekEnd=format_date(firstWeek);
+
+firstWeek.setDate(firstWeek.getDate()+1);
+if(countDays>=firstWeek.getDate()&&firstWeek.getMonth()<parseInt(str[1])){ //存在第五周
+  fiveWeekStart=format_date(firstWeek); //第五周第一天
+  firstWeek.setDate(firstWeek.getDate()+6);
+  if(countDays>firstWeek.getDate()&&firstWeek.getMonth()<parseInt(str[1])){ //存在第六周
+    fiveWeekEnd=format_date(firstWeek);
+    firstWeek.setDate(firstWeek.getDate()+1); //第六周第一天
+    sixWeekStart=format_date(firstWeek);
+    sixWeekEnd=parseInt(str[0])+'/'+parseInt(str[1])+'/'+countDays; //当月最后一天
+  }else{
+    fiveWeekEnd=parseInt(str[0])+'/'+parseInt(str[1])+'/'+countDays; //当月最后一天
+    sixWeekStart='';
+    sixWeekEnd=''
+  }
+}else{
+  fiveWeekStart='';
+  fiveWeekEnd='';
+}
+
+  $('#curDate_y').html(str[0]+"年"+str[1]+"月");
+//$('#curDate_y').html('第1周 ('+firstMonthDate+'-'+firstWeekEnd+')第2周('+scdWeekStart+'-'+scdWeekEnd+')第3周('+thdWeekStart+'-'+thdWeekEnd+')第4周('+fourWeekStart+'-'+fourWeekEnd+')第5周('+fiveWeekStart+'-'+fiveWeekEnd+')第6周('+sixWeekStart+'-'+sixWeekEnd+')');
+
+for(var i=0;i<6;i++){
+ystr[i]=new Array();
+}
+ystr[0][0]=add_time_a(firstMonthDate);
+ystr[0][1]=t_todaa(add_time_b(firstWeekEnd));
+ystr[1][0]=add_time_a(scdWeekStart);
+ystr[1][1]=t_todaa(add_time_b(scdWeekEnd));
+ystr[2][0]=add_time_a(thdWeekStart);
+ystr[2][1]=t_todaa(add_time_b(thdWeekEnd));
+ystr[3][0]=add_time_a(fourWeekStart);
+ystr[3][1]=t_todaa(add_time_b(fourWeekEnd));
+
+if(fiveWeekStart=='')
+{
+  ystr[4][0]=0;
+    ystr[4][1]=0;
+}
+else {
+  ystr[4][0]=add_time_a(fiveWeekStart);
+  ystr[4][1]=t_todaa(add_time_b(fiveWeekEnd));
+}
+if(sixWeekStart=='')
+{
+  ystr[5][0]=0;
+    ystr[5][1]=0;
+}
+else {
+  ystr[5][0]=add_time_a(sixWeekStart);
+  ystr[5][1]=t_todaa(add_time_b(sixWeekEnd));
+}
+var ysum_zs_el=document.getElementById("ysum_zs");
+var ysum_yd_el=document.getElementById("ysum_yd");
+$api.html(ysum_zs_el,"");
+$api.html(ysum_yd_el,"");
+console.log(JSON.stringify(ystr));
+  //  setTimeout(function(){
+ymyArraysum_arr(ystr);
+//}, 100);
+//setTimeout(function(){
+ymyArraycount_arr(ystr);
+ //}, 300);
+
+
+ setTimeout(function(){
+var ysum_zs=parseFloat($api.getStorage('yz0'))+parseFloat($api.getStorage('yz1'))+parseFloat($api.getStorage('yz2'))+parseFloat($api.getStorage('yz3'))+parseFloat($api.getStorage('yz4'))+parseFloat($api.getStorage('yz5'));
+var ysum_yd=parseInt($api.getStorage('yz10'))+parseInt($api.getStorage('yz11'))+parseInt($api.getStorage('yz12'))+parseInt($api.getStorage('yz13'))+parseInt($api.getStorage('yz14'))+parseInt($api.getStorage('yz15'));
+// console.log(sum_zs);
+// console.log(sum_yd);
+$api.html(ysum_zs_el,ysum_zs);
+$api.html(ysum_yd_el,ysum_yd);
+// $api.rmStorage('yz10');
+// $api.rmStorage('yz11');
+// $api.rmStorage('yz12');
+// $api.rmStorage('yz13');
+// $api.rmStorage('yz14');
+// $api.rmStorage('yz15');
+// $api.rmStorage('yz0');
+// $api.rmStorage('yz1');
+// $api.rmStorage('yz2');
+// $api.rmStorage('yz3');
+// $api.rmStorage('yz4');
+// $api.rmStorage('yz5');
+ ysetrez();
+ ysetrez1();
+console.log($api.getStorage('yz10'));
+console.log($api.getStorage('yz11'));
+console.log($api.getStorage('yz12'));
+console.log($api.getStorage('yz13'));
+console.log($api.getStorage('yz14'));
+console.log($api.getStorage('yz15'));
+console.log($api.getStorage('yz0'));
+console.log($api.getStorage('yz1'));
+console.log($api.getStorage('yz2'));
+console.log($api.getStorage('yz3'));
+console.log($api.getStorage('yz4'));
+console.log($api.getStorage('yz5'));
+
+ },2000);
+
+// console.log(JSON.stringify(ystr))
+
+//周统计
+var maina_el=document.getElementById("maina");
+var linea_el=document.getElementById("linea");
+var sum_zs_el=document.getElementById("sum_zs");
+var sum_yd_el=document.getElementById("sum_yd");
+  $api.attr(maina_el,'width',api.winWidth);
+    $api.attr(linea_el,'width',api.winWidth);
+//console.log(api.winWidth);
+  var myDate=new Date();
+      today=myDate.getDate();//获取当前日期
+
+//var sw=theWeek();
+	//获取当天为今年第几周
+var time,week,checkDate = new Date(new Date());
+    checkDate.setDate(checkDate.getDate() + 4 - (checkDate.getDay() || 7));
+    time = checkDate.getTime();
+    checkDate.setMonth(0);
+    checkDate.setDate(1);
+    sw=Math.floor(Math.round((time - checkDate) / 86400000) / 7) + 1;
+
+
+var year_a=myDate.getFullYear();
+
+//console.log(sw);
+//console.log(year_a);
+var startDate =convertWeekNumberToFirstDate(year_a,sw);
+ startDate = startDate.getFullYear()+"-"+(startDate.getMonth()+1)+"-"+startDate.getDate();
+//console.log(startDate);
+
+var myArray=new Array();
+var myArraysum=new Array();
+var myArraycount=new Array();
+myArray=add_time_arr(startDate);
+var html_a=year_a+"年第"+sw+"周"+t_today_aa(myArray[0])+"-"+t_today_aa(myArray[6]);
+
+console.log("一周第1天"+myArray[0]);
+console.log("一周最后1天"+myArray[0]);
+$("#zbegintime").val(myArray[0]);
+$("#zendtime").val(myArray[6]);
+
+  $('#curDate').html(html_a);
+  $api.html(sum_zs_el,"");
+  $api.html(sum_yd_el,"");
+  //setTimeout(function(){
+myArraysum_arr(myArray);
+ //}, 100);
+//setTimeout(function(){
+myArraycount_arr(myArray);
+// }, 300);
+ setTimeout(function(){
+var sum_zs=parseFloat($api.getStorage('z0'))+parseFloat($api.getStorage('z1'))+parseFloat($api.getStorage('z2'))+parseFloat($api.getStorage('z3'))+parseFloat($api.getStorage('z4'))+parseFloat($api.getStorage('z5'))+parseFloat($api.getStorage('z6'));
+var sum_yd=parseInt($api.getStorage('z10'))+parseInt($api.getStorage('z11'))+parseInt($api.getStorage('z12'))+parseInt($api.getStorage('z13'))+parseInt($api.getStorage('z14'))+parseInt($api.getStorage('z15'))+parseInt($api.getStorage('z16'));
+// console.log(sum_zs);
+// console.log(sum_yd);
+$api.html(sum_zs_el,sum_zs);
+$api.html(sum_yd_el,sum_yd);
+setrez();
+ setrez1();
+ console.log($api.getStorage('z10'));
+ console.log($api.getStorage('z11'));
+ console.log($api.getStorage('z12'));
+ console.log($api.getStorage('z13'));
+ console.log($api.getStorage('z14'));
+ console.log($api.getStorage('z15'));
+   console.log($api.getStorage('z16'));
+ console.log($api.getStorage('z0'));
+ console.log($api.getStorage('z1'));
+ console.log($api.getStorage('z2'));
+ console.log($api.getStorage('z3'));
+ console.log($api.getStorage('z4'));
+ console.log($api.getStorage('z5'));
+   console.log($api.getStorage('z6'));
+
+
+ }, 3000);
+
+
+};
+
+
+
+
+
+
+
+</script>
+<script src="../../script/ytongji.js"></script>
+<script src="../../script/tongji.js"></script>
+
+
+</html>

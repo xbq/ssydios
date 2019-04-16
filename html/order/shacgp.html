@@ -1,0 +1,173 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>砂石运单</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/style.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="../../css/scCss.css">
+    <script type="text/javascript" src="../../script/api.js"></script>
+    <script type="text/javascript" src="../../script/common.js"></script>
+    <script type="text/javascript" src="../../script/jquery.min.js"></script>
+    <script type="text/javascript" src="../../script/bootstrap.min.js"></script>
+</head>
+
+<style>
+
+.y_sh{display:inline-block; width:40px; float:left; font-size:20px; line-height:40px; height:40px;}
+</style>
+<body style="background:#ffffff">
+
+
+
+  <div id="wrap" class="flex-wrap flex-vertical">
+
+    <div class="container grad">
+      <div class="i20"></div>
+      <div class="row">
+        <div class="col-xs-3 font1" onClick="sliding()"> <img src="../../image/Drback.png"></div>
+        <div class="col-xs-6 font2"> 添加砂场 </div>
+        <!-- <div class="col-xs-3 font3"> <img src="../../image/sxj.png"> </div> -->
+      </div>
+      <div style="clear: both"></div>
+            <div class="i5"></div>
+    </div>
+
+    <!-- <div id="header_s">
+        <ul>
+            <li class="border-b active" >添加运沙船<a class="menu" tapmode="" onClick="sliding()"></a></li>
+        </ul>
+    </div> -->
+
+
+
+
+    <div id="main" class="flex-con"  >
+
+   <div class="container">
+      <div class="row"   >
+
+                <div class="col-xs-12" >
+                   <div style=" width:100%">
+
+                       <span class="glyphicon glyphicon-search y_sh"  onclick="ysq_c()"></span>
+                       <input type="text" id="ysqsearch" class="form-control" style="width:80%; float:left">
+
+                   </div>
+                 </div>
+
+<input type="hidden" name="uid" id="uid" value="" style="display:none;width:100px; margin:0 auto; height:20px; padding-left:50px; background:#f00"/>
+      </div>
+
+     <div style="height:10px"></div>
+
+     <div id="y_ysq" >
+
+
+     </div>
+
+</div>
+
+
+    </div>
+
+
+
+</DIV>
+</body>
+</html>
+
+
+</body>
+<script>
+function sliding()
+{
+  api.closeWin({
+    name:'order_shacgp',
+    animation: {type:'none'}
+  });
+}
+function openysq(name,uid)
+{
+
+  api.closeWin({
+    name:'order_shacgp',
+    animation: {type:'none'}
+  });
+
+  var uid_el=document.getElementById("uid");
+var uida=  $api.val(uid_el);
+
+    api.execScript({
+          name: 'order_orderinfo_7',
+        script: 'shac_uid('+ JSON.stringify(name)+','+ JSON.stringify(uid)+');'
+      });
+
+}
+
+function ysq_c()
+{
+//console.log(1);
+ var ysqsearch_el=document.getElementById("ysqsearch");
+
+  api.ajax({
+
+  //  url: functionURL + 'sandCarrierScreen/getList.json',
+   url: functionURL + 'sandPlantScreen/getAll.json',
+      method: 'post',
+      headers:
+      {
+
+        login_token:$api.getStorage('loginToken')
+      },
+      data: {
+          values: {
+            name:$api.val(ysqsearch_el)
+          },
+          files: {
+              file: 'fs://a.gif'
+          }
+      }
+  }, function(ret, err) {
+      if (ret) {
+
+
+       if( ret['data'].length>0)
+           {
+             var html = '';
+             var y_ysq_el=document.getElementById("y_ysq");
+
+             for (i = 0; i < ret['data'].length; i++) {
+               var item = ret['data'][i];
+
+                  html+='<div class="form-group" style="width:100%; padding:2px 10px; font-size:16px;" onclick=openysq("'+item['name']+'","'+item['uid']+'")>';
+                  html+='<span >'+item['name']+'</span>';
+                  html+='</div>';
+
+             }
+
+             $api.html(y_ysq_el,html);
+
+           }
+
+
+      }
+  });
+
+}
+
+
+
+apiready = function(){
+  var sid = api.pageParam.id;
+
+  var uid_el=document.getElementById("uid");
+  $api.val(uid_el,sid);
+  console.log(sid);
+
+};
+</script>
+</html>

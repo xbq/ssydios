@@ -1,0 +1,510 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>砂石运单</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/style.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="../../css/scCss.css">
+    <script type="text/javascript" src="../../script/api.js"></script>
+    <script type="text/javascript" src="../../script/common.js"></script>
+    <script type="text/javascript" src="../../script/jquery.min.js"></script>
+    <script type="text/javascript" src="../../script/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../script/tuisong.js"></script>
+</head>
+
+
+<body>
+
+
+  <div id="wrap" class="flex-wrap flex-vertical">
+
+
+  <style>
+    #Memobox_s{ top:5%; padding:10px; }
+    #Memobox_s h4{ padding:5px 0}
+    #Memobox_s textarea{ width:96%}
+    #Memobox_s .set-style { margin:5px 0; font-size:16px;}
+    #Memobox_s p.error { font-size:12px;}
+    #Memobox_s  .modal-footer{ background:none}
+    #Memobox_s button{ padding:2px 10px; margin-top:5px}
+    </style>
+        <div class="modal fade Memobox" id="Memobox_s" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+          <div class="modal-dialog">
+            <div class="modal-content">
+              <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal"
+                    aria-hidden="true">×
+                </button>
+                <h4 class="modal-title" id="myModalLabel">
+                  选择砂场
+                </h4>
+              </div>
+              <div class="modal-body" id="shachangid">
+
+              </div>
+
+              <div class="modal-footer">
+             <a class="btn btn-default" data-dismiss="modal">关闭</a>
+         </div>
+
+            </div>
+          </div>
+        </div>
+
+
+    <div class="container grad">
+        <div class="i20"></div>
+      <div class="row">
+        <div class="col-xs-3 font1" onClick="sliding()">  <img src="../../image/Drback.png"> </div>
+        <div class="col-xs-6 font2"> 运单改派 </div>
+        <div class="col-xs-3 font3"> <a href="#"  data-toggle="modal" data-target="#Memobox_s"  ><img src="../../image/sbi.png"></a></div>
+      </div>
+      <div style="clear: both"></div>
+      <div class="i5"></div>
+    </div>
+    <div id="main" class="flex-con " >
+      <input type="text" id="uid">
+        <input type="text" id="boatId">
+      <input type="hidden" id="toDistrict">
+   <div id="order_detail"></div>
+
+   <div class="ddxq-btn"><!--点击改派按钮的时候显示确认改派按钮-->
+        <button type="button" onClick="submitgp()">确认改派</button>
+      </div>
+
+
+
+    </div>
+  </div>
+
+
+  <!-- <div id="wrap" class="flex-wrap flex-vertical">
+
+
+
+    <style>
+      #Memobox_s{ top:5%; padding:10px; }
+      #Memobox_s h4{ padding:5px 0}
+      #Memobox_s textarea{ width:96%}
+      #Memobox_s .set-style { margin:5px 0; font-size:16px;}
+      #Memobox_s p.error { font-size:12px;}
+      #Memobox_s  .modal-footer{ background:none}
+      #Memobox_s button{ padding:2px 10px; margin-top:5px}
+      </style>
+          <div class="modal fade Memobox" id="Memobox_s" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <button type="button" class="close" data-dismiss="modal"
+                      aria-hidden="true">×
+                  </button>
+                  <h4 class="modal-title" id="myModalLabel">
+                    选择沙场
+                  </h4>
+                </div>
+                <div class="modal-body" id="shachangid">
+
+                </div>
+
+                <div class="modal-footer">
+               <a class="btn btn-default" data-dismiss="modal">关闭</a>
+           </div>
+
+              </div>
+            </div>
+          </div>
+
+
+    <div id="header_s">
+        <ul>
+            <li class="border-b active" >运单改派<a class="menu" tapmode="" onClick="sliding()"></a><a href="#"  data-toggle="modal" data-target="#Memobox_s" class="member_gp01" ></a></li>
+        </ul>
+    </div>
+
+
+
+
+    <div id="main" class="flex-con" >
+
+     <div style="padding：10px">
+       <div id="order_detail"></div>
+     </div>
+
+<input type="text" id="uid">
+<input type="text" id="toDistrict">
+
+  <button type="button" class="btn btn-danger" onClick="submitgp()" style="color:#ffffff">提交</button>
+
+    </div>
+
+
+
+</DIV> -->
+</body>
+</html>
+
+
+</body>
+<script>
+
+function submitgp()
+{
+    var to_district_el=document.getElementById("toDistrict");
+    var uid_el=document.getElementById("uid");
+    var reassigner=$api.getStorage('usid');
+    var toDistrict=  $api.val(to_district_el);
+    var uid=  $api.val(uid_el);
+    console.log(toDistrict);
+    console.log(uid);
+    console.log(reassigner);
+
+  api.ajax({
+      url: functionURL + 'wayBillScreen/reassign.json',
+
+      dataType:'text',
+      headers:
+      {
+
+        login_token:$api.getStorage('loginToken')
+      },
+      method: 'post',
+      data: {
+          values: {
+              reassigner: reassigner,
+              toDistrict: toDistrict,
+              uid: uid,
+              // status: 3
+
+          },
+          files: {
+              file: 'fs://a.gif'
+          }
+      }
+  }, function(ret, err) {
+
+//  console.log(JSON.stringify(ret));
+      if (ret) {
+        if(ret==1)
+        {
+            api.alert({
+                 msg: '修改成功'
+             });
+
+var boatId_el=document.getElementById("boatId");
+var boatId=$api.val(boatId_el);
+
+
+                 api.openWin({
+                            name : 'order_orderlist',
+                            url : '../order/orderlist.html',
+                             reload:true,
+                            slidBackEnabled:false,
+                            delay:150,
+                    	 			animation:{
+                    	 				type:"fade",
+                    	 				subType:"from_bottom",
+                    	 		}
+
+                        })
+//serverSendMessagegp(boatId,uid);
+        }
+      }
+  });
+
+}
+
+function sliding()
+{
+  api.closeWin({
+    name:'order_gp',
+    animation: {type:'none'}
+  });
+}
+function shachangid(name,uid)
+{
+
+  var to_district_el=document.getElementById("toDistrict");
+  var toName_el=document.getElementById("toName");
+
+  $api.val(to_district_el,uid);
+  $api.html(toName_el,name);
+ $('#Memobox_s').modal('hide');
+
+}
+
+
+function shachang()
+{
+  api.ajax({
+
+    url: functionURL + 'sandPlantScreen/getAll.json',
+      method: 'get',
+      headers:
+      {
+
+        login_token:$api.getStorage('loginToken')
+      },
+      data: {
+          values: {
+
+          },
+          files: {
+              file: 'fs://a.gif'
+          }
+      }
+  }, function(ret, err) {
+      if (ret) {
+
+
+       if( ret['data'].length>0)
+           {
+             var html = '';
+             var shachangid_el=document.getElementById("shachangid");
+
+             for (i = 0; i < ret['data'].length; i++) {
+               var item = ret['data'][i];
+
+                  html+='<div class="form-group" style="width:100%"  onclick=shachangid("'+item['name']+'",'+item['uid']+')>';
+                  html+='<span>'+item['name']+'</span>';
+                  html+='</div>';
+
+             }
+
+             $api.html(shachangid_el,html);
+
+           }
+
+
+      }
+  });
+
+}
+
+
+
+apiready = function(){
+shachang();
+
+    var sid = api.pageParam.id;
+
+     var uid_el=document.getElementById("uid");
+     $api.val(uid_el,sid);
+    //console.log(sid);
+    api.ajax({
+        url: functionURL + 'wayBillScreen/getListForApp.json',
+        method: 'get',
+        headers:
+        {
+
+          login_token:$api.getStorage('loginToken')
+        },
+        data: {
+            values: {
+                uid: sid
+            },
+            files: {
+                file: 'fs://a.gif'
+            }
+        }
+    }, function(ret, err) {
+        if (ret) {
+//console.log(JSON.stringify(ret));
+      if( ret['data'].length>0){
+  var item = ret['data'][0];
+           var html = '';
+           var order_detail_el=document.getElementById("order_detail");
+
+
+     var boatId_el=document.getElementById("boatId");
+     $api.val(boatId_el,item['boatId']);
+
+var to_district_ela=document.getElementById("toDistrict");
+$api.val(to_district_ela,item['toDistrict']);
+           html+='<div class="tab-bg container ">';
+          html+='<div class="row">';
+               html+='<div class="col-xs-9">';
+                 html+='<div class="tab-font1"><strong>订单号：'+item['waybillUuid']+'</strong></div>';
+               html+='</div>';
+               html+='<div class="col-xs-3">';
+                 html+='<div class="tab-y tab-y-color2">'+item['statusName']+'</div>';
+               html+='</div>';
+            html+=' </div>';
+             html+='<div class="row tab-sx">';
+               html+='<div class="col-xs-6"> <span class="tab-f">发</span><span class="tab-font2">'+item['fromName']+'</span> </div>';
+               html+='<div class="col-xs-6"> <span class="tab-f">收</span><span class="tab-font2" id="toName">'+item['toName']+'</span> </div>';
+             html+='</div>';
+             html+='<div class="row">';
+               html+='<div class="col-xs-5">';
+                 html+='<div class="tab-font1">运砂船：8号</div>';
+               html+='</div>';
+               html+='<div class="col-xs-7">';
+                 html+='<div class="tab-font1 tab-r">'+item['starttime']+'</div>';
+              html+='</div>';
+             html+='</div>';
+           html+='</div>';
+
+           html+='<div class="tab-bg container ddxq-t">';
+             html+='<div class="row">';
+               html+='<div class="col-xs-12 ddxq-font1">';
+                 html+='<div><span>订单信息</span></div>';
+               html+='</div>';
+             html+='</div>';
+             html+='<div class="row ddxq-l">';
+               html+='<div class="col-xs-6 ddxq-font2"> 订单号： </div>';
+               html+='<div class="col-xs-6 ddxq-font3"> '+item['waybillUuid']+' </div>';
+             html+='</div>';
+             html+='<div class="row ddxq-l">';
+               html+='<div class="col-xs-6 ddxq-font2"> 运砂船： </div>';
+               html+='<div class="col-xs-6 ddxq-font3"> '+item['boatName']+'</div>';
+             html+='</div>';
+             html+='<div class="row ddxq-l">';
+               html+='<div class="col-xs-6 ddxq-font2"> 运砂量： </div>';
+               html+='<div class="col-xs-6 ddxq-font3"> '+item['weight']+'吨 </div>';
+             html+='</div>';
+             html+='<div class="row ddxq-l">';
+               html+='<div class="col-xs-6 ddxq-font2"> 核定运砂量： </div>';
+               html+='<div class="col-xs-6 ddxq-font3"> '+item['realWeight']+'吨 </div>';
+             html+='</div>';
+             html+='<div class="row ddxq-l">';
+               html+='<div class="col-xs-6 ddxq-font2"> 采砂船： </div>';
+               html+='<div class="col-xs-6 ddxq-font3"> '+item['sandboatName']+' </div>';
+             html+='</div>';
+             html+='<div class="row ddxq-l">';
+               html+='<div class="col-xs-6 ddxq-font2"> 发货员： </div>';
+               html+='<div class="col-xs-6 ddxq-font3"> '+item['deliverName']+'</div>';
+             html+='</div>';
+             html+='<div class="row ddxq-l">';
+               html+='<div class="col-xs-6 ddxq-font2"> 发货时间： </div>';
+               html+='<div class="col-xs-6 ddxq-font3"> '+item['starttime']+'</div>';
+             html+='</div>';
+             html+='<div class="row ddxq-l">';
+               html+='<div class="col-xs-6 ddxq-font2"> 采区： </div>';
+               html+='<div class="col-xs-6 ddxq-font3"> '+item['fromName']+' </div>';
+             html+='</div>';
+             html+='<div class="row ddxq-l">';
+               html+='<div class="col-xs-6 ddxq-font2"> 砂场： </div>';
+               html+='<div class="col-xs-6 ddxq-font3"> '+item['toName']+'</div>';
+             html+='</div>';
+
+         if(item['accepttime']!=null)
+               {
+                 html+='<div class="row ddxq-l">';
+                   html+='<div class="col-xs-6 ddxq-font2"> 收货时间： </div>';
+                   html+='<div class="col-xs-6 ddxq-font3"> '+item['accepttime']+' </div>';
+                 html+='</div>';
+
+            // html+='<div>收货时间：'+item['accepttime']+'</div>';
+            }
+
+
+
+                         html+='<div class="row">';
+                           html+='<div class="col-xs-12 ddxq-font1">';
+                             html+='<div><span>装载照片</span></div>';
+                           html+='</div>';
+                           html+='<div class="row ddxq-picw">';
+
+                            if(item['fullpicture']!=null)
+                            {
+                              $api.setStorage('fullpicture', item['fullpicture']);
+                              var fullpicture=item['fullpicture'].split(",");
+
+
+                              for (i = 0; i < fullpicture.length; i++) {
+                                   //console.log(strArr[i]);
+                                   html+='<div class="col-xs-4">';
+
+                                  //  html+='<a class="ddxq-pic" onmousedown=ondown("'+fullpicture[i]+'")> <img src="'+functionURLimg+fullpicture[i]+'" alt=""> </a>';
+                                  html+='<a class="ddxq-pic" onmousedown=ondown("'+fullpicture[i]+'")> <img src="" alt="" id="sssa'+i+'"></a>';
+                                  //var simg_aa=functionURLimg+fullpicture[i];
+                                //  imageCache("sssa",simg_aa);
+            //html+='<img src="/var/mobile/Containers/Data/Application/669688EF-55E2-4133-AB30-811067E93FF0/Library/Caches/APICloud/Cache/fd5f0bfaecbb233306b77ab175017278_thumb.jpg" > </a>';
+             //var simg_aa=functionURLimg+fullpicture[i];
+                //	setTimeout(function(){
+            //                       api.imageCache({
+            //                           url: simg_aa,
+            //                           //policy: 'cache_else_network'
+            //                       }, function(retaa, err) {
+            //                         if(retaa)
+            //                         {
+            //                           $("#sssa").attr("src",retaa.url);
+            //                         //  document.getElementById('sssa'+i).src = retaa.url;
+            //                   //  html+='<img src="'+retaa.url+'" > ';
+            //                           //var urla = ret.url;
+            // //console.log(retaa.url);
+            // }
+            //                           });
+
+            //},300)
+                                    //html+='<img src=ondown_as("'+fullpicture[i]+'") alt=""> </a>';
+                                   html+='</a></div>';
+
+                               }
+
+                            }
+
+                           html+='</div>';
+                         html+='</div>';
+
+
+             //
+            //  html+='<div class="row">';
+            //    html+='<div class="col-xs-12 ddxq-font1">';
+            //      html+='<div><span>装载照片</span></div>';
+            //    html+='</div>';
+            //    html+='<div class="row ddxq-picw">';
+            //      html+='<div class="col-xs-4"> <a href="#" class="ddxq-pic"> <img src="image/sto.png" alt=""> </a> </div>';
+             //
+            //    html+='</div>';
+            //  html+='</div>';
+          //  html+='<div class="row">';
+          //      html+='<div class="col-xs-12 ddxq-font1">';
+          //        html+='<div><span>卸货照片</span></div>';
+          //      html+='</div>';
+          //      html+='<div class="row ddxq-picw">';
+          //        html+='<div class="col-xs-4"> <a href="#" class="ddxq-pic"> <img src="image/sto.png" alt=""> </a> </div>';
+           //
+          //      html+='</div>';
+          //    html+='</div>';
+           html+='</div>';
+
+        //    html+='<div>订单号：'+item['waybillUuid']+'|'+item['statusName']+'</div>';
+        //    html+='<div>发：'+item['fromName']+'|收<span id="toName">'+item['toName']+'|'+item['starttime']+'<span></div>';
+        //    html+='<div  style="height:10px;"></div>';
+        //    html+='<div>'+item['waybillUuid']+'</div>';
+        //    html+='<div>运砂船：'+item['boatName']+'</div>';
+        //    html+='<div>运砂量：'+item['weight']+'</div>';
+        //    html+='<div>核定运沙量：'+item['realWeight']+'</div>';
+        //    html+='<div>采砂船：'+item['sandboatName']+'</div>';
+        //    html+='<div>发货员：'+item['deliverName']+'</div>';
+        //    html+='<div>发货时间：'+item['starttime']+'</div>';
+        //    html+='<div>采区：'+item['fromName']+'</div>';
+        //    html+='<div>砂厂：'+item['toName']+'</div>';
+        // //   console.log(item['accepttime']);
+        //    if(item['accepttime'] == ''|| item['accepttime']!=null)
+        //    {
+        //    html+='<div>收货时间：'+item['accepttime']+'</div>';
+        //    }
+
+                $api.html(order_detail_el,html);
+              }
+
+              if(item['fullpicture']!=null){
+                imageCache_a();
+              }
+                  if(item['emptypicture']!=null){
+                imageCache_b();
+              }
+              if(item['unloadpicture']!=null){
+            imageCache_c();
+          }
+
+        }
+    });
+};
+</script>
+</html>

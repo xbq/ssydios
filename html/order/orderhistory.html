@@ -1,0 +1,1581 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>砂石运单</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/style.css"/>
+    <link rel="stylesheet" href="../../css/weui.css"/>
+    <link rel="stylesheet" href="../../css/swiper.min.css"/>
+    <link rel="stylesheet" href="../../css/jquery-weui.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="../../css/scCss.css">
+    <script type="text/javascript" src="../../script/api.js"></script>
+    <script type="text/javascript" src="../../script/common.js"></script>
+
+
+      <script src="../../script/zepto.min.js"></script>
+      <script type="text/javascript" src="../../script/jweixin-1.0.0.js"></script>
+      <script src="../../script/weui.min.js"></script>
+
+  <script type="text/javascript" src="../../script/order.js"></script>
+
+
+
+
+  <style>
+      .swiper-container {
+        width: 100%;
+        height: 100%;
+      }
+      .swiper-slide {
+        text-align: center;
+        font-size: 18px;
+        /*background: #fff;*/
+        /* Center slide text vertically */
+        display: -webkit-box;
+        display: -ms-flexbox;
+        display: -webkit-flex;
+        display: flex;
+        -webkit-box-pack: center;
+        -ms-flex-pack: center;
+        -webkit-justify-content: center;
+        justify-content: center;
+        -webkit-box-align: center;
+        -ms-flex-align: center;
+        -webkit-align-items: center;
+        align-items: center;
+      }
+  	table{width: 100%;text-align: center;}
+
+	.swiper-wrapper table tr td{
+	  color: #fff;
+	  position: relative; zoom:1; overflow: hidden;
+	   /*padding: 5px 0px 10px;*/
+     /*font-family: Tahoma;*/
+     width: 14.28%;
+     /*background: #f00;*/
+     padding-top: 11px;
+     padding-bottom: 15px;
+      height: 32px;
+       line-height: 32px;
+       font-size: 16px;}
+      	button {
+      	  height: 32px;
+          /*background: url("../image/a1.png") no-repeat 49% 42%;
+          background-size: 40px;*/
+/*border: 1px solid #f00;*/
+      	  width:100%;
+          /*background-color: #f00;*/
+           text-align:center;}
+  	.btnactive{
+  	  /*background-color: blue;*/
+ /*background-image: url("/image/a1.png");*/
+ /*color: #d6d6d6;*/
+    }
+
+  		/*日历样式*/
+  .grad {
+  	background: -webkit-linear-gradient(left, #17baff, #178aff); /* Safari 5.1 - 6.0 */
+  	background: -o-linear-gradient(right, #17baff, #178aff); /* Opera 11.1 - 12.0 */
+  	background: -moz-linear-gradient(right, #17baff, #178aff); /* Firefox 3.6 - 15 */
+  	background: linear-gradient(to right, #17baff, #178aff); /* 标准的语法 */
+  }
+  table {
+  	/*background: -webkit-linear-gradient(left, #17baff, #178aff);
+  	background: -o-linear-gradient(right, #17baff, #178aff);
+  	background: -moz-linear-gradient(right, #17baff, #178aff);
+  	background: linear-gradient(to right, #17baff, #178aff);
+  	color: #ffffff;*/
+  }
+  .rl-font1{
+  	font-size: 18px;
+  	color: #ffffff;
+  	margin-bottom: 5px;
+  }
+  .rl-font2{
+  	font-size: 14px;
+  	color: #a2deff;
+  	font-weight: bold;
+  }
+
+  button{
+  	/*color: #ffffff;*/
+
+  }
+    </style>
+
+</head>
+
+<style>
+.ui-loader-default{ display:none}
+.ui-mobile-viewport{ border:none;}
+.ui-page {padding: 0; margin: 0; outline: 0}
+#pageone{ width:100%;}
+#monitor td{ width:14.3%; text-align:center}
+#monitor_a td{ width:14.3%; text-align:center}
+#next-week{ margin-right:10px}
+#last-week{ margin-left:10px;}
+
+</style>
+<body ontouchstart>
+
+  <div id="wrap" class="flex-wrap flex-vertical">
+    <div class="container grad" >
+        <div class="i20"></div>
+      <div class="row">
+        <div class="col-xs-3 font1" onclick="openudtj()" > <img src="../../image/stb.png"></div>
+        <div class="col-xs-6 font2"> 历史订单 </div>
+        <div class="col-xs-3 font3" id="showDatePicker"> <img src="../../image/srl.png"> </div>
+      </div>
+		<div class="i10"></div>
+      <div style="clear: both"></div>
+    </div>
+<div class="tab-bg container" id="tab-bg " style="padding:0px auto; margin:0px auto 0px">
+
+  		  <div class="row" style="position: relative">
+
+  			  <div class="col-xs-6 ddxq-font1" >
+
+  				  <div><span style="font-weight:700">运单概况</span></div>
+
+  			  </div>
+
+          <div class="col-xs-6 ddxq-font1" style="text-align: right; font-size:14px" >
+<bdi id="scountriqi"></bdi>
+          </div>
+
+  		  </div>
+  		  <div class="row" style=" position:relative">
+
+			 <div class="col-xs-6 ddxq-font1" style="white-space:nowrap">
+运单量：<bdi id="scountdan"></bdi>单
+  			  </div>
+
+  			  <div class="col-xs-6 ddxq-font1" style="white-space:nowrap;text-align:right;" >
+运砂量：<bdi id="scountdun"></bdi>吨
+  			  </div>
+
+  		  </div>
+
+  <input type="hidden" id="from_district" class="form-control" readonly="readonly">
+
+      <div id="csq">
+  		  <!-- <div class="row">
+  			  <div class="col-xs-6 gpdd-font2">
+  				  采砂船：NC-123556
+  			  </div>
+  			  <div class="col-xs-6 gpdd-font2 gpdd-r">
+  				 南昌中支采区
+  			  </div>
+  		  </div> -->
+      </div>
+
+  	  </div>
+    <div class="grad" style="display: none">
+    		<!-- <div class="weui-cell weui-cell_vcode">
+    			<div class="weui-cell__bd"></div>
+    			<div class="weui-cell__ft">
+    				<img id="choiseDate" class="weui-vcode-img" type="date" src="images/icon_nav_calendar.png" style="width:30px;height:30px;margin:10px 0px 0px 10px;">
+    				<input id="date" type="date" style="border:0px;width:0px;height:0px;">
+    			</div>
+    		</div> -->
+    		<div class="page__bd "  style="padding:10px 0">
+    			<div class="weui-row1" style="position:relative">
+    				<div class="weui-col-20" onclick="jumpMonth(-1)" style="text-align:left; width:20%;float:left"><img src="../../image/a3.png" style="height:20px;margin-left:10px; padding-top:5px; " ></div>
+    				<div class="weui-col-60" style="text-align:center; width:60%;float:left; font-size:18px; color:#fff; "><span class="weui-loadmore__tips" id="curMonth" ></span></div>
+    				<div class="weui-col-20" onclick="jumpMonth(1)" style="text-align:right; width:20%;float:right"><img src="../../image/a2.png"  style="height:20px;margin-right:10px;padding-top:5px;"></div>
+    			</div>
+
+    		</div>
+        <div style="clear:both; height:10px;"></div>
+    		<div class="page__bd">
+    			<table class="rl-font2">
+    				<tr>
+    					<td>日</td>
+    					<td>一</td>
+    					<td>二</td>
+    					<td>三</td>
+    					<td>四</td>
+    					<td>五</td>
+    					<td>六</td>
+    				</tr>
+    			</table>
+    			<div class="swiper-container">
+    				<div class="swiper-wrapper"  ></div>
+    			</div>
+
+    		</div>
+    		<div class="weui-cells" style="display:none">
+    			<div class="weui-cell">
+    				<div class="weui-cell__bd"  >
+    					<input id="preDate" class="weui-input" type="text" placeholder="初始日期">
+    				</div>
+    			</div>
+    		</div>
+    		<div class="weui-cells"  style="display:none">
+    			<div class="weui-cell">
+    				<div class="weui-cell__bd" >
+    					<input id="curSunday" class="weui-input" type="text" placeholder="当前周日">
+    				</div>
+    			</div>
+    		</div>
+    		<div class="weui-cells" style="display:none">
+    			<div class="weui-cell">
+    				<div class="weui-cell__bd" >
+    					<input id="selectDay" class="weui-input" type="text" placeholder="选中日期">
+    				</div>
+    			</div>
+    		</div>
+    	</div>
+
+    <div id="main" class="flex-con " >
+
+
+        <div class="tab-pane fade in active" id="itema">
+
+        </div>
+
+
+
+
+    </div>
+
+    <!-- <div id="footer" class="border-t">
+       <ul class="flex-wrap" >
+         <li tapmode="hover" onClick="randomS(0)" class="flex-con  " >今日订单</li>
+         <li tapmode="hover" onClick="randomS(1)" class="flex-con active" >历史订单</li>
+         <li tapmode="hover" onClick="randomS(2)" class="flex-con " >个人中心</li>
+       </ul>
+   </div> -->
+
+  </div>
+
+
+</body>
+</html>
+
+
+</body>
+<script src="../../script/swiper.min.js"></script>
+<script>
+
+
+$('#showDatePicker').on('click', function () {
+    weui.datePicker({
+        start: 1990,
+        end: new Date().getFullYear(),
+        defaultValue:[new Date().getFullYear(),(new Date().getMonth())+1,new Date().getDate()],
+        onChange: function (result) {
+            console.log(result);
+        },
+        onConfirm: function (result) {
+              str=JSON.stringify(result);
+      				str=str.replace("[","");
+      				str=str.replace("]","");
+                      // console.log(str);
+      				str=str.split(",");
+              var sa=str[0]+'-'+str[1]+'-'+str[2];
+            //  console.log(sa);
+              //  data_pop(sa);
+
+
+              	$('#preDate').val(sa);
+              	initSwiper(1);
+                  data_pop(sa);
+
+
+      	//	setSwiper(new Date(sa.replace(/-/g,"/")));
+          		//setSwiper(new Date($('#preDate').val().replace(/-/g,"/")));
+      			//	alert(str[0]+'-'+str[1]+'-'+str[2]);
+        }
+    });
+});
+
+
+var preIndex; //向左添加索引
+	var nextIndex; //向右添加索引
+	$('#choiseDate').click(function(){
+		$('#date').click();
+	})
+	$(function(){
+
+		$('#preDate').val(new Date());
+		initSwiper(1);
+	});
+	$('#date').live('change',function(){
+		$('#preDate').val($('#date').val());
+		initSwiper(1);
+	});
+	function jumpMonth(i){
+    $api.setStorage('jumpMonth',1);
+		var str=$('#curMonth').html().replace("月",'').split('年');
+		var curYear=parseInt(str[0]);
+		var curMonth=parseInt(str[1]);
+		if(i==-1){
+			if(curMonth==1){
+				curYear=curYear-1;
+				curMonth=12;
+			}else{
+				curMonth=curMonth-1;
+			}
+		}else{
+			if(curMonth==12){
+				curYear=curYear+1;
+				curMonth=1;
+			}else{
+				curMonth=curMonth+1;
+			}
+		}
+		$('#curMonth').html(curYear+'年'+curMonth+'月');
+		$('#preDate').val(curYear+'-'+curMonth+'-01');
+		initSwiper(1);
+	}
+	function initSwiper(index){
+
+		setSwiper(new Date($('#preDate').val().replace(/-/g,"/")));
+		// alert(new Date($('#preDate').val().replace(/-/g,"/")));return;
+		var swiper = new Swiper('.swiper-container',{
+			on:{
+				slideNextTransitionStart: function(){ //向右、下滑动
+					if(index==swiper.slides.length-2){
+						nextIndex=nextIndex+1;
+						addToSwiper(nextIndex,swiper);
+              $api.setStorage('jumpMonth',0);
+					}
+				},
+				slidePrevTransitionStart: function(){ //向左、上滑动
+					if(index==1){
+						preIndex=preIndex-1;
+						addToSwiper(preIndex,swiper);
+              $api.setStorage('jumpMonth',0);
+					}
+				},
+				slideChangeTransitionEnd: function(){
+					// alert(this.activeIndex);
+					// alert(swiper.slides.length);
+					index=this.activeIndex;
+					$('#curMonth').html($('.swiper-slide-active .hidMonth').val());
+            $api.setStorage('jumpMonth',0);
+				},
+			},
+		});
+  setTimeout(function () {
+
+		addToSwiper(-1,swiper);
+		// addToSwiper(-2);
+		preIndex=-1;
+		addToSwiper(1,swiper);
+		// addToSwiper(2);
+		nextIndex=1;
+  }, 300)
+	}
+	function addDate(date,n){ //获得周日日期（周日开始）
+		date.setDate(date.getDate()+n);
+		return date;
+	};
+	function setSwiper(date){
+		var curMonth=date.getFullYear()+'年'+(date.getMonth()+1)+'月';
+		//var curDate=(new Date()).getDate();
+   var curDate=date.getDate();
+	$('#curMonth').html(curMonth);
+		// var week = new Date('2017-12-31'.replace(/-/g,"/")).getDay();
+		var week = date.getDay();
+		// alert(week);return;
+		date = addDate(date,week*-1);
+		$('#curSunday').val(new Date(date));
+		var html='<div class="swiper-slide"><table><tr>';
+		for(var m=0;m<7;m++){
+			if(m!=0){
+				addDate(date,1);
+			}
+    if( $api.getStorage('jumpMonth')==0) {
+    			if(curDate==date.getDate()){ //当天为选中
+    			 	var mclass="btnactive";
+            var mclass_a="intro";
+    			}else{
+    				var mclass="";
+              var mclass_a="";
+    			}
+}
+
+var datea=GMTToStr(date);
+//console.log(datea);
+			html+='<td class="'+mclass_a+'"  onclick=selectDay("'+datea+'") id="'+datea+'"><button value="'+date+'" class='+mclass+'  align="center"><span>'+date.getDate()+'</span></button></td>';
+		}
+		html+='</tr></table><input type="hidden" class="hidMonth" value="'+curMonth+'" /></div>';
+		$('.swiper-wrapper').html(html);
+	}
+	function addToSwiper(n,swiper){
+
+    console.log(n);
+		date=addDate(new Date($('#curSunday').val().replace(/-/g,"/")),n*7);
+		var curMonth=date.getFullYear()+'年'+(date.getMonth()+1)+'月';
+		var html='<div class="swiper-slide"><table><tr>';
+		for(var m=0;m<7;m++){
+			if(m!=0){
+				addDate(date,1);
+			}
+
+
+    var datea=GMTToStr(date);
+    //console.log(datea);
+
+			html+='<td onclick=selectDay("'+datea+'") id="'+datea+'"><button  value="'+date+'"><span>'+date.getDate()+'</span></button></td>';
+
+		}
+		html+='</tr></table><input type="hidden" class="hidMonth" value="'+curMonth+'" /></div>';
+
+      setTimeout(function () {
+		if(n>0){
+			swiper.appendSlide([html]);
+		}else{
+			swiper.prependSlide([html]);
+		}
+
+      }, 300)
+	}
+	function selectDay(t){
+    $("#"+t).addClass("intro");
+    $("#"+t).siblings("td").removeClass("intro");
+    $("#"+t).parent().parent().parent().parent().siblings("div").find("td").removeClass("intro");
+		// $('.swiper-slide-active button').removeClass();
+		// $(t).addClass("btnactive");
+    // $(t).parent().parent().parent().parent().parent().siblings("div").find("button").removeClass("btnactive");
+
+    // $('#selectDay').val($(t).val());
+    // var ttt=$(t).val();
+console.log(t);
+ //setTimeout(function () {
+    data_pop(t);
+  //}, 100)
+ //setTimeout(function () {
+
+
+ //}, 200)
+  //  console.log(GMTToStr(ttt));
+// console.log($(t).val());
+
+//       setTimeout(function(){
+// data_pop(GMTToStr($(t).val()));
+//   }, 500);
+
+	}
+
+  function data_pop(timea)
+  {
+  //alert(timea);
+
+  var t_time_n=add_time(timea);
+  // console.log(timea);
+  // console.log(t_time_n);
+  $api.setStorage('btime',timea);
+    $api.setStorage('totime',timea);
+//$api.setStorage('totime',t_time_n);
+  // $("#"+timea).addClass("intro").parent().parent().siblings('td').find("span").find("bdi").removeClass("intro");
+  if($api.getStorage('uroles')=='采砂船管理员')
+    {loadinfo(1);}
+
+  else if($api.getStorage('uroles')=='采区负责人')
+    {loadinfo_7(1);}
+
+  else if($api.getStorage('uroles')=='采砂船船主')
+    {loadinfo_5(1);}
+  else if($api.getStorage('uroles')=='运砂船船主')
+    {loadinfo_4(1);}
+  else if($api.getStorage('uroles')=='砂场收货员')
+    {loadinfo_3(1);}
+    else if($api.getStorage('uroles')=='二级砂厂负责人')
+      {loadinfo_33(1);}
+      else if($api.getStorage('uroles')=='采运船主')
+        {loadinfo_8(1);}
+
+  	}
+  function GMTToStr(time){
+      var date = new Date(time);
+      var Str=date.getFullYear() + '-' +(date.getMonth() + 1) + '-' +date.getDate();
+      // let Str=date.getFullYear() + '-' +
+      // (date.getMonth() + 1) + '-' +
+      // date.getDate() + ' ' +
+      // date.getHours() + ':' +
+      // date.getMinutes() + ':' +
+      // date.getSeconds()
+      return Str;
+  }
+
+function closePr()
+{
+
+  api.hideProgress();
+}
+
+function openudtj()
+{
+
+  api.showProgress({
+      // title: '努力加载中...',
+      // text: '先喝杯茶...',
+      animationType:'zoom',
+      modal: false
+  });
+  api.openWin({
+
+             name : 'order_udti',
+             url : '../order/udtj.html',
+             slidBackEnabled:false,
+             reload:true,
+            //  progress:{
+            //        type:"default",
+            //        title:"弹出框",
+            //        text:"正在加载中...",
+            //    },
+
+     });
+
+}
+
+
+function formatDate_a(date)
+{
+	        var year = date.getFullYear()+'-';
+        var month = (date.getMonth()+1)+'-';
+        var day = date.getDate();
+        var week = '('+['星期天','星期一','星期二','星期三','星期四','星期五','星期六'][date.getDay()]+')';
+
+        return year+month+day;
+	}
+
+    var myDate=new Date();
+        today=myDate.getDate();//获取当前日期
+		var today_a=formatDate_a(myDate);
+
+
+
+var today_a="";
+
+
+
+
+
+
+
+var itema_el=document.getElementById("itema");
+//采砂船管理员
+function loadinfo(page)
+{
+  var t_time=t_today();
+//  console.log(t_time);
+//console.log($api.getStorage('usid'));
+//console.log($api.getStorage('ucsc06id'));
+
+$("#scountriqi").html($api.getStorage('btime'));
+var scountdan=0;
+var scountdun=0;
+  api.ajax({
+    url: functionURL + 'wayBillScreen/getListForApp.json',
+      method: 'get',
+      headers:
+      {
+
+        login_token:$api.getStorage('loginToken')
+      },
+      data: {
+          values: {
+            // deliver: $api.getStorage('usid'),
+             sandboatId: $api.getStorage('ucsc06id'),
+          //  deliver: 136,
+            //sandboatId: 43,
+          //  begintime:t_time
+
+        begintime:$api.getStorage('btime'),
+        endtime:$api.getStorage('totime'),
+          order:'accepttime'
+
+          },
+          files: {
+              file: 'fs://a.gif'
+          }
+      }
+  }, function(ret, err) {
+console.log(JSON.stringify(ret));
+//console.log($api.getStorage('ucsc06id'));
+
+        if(ret)
+        {
+          scountdan =ret.count;
+                     var html = '';
+
+            if( ret['data'].length>0)
+                  {
+
+                    for (i = 0; i < ret['data'].length; i++) {
+                      var item = ret['data'][i];
+scountdun=scountdun+item['realWeight'];
+                    //console.log(JSON.stringify(item));
+            if(item['locked']==1)
+            {
+                   html+='<div class="tab-bg container cpisition"  onclick="openorder_ts(1)">';
+            }
+           else{
+                    if(item['status']==1)
+                    {
+                         html+='<div class="tab-bg container"  onclick="openorder_a('+item['uid']+')">';
+                    }
+                   else {
+                         html+='<div class="tab-bg container"  onclick="openorderinfo('+item['uid']+')">';
+                   }
+}
+
+if(item['locked']==1)
+{
+            html+='<div class="order_sd"></div>';
+}
+                  //  html+='<div class="tab-bg container"  onclick="openorderinfo('+item['uid']+')">';
+                    html+='<div class="row">';
+                    html+='<div class="col-xs-9">';
+                    html+='<div class="tab-font1"><strong>订单号:'+item['waybillUuid']+'</strong></div>';
+                    html+='</div>';
+                    html+='<div class="col-xs-3">';
+
+
+                    var str_color;
+                    if(item['status']==1)
+                    {
+                       str_color="tab-y-color5";
+                    }
+                    else {
+                     str_color="tab-y-color1";
+                    }
+
+              html+='<div class="tab-y '+str_color+'">'+item['statusName']+'</div>';
+                    html+='  </div>';
+                    html+='</div>';
+                    html+='  <div class="row tab-sx">';
+                    html+='<div class="col-xs-6"> <span class="tab-f">发</span><span class="tab-font2">'+item['fromName']+'</span> </div>';
+                    html+='<div class="col-xs-6"> <span class="tab-f">收</span><span class="tab-font2">'+item['toName']+'</span> </div>';
+                    html+='</div>';
+                    html+='<div class="row">';
+                    html+='<div class="col-xs-7">';
+                    html+='<div class="tab-font1">运砂船:'+item['boatName'] +'</div>';
+                    html+='</div>';
+                    html+='<div class="col-xs-5">';
+                    html+='<div class="tab-font1 tab-r stalla">'+item['starttime']+'</div>';
+                    html+='</div>';
+                    html+='</div>';
+                    html+='</div>';
+
+                    // html+='<div class="itema" onclick="openorderinfo('+item['uid']+')">';
+                    // html+='<div>订单号：'+item['waybillUuid'];
+                    // html+=item['statusName'];
+                    // // if (item['status'] == 2) { //待接单
+                    // //     html += '已发布';
+                    // // } else if (item['status'] == 3) { //待取货
+                    // //     html += '已确认';
+                    // // }
+                    //
+                    // html+='</div>';
+                    // html+='<div>'+item['fromName'] +'|'+item['toName']+'</div>';
+                    // html+='<div>'+item['boatName'] +'|'+item['starttime']+'</div>';
+                    // html+='  </div>';
+
+                    }
+
+
+
+                  }
+
+                 $api.html(itema_el,html);
+                  $("#scountdun").html(scountdun);
+                  $("#scountdan ").html(scountdan);
+          }
+
+  });
+
+}
+
+//采区负责人
+function loadinfo_7(page)
+{
+  var t_time=t_today();
+//  console.log(t_time);
+//console.log($api.getStorage('usid'));
+//console.log($api.getStorage('ucsc06id'));
+
+$("#scountriqi").html($api.getStorage('btime'));
+var scountdan=0;
+var scountdun=0;
+  api.ajax({
+    url: functionURL + 'wayBillScreen/getListForApp.json',
+      method: 'get',
+      headers:
+      {
+
+        login_token:$api.getStorage('loginToken')
+      },
+      data: {
+          values: {
+            // deliver: $api.getStorage('usid'),
+            fromDistrict: $api.getStorage('fromDistrict'),
+          //  deliver: 136,
+            //sandboatId: 43,
+          //  begintime:t_time
+
+        begintime:$api.getStorage('btime'),
+        endtime:$api.getStorage('totime'),
+  order:'accepttime'
+          },
+          files: {
+              file: 'fs://a.gif'
+          }
+      }
+  }, function(ret, err) {
+
+//console.log($api.getStorage('ucsc06id'));
+if(ret)
+{
+             var html = '';
+scountdan =ret.count;
+    if( ret['data'].length>0)
+          {
+            for (i = 0; i < ret['data'].length; i++) {
+              var item = ret['data'][i];
+scountdun=scountdun+item['realWeight'];
+            //console.log(JSON.stringify(item));
+
+          //   if(item['status']==1)
+          //   {
+          //        html+='<div class="tab-bg container"  onclick="openorder_a('+item['uid']+')">';
+          //   }
+          //  else {
+          //        html+='<div class="tab-bg container"  onclick="openorderinfo('+item['uid']+')">';
+          //  }
+html+='<div class="tab-bg container cpisition"  onclick="openorderinfo_7('+item['uid']+')">';
+if(item['locked']==1)
+{
+      html+='<div class="order_sd"></div>';
+}
+          //  html+='<div class="tab-bg container"  onclick="openorderinfo('+item['uid']+')">';
+            html+='<div class="row">';
+            html+='<div class="col-xs-9">';
+            html+='<div class="tab-font1"><strong>订单号:'+item['waybillUuid']+'</strong></div>';
+            html+='</div>';
+            html+='<div class="col-xs-3">';
+
+
+            var str_color;
+            if(item['status']==1)
+            {
+               str_color="tab-y-color5";
+            }
+            else {
+             str_color="tab-y-color1";
+            }
+
+      html+='<div class="tab-y '+str_color+'">'+item['statusName']+'</div>';
+            html+='  </div>';
+            html+='</div>';
+            html+='  <div class="row tab-sx">';
+            html+='<div class="col-xs-6"> <span class="tab-f">发</span><span class="tab-font2">'+item['fromName']+'</span> </div>';
+            html+='<div class="col-xs-6"> <span class="tab-f">收</span><span class="tab-font2">'+item['toName']+'</span> </div>';
+            html+='</div>';
+            html+='<div class="row">';
+            html+='<div class="col-xs-7">';
+            html+='<div class="tab-font1">运砂船:'+item['boatName'] +'</div>';
+            html+='</div>';
+            html+='<div class="col-xs-5">';
+            html+='<div class="tab-font1 tab-r stalla">'+item['starttime']+'</div>';
+            html+='</div>';
+            html+='</div>';
+            html+='</div>';
+
+            // html+='<div class="itema" onclick="openorderinfo('+item['uid']+')">';
+            // html+='<div>订单号：'+item['waybillUuid'];
+            // html+=item['statusName'];
+            // // if (item['status'] == 2) { //待接单
+            // //     html += '已发布';
+            // // } else if (item['status'] == 3) { //待取货
+            // //     html += '已确认';
+            // // }
+            //
+            // html+='</div>';
+            // html+='<div>'+item['fromName'] +'|'+item['toName']+'</div>';
+            // html+='<div>'+item['boatName'] +'|'+item['starttime']+'</div>';
+            // html+='  </div>';
+
+            }
+
+
+
+          }
+
+         $api.html(itema_el,html);
+         $("#scountdun").html(scountdun);
+$("#scountdan ").html(scountdan);
+  }
+
+  });
+
+}
+
+
+//采砂船主
+function loadinfo_5(page)
+{
+  var t_time=t_today();
+//  console.log(t_time);
+$("#scountriqi").html($api.getStorage('btime'));
+var scountdan=0;
+var scountdun=0;
+
+  api.ajax({
+    url: functionURL + 'wayBillScreen/getListForApp.json',
+      method: 'get',
+      headers:
+      {
+
+        login_token:$api.getStorage('loginToken')
+      },
+      data: {
+          values: {
+
+             sandboatId: $api.getStorage('sandboatId'),
+             begintime:$api.getStorage('btime'),
+             endtime:$api.getStorage('totime'),
+               order:'accepttime'
+          },
+          files: {
+              file: 'fs://a.gif'
+          }
+      }
+  }, function(ret, err) {
+
+//console.log($api.getStorage('ucsc06id'));
+        if(ret)
+        {
+                     var html = '';
+scountdan =ret.count;
+            if( ret['data'].length>0)
+                  {
+                    for (i = 0; i < ret['data'].length; i++) {
+                      var item = ret['data'][i];
+scountdun=scountdun+item['realWeight'];
+                    //console.log(JSON.stringify(item));
+
+                    if(item['locked']==1)
+                    {
+                           html+='<div class="tab-bg container cpisition"  onclick="openorder_ts(1)">';
+                    }
+                   else{
+                    html+='<div class="tab-bg container cpisition"  onclick="openorderinfo_5('+item['uid']+')">';
+                  }
+
+                  if(item['locked']==1)
+                  {
+                              html+='<div class="order_sd"></div>';
+                  }
+                    html+='<div class="row">';
+                    html+='<div class="col-xs-9">';
+                    html+='<div class="tab-font1"><strong>订单号:'+item['waybillUuid']+'</strong></div>';
+                    html+='</div>';
+                    html+='<div class="col-xs-3">';
+                    var str_color;
+
+                     if(item['status']==2)
+                     {
+                        str_color="tab-y-color5";
+                     }
+                      else {
+                       str_color="tab-y-color1";
+                      }
+
+
+                    html+='<div class="tab-y '+str_color+'">'+item['statusName']+'</div>';
+                    html+='  </div>';
+                    html+='</div>';
+                    html+='  <div class="row tab-sx">';
+                    html+='<div class="col-xs-6"> <span class="tab-f">发</span><span class="tab-font2">'+item['fromName']+'</span> </div>';
+                    html+='<div class="col-xs-6"> <span class="tab-f">收</span><span class="tab-font2">'+item['toName']+'</span> </div>';
+                    html+='</div>';
+                    html+='<div class="row">';
+                    html+='<div class="col-xs-7">';
+                    html+='<div class="tab-font1">运砂船:'+item['boatName'] +'</div>';
+                    html+='</div>';
+                    html+='<div class="col-xs-5">';
+                    html+='<div class="tab-font1 tab-r stalla">'+item['starttime']+'</div>';
+                    html+='</div>';
+                    html+='</div>';
+                    html+='</div>';
+
+                    // html+='<div class="itema" onclick="openorderinfo_5('+item['uid']+')">';
+                    // html+='<div>订单号：'+item['waybillUuid'];
+                    // html+=item['statusName'];
+                    // // if (item['status'] == 2) { //待接单
+                    // //     html += '已发布';
+                    // // } else if (item['status'] == 3) { //待取货
+                    // //     html += '已确认';
+                    // // }
+                    //
+                    // html+='</div>';
+                    // html+='<div>'+item['fromName'] +'|'+item['toName']+'</div>';
+                    // html+='<div>'+item['boatName'] +'|'+item['starttime']+'</div>';
+                    // html+='  </div>';
+
+                    }
+
+
+
+                  }
+
+                 $api.html(itema_el,html);
+                 $("#scountdun").html(scountdun);
+$("#scountdan ").html(scountdan);
+
+          }
+
+  });
+
+}
+
+//采砂船主
+function loadinfo_8(page)
+{
+  var t_time=t_today();
+//  console.log(t_time);
+
+$("#scountriqi").html($api.getStorage('btime'));
+var scountdan=0;
+var scountdun=0;
+  api.ajax({
+    url: functionURL + 'wayBillScreen/getListForApp.json',
+      method: 'get',
+      headers:
+      {
+
+        login_token:$api.getStorage('loginToken')
+      },
+      data: {
+          values: {
+
+             sandboatId: $api.getStorage('sandboatId'),
+             begintime:$api.getStorage('btime'),
+             endtime:$api.getStorage('totime'),
+               order:'accepttime'
+          },
+          files: {
+              file: 'fs://a.gif'
+          }
+      }
+  }, function(ret, err) {
+
+//console.log($api.getStorage('ucsc06id'));
+        if(ret)
+        {
+                     var html = '';
+scountdan =ret.count;
+            if( ret['data'].length>0)
+                  {
+                    for (i = 0; i < ret['data'].length; i++) {
+                      var item = ret['data'][i];
+scountdun=scountdun+item['realWeight'];
+                    //console.log(JSON.stringify(item));
+
+                    if(item['locked']==1)
+                    {
+                           html+='<div class="tab-bg container cpisition"  onclick="openorder_ts(1)">';
+                    }
+                   else{
+
+                    html+='<div class="tab-bg container"  onclick="openorderinfo_8('+item['uid']+')">';
+                  }
+                  if(item['locked']==1)
+                  {
+                              html+='<div class="order_sd"></div>';
+                  }
+                    html+='<div class="row">';
+                    html+='<div class="col-xs-9">';
+                    html+='<div class="tab-font1"><strong>订单号:'+item['waybillUuid']+'</strong></div>';
+                    html+='</div>';
+                    html+='<div class="col-xs-3">';
+                    var str_color;
+
+                    if(item['status']==2)
+                    {
+                       str_color="tab-y-color5";
+                    }
+                    else  if(item['status']==3)
+                     {
+                        str_color="tab-y-color5";
+                     }
+                    else if(item['status']==4)
+                     {
+                        str_color="tab-y-color5";
+                     }
+                     else if(item['status']==6)
+                     {
+                        str_color="tab-y-color5";
+                     }
+                     else if(item['status']==10)
+                     {
+                        str_color="tab-y-color5";
+                     }
+                      else {
+                       str_color="tab-y-color1";
+                      }
+
+                    html+='<div class="tab-y '+str_color+'">'+item['statusName']+'</div>';
+                    html+='  </div>';
+                    html+='</div>';
+                    html+='  <div class="row tab-sx">';
+                    html+='<div class="col-xs-6"> <span class="tab-f">发</span><span class="tab-font2">'+item['fromName']+'</span> </div>';
+                    html+='<div class="col-xs-6"> <span class="tab-f">收</span><span class="tab-font2">'+item['toName']+'</span> </div>';
+                    html+='</div>';
+                    html+='<div class="row">';
+                    html+='<div class="col-xs-7">';
+                    html+='<div class="tab-font1">运砂船:'+item['boatName'] +'</div>';
+                    html+='</div>';
+                    html+='<div class="col-xs-5">';
+                    html+='<div class="tab-font1 tab-r stalla">'+item['starttime']+'</div>';
+                    html+='</div>';
+                    html+='</div>';
+                    html+='</div>';
+
+                    // html+='<div class="itema" onclick="openorderinfo_5('+item['uid']+')">';
+                    // html+='<div>订单号：'+item['waybillUuid'];
+                    // html+=item['statusName'];
+                    // // if (item['status'] == 2) { //待接单
+                    // //     html += '已发布';
+                    // // } else if (item['status'] == 3) { //待取货
+                    // //     html += '已确认';
+                    // // }
+                    //
+                    // html+='</div>';
+                    // html+='<div>'+item['fromName'] +'|'+item['toName']+'</div>';
+                    // html+='<div>'+item['boatName'] +'|'+item['starttime']+'</div>';
+                    // html+='  </div>';
+
+                    }
+
+
+
+                  }
+
+                 $api.html(itema_el,html);
+                 $("#scountdun").html(scountdun);
+   $("#scountdan ").html(scountdan);
+          }
+
+  });
+
+}
+//运砂船主
+function loadinfo_4(page)
+{
+  var t_time=t_today();
+//  console.log(t_time);
+$("#scountriqi").html($api.getStorage('btime'));
+var scountdan=0;
+var scountdun=0;
+
+  api.ajax({
+    url: functionURL + 'wayBillScreen/getListForApp.json',
+      method: 'get',
+      headers:
+      {
+
+        login_token:$api.getStorage('loginToken')
+      },
+      data: {
+          values: {
+
+            boatId: $api.getStorage('boatId'),
+            begintime:$api.getStorage('btime'),
+            endtime:$api.getStorage('totime'),
+              order:'accepttime'
+          },
+          files: {
+              file: 'fs://a.gif'
+          }
+      }
+  }, function(ret, err) {
+
+//console.log($api.getStorage('ucsc06id'));
+        if(ret)
+        {
+                     var html = '';
+ scountdan =ret.count;
+            if( ret['data'].length>0)
+                  {
+                    for (i = 0; i < ret['data'].length; i++) {
+                      var item = ret['data'][i];
+
+                    //console.log(JSON.stringify(item));
+scountdun=scountdun+item['realWeight'];
+                    if(item['locked']==1)
+                    {
+                           html+='<div class="tab-bg container cpisition"  onclick="openorder_ts(1)">';
+                    }
+                   else{
+                    html+='<div class="tab-bg container"  onclick="openorderinfo_4('+item['uid']+')">';
+                  }
+                  if(item['locked']==1)
+                  {
+                              html+='<div class="order_sd"></div>';
+                  }
+                    html+='<div class="row">';
+                    html+='<div class="col-xs-9">';
+                    html+='<div class="tab-font1"><strong>订单号:'+item['waybillUuid']+'</strong></div>';
+                    html+='</div>';
+                    html+='<div class="col-xs-3">';
+
+                    var str_color;
+                    if(item['status']==3)
+                    {
+                       str_color="tab-y-color5";
+                    }
+                    else if(item['status']==4)
+                    {
+                       str_color="tab-y-color5";
+                    }
+                    else if(item['status']==6)
+                    {
+                       str_color="tab-y-color5";
+                    }
+                    else if(item['status']==10)
+                    {
+                       str_color="tab-y-color5";
+                    }
+                     else {
+                      str_color="tab-y-color1";
+                     }
+
+
+                    html+='<div class="tab-y '+str_color+'">'+item['statusName']+'</div>';
+                    html+='  </div>';
+                    html+='</div>';
+                    html+='  <div class="row tab-sx">';
+                    html+='<div class="col-xs-6"> <span class="tab-f">发</span><span class="tab-font2">'+item['fromName']+'</span> </div>';
+                    html+='<div class="col-xs-6"> <span class="tab-f">收</span><span class="tab-font2">'+item['toName']+'</span> </div>';
+                    html+='</div>';
+                    html+='<div class="row">';
+                    html+='<div class="col-xs-7">';
+                    html+='<div class="tab-font1">运砂船:'+item['boatName'] +'</div>';
+                    html+='</div>';
+                    html+='<div class="col-xs-5">';
+                    html+='<div class="tab-font1 tab-r stalla">'+item['starttime']+'</div>';
+                    html+='</div>';
+                    html+='</div>';
+                    html+='</div>';
+
+                    // html+='<div class="itema" onclick="openorderinfo_4('+item['uid']+')">';
+                    // html+='<div>订单号：'+item['waybillUuid'];
+                    // html+=item['statusName'];
+                    // // if (item['status'] == 2) { //待接单
+                    // //     html += '已发布';
+                    // // } else if (item['status'] == 3) { //待取货
+                    // //     html += '已确认';
+                    // // }
+                    //
+                    // html+='</div>';
+                    // html+='<div>'+item['fromName'] +'|'+item['toName']+'</div>';
+                    // html+='<div>'+item['boatName'] +'|'+item['starttime']+'</div>';
+                    // html+='  </div>';
+
+                    }
+
+
+
+                  }
+
+                 $api.html(itema_el,html);
+                 $("#scountdun").html(scountdun);
+  $("#scountdan ").html(scountdan);
+
+          }
+
+  });
+
+}
+
+
+
+//收货员
+function loadinfo_3(page)
+{
+  var t_time=t_today();
+//  console.log(t_time);
+$("#scountriqi").html($api.getStorage('btime'));
+var scountdan=0;
+var scountdun=0;
+
+  api.ajax({
+    url: functionURL + 'wayBillScreen/getListForApp.json',
+      method: 'get',
+      headers:
+      {
+
+        login_token:$api.getStorage('loginToken')
+      },
+      data: {
+          values: {
+            toDistrict: $api.getStorage('toDistrict'),
+            begintime:$api.getStorage('btime'),
+            endtime:$api.getStorage('totime'),
+            order:'accepttime',
+            remark:1,
+            scend:'asc'
+          },
+          files: {
+              file: 'fs://a.gif'
+          }
+      }
+  }, function(ret, err) {
+
+//console.log($api.getStorage('ucsc06id'));
+        if(ret)
+        {
+            scountdan =ret.count;
+                     var html = '';
+
+            if( ret['data'].length>0)
+                  {
+                    for (i = 0; i < ret['data'].length; i++) {
+                      var item = ret['data'][i];
+scountdun=scountdun+item['realWeight'];
+                    //console.log(JSON.stringify(item));
+
+                    if(item['locked']==1)
+                    {
+                           html+='<div class="tab-bg container cpisition"  onclick="openorder_ts(1)">';
+                    }
+                   else{
+
+                    if(item['sandplantLevel']==1)
+                    {
+                      html+='<div class="tab-bg container"  onclick="openorderinfo_3('+item['uid']+')">';
+                    }
+                    else
+                    {
+
+                      if(item['sandtype']=='砾石')
+                      {
+                              html+='<div class="tab-bg container"  onclick="openorderinfo_3('+item['uid']+')">';
+                      }
+                      else {
+
+                        if(item['status']<8)
+                        {
+                          html+='<div class="tab-bg container"  onclick="openorderinfo_31('+item['uid']+')">';
+                        }
+                        else {
+                            html+='<div class="tab-bg container"  onclick="openorderinfo_3('+item['uid']+')">';
+                        }
+
+                      }
+
+
+
+                    }
+                  }
+                  if(item['locked']==1)
+                  {
+                              html+='<div class="order_sd"></div>';
+                  }
+
+                    html+='<div class="row">';
+                    html+='<div class="col-xs-9">';
+                    html+='<div class="tab-font1"><strong>订单号:'+item['waybillUuid']+'</strong></div>';
+                    html+='</div>';
+                    html+='<div class="col-xs-3">';
+
+                    var str_color;
+                  //  if(item['status']==5)
+                  //   {
+                  //      str_color="tab-y-colorc5";
+                  //   }
+                  //   else if(item['status']==7)
+                  //    {
+                  //       str_color="tab-y-colorc5";
+                  //    }
+                  //    else if(item['status']==8)
+                  //     {
+                  //        str_color="tab-y-colorc5";
+                  //     }
+                  //   else {
+                  //    str_color="tab-y-color1";
+                  //   }
+
+                  var str_color;
+                  if(item['sandplantLevel']==1)
+                  {
+                    if(item['status']==5)
+                     {
+                        str_color="tab-y-colorc5";
+                     }
+                     else if(item['status']==7)
+                      {
+                         str_color="tab-y-colorc5";
+                      }
+                      else if(item['status']==8)
+                       {
+                          str_color="tab-y-colorc5";
+                       }
+                     else {
+                      str_color="tab-y-color1";
+                     }
+                  }
+                  else {
+                    if(item['sandtype']=='砾石')
+                    {
+
+                      if(item['status']==5)
+                       {
+                          str_color="tab-y-colorc5";
+                       }
+                       else if(item['status']==7)
+                        {
+                           str_color="tab-y-colorc5";
+                        }
+                        else if(item['status']==8)
+                         {
+                            str_color="tab-y-colorc5";
+                         }
+                       else {
+                        str_color="tab-y-color1";
+                       }
+                    }
+                    else {
+
+                      if(item['status']==8)
+                       {
+                          str_color="tab-y-colorc5";
+                       }
+                       else {
+                           str_color="tab-y-color1";
+                       }
+
+                    }
+
+
+
+
+                  }
+
+                    html+='<div class="tab-y '+str_color+'">'+item['statusName']+'</div>';
+                    html+='  </div>';
+                    html+='</div>';
+                    html+='  <div class="row tab-sx">';
+                    html+='<div class="col-xs-6"> <span class="tab-f">发</span><span class="tab-font2">'+item['fromName']+'</span> </div>';
+                    html+='<div class="col-xs-6"> <span class="tab-f">收</span><span class="tab-font2">'+item['toName']+'</span> </div>';
+                    html+='</div>';
+                    html+='<div class="row">';
+                    html+='<div class="col-xs-7">';
+                    html+='<div class="tab-font1">运砂船:'+item['boatName'] +'</div>';
+                    html+='</div>';
+                    html+='<div class="col-xs-5">';
+                    html+='<div class="tab-font1 tab-r stalla">'+item['starttime']+'</div>';
+                    html+='</div>';
+                    html+='</div>';
+                    html+='</div>';
+                    //
+                    // html+='<div class="itema" onclick="openorderinfo_3('+item['uid']+')">';
+                    // html+='<div>订单号：'+item['waybillUuid'];
+                    // html+=item['statusName'];
+                    // // if (item['status'] == 2) { //待接单
+                    // //     html += '已发布';
+                    // // } else if (item['status'] == 3) { //待取货
+                    // //     html += '已确认';
+                    // // }
+                    //
+                    // html+='</div>';
+                    // html+='<div>'+item['fromName'] +'|'+item['toName']+'</div>';
+                    // html+='<div>'+item['boatName'] +'|'+item['starttime']+'</div>';
+                    // html+='  </div>';
+
+                    }
+
+
+
+                  }
+
+                 $api.html(itema_el,html);
+                 $("#scountdun").html(scountdun);
+$("#scountdan ").html(scountdan);
+          }
+
+  });
+
+}
+//收货员
+function loadinfo_33(page)
+{
+  var t_time=t_today();
+//  console.log(t_time);
+$("#scountriqi").html($api.getStorage('btime'));
+var scountdan=0;
+var scountdun=0;
+
+  api.ajax({
+    url: functionURL + 'wayBillScreen/getListForApp.json',
+      method: 'get',
+      headers:
+      {
+
+        login_token:$api.getStorage('loginToken')
+      },
+      data: {
+          values: {
+            toDistrict: $api.getStorage('toDistrict'),
+            begintime:$api.getStorage('btime'),
+            endtime:$api.getStorage('totime'),
+            order:'accepttime',
+              remark:1,
+          },
+          files: {
+              file: 'fs://a.gif'
+          }
+      }
+  }, function(ret, err) {
+
+//console.log($api.getStorage('ucsc06id'));
+        if(ret)
+        {
+                     var html = '';
+  scountdan =ret.count;
+            if( ret['data'].length>0)
+                  {
+                    for (i = 0; i < ret['data'].length; i++) {
+                      var item = ret['data'][i];
+scountdun=scountdun+item['realWeight'];
+                    //console.log(JSON.stringify(item));
+                    if(item['locked']==1)
+                    {
+                           html+='<div class="tab-bg container cpisition"  onclick="openorder_ts(1)">';
+                    }
+                   else{
+                     if(item['sandtype']=='砾石')
+                     {
+                       html+='<div class="tab-bg container"  onclick="openorderinfo_3('+item['uid']+')">';
+
+                     }
+                     else {
+                       html+='<div class="tab-bg container"  onclick="openorderinfo_33('+item['uid']+')">';
+                     }
+
+                  }
+                  if(item['locked']==1)
+                  {
+                              html+='<div class="order_sd"></div>';
+                  }
+                    html+='<div class="row">';
+                    html+='<div class="col-xs-9">';
+                    html+='<div class="tab-font1"><strong>订单号:'+item['waybillUuid']+'</strong></div>';
+                    html+='</div>';
+                    html+='<div class="col-xs-3">';
+
+                    var str_color;
+                   if(item['status']==5)
+                    {
+                       str_color="tab-y-colorc5";
+                    }
+                    else if(item['status']==7)
+                     {
+                        str_color="tab-y-colorc5";
+                     }
+                     else if(item['status']==8)
+                      {
+
+                        if(item['sandtype']=='砾石')
+                        {
+                           str_color="tab-y-colorc5";
+                        }
+                        else
+                        {
+                            str_color="tab-y-color1";
+                        }
+
+                      }
+                    else {
+                     str_color="tab-y-color1";
+                    }
+
+
+                    html+='<div class="tab-y '+str_color+'">'+item['statusName']+'</div>';
+                    html+='  </div>';
+                    html+='</div>';
+                    html+='  <div class="row tab-sx">';
+                    html+='<div class="col-xs-6"> <span class="tab-f">发</span><span class="tab-font2">'+item['fromName']+'</span> </div>';
+                    html+='<div class="col-xs-6"> <span class="tab-f">收</span><span class="tab-font2">'+item['toName']+'</span> </div>';
+                    html+='</div>';
+                    html+='<div class="row">';
+                    html+='<div class="col-xs-7">';
+                    html+='<div class="tab-font1">运砂船:'+item['boatName'] +'</div>';
+                    html+='</div>';
+                    html+='<div class="col-xs-5">';
+                    html+='<div class="tab-font1 tab-r stalla">'+item['starttime']+'</div>';
+                    html+='</div>';
+                    html+='</div>';
+                    html+='</div>';
+                    //
+                    // html+='<div class="itema" onclick="openorderinfo_3('+item['uid']+')">';
+                    // html+='<div>订单号：'+item['waybillUuid'];
+                    // html+=item['statusName'];
+                    // // if (item['status'] == 2) { //待接单
+                    // //     html += '已发布';
+                    // // } else if (item['status'] == 3) { //待取货
+                    // //     html += '已确认';
+                    // // }
+                    //
+                    // html+='</div>';
+                    // html+='<div>'+item['fromName'] +'|'+item['toName']+'</div>';
+                    // html+='<div>'+item['boatName'] +'|'+item['starttime']+'</div>';
+                    // html+='  </div>';
+
+                    }
+
+
+
+                  }
+
+                 $api.html(itema_el,html);
+                 $("#scountdun").html(scountdun);
+     $("#scountdan ").html(scountdan);
+          }
+
+  });
+
+}
+
+apiready = function(){
+  $api.fixTabBar($api.byId('footer'));
+  //$api.getStorage('uqx');//角色
+  //$api.getStorage('usid');//角色
+  //$api.getStorage('ucsc06id');//角色
+    $api.setStorage('jumpMonth',0);
+var t_time=t_today();
+//$("#scountriqi").html(t_time);
+var t_time_n=add_time(t_time);
+//console.log(t_time_n);
+$api.setStorage('btime',t_time);
+$api.setStorage('totime',t_time);
+if($api.getStorage('uroles')=='采砂船管理员')
+  {loadinfo(1);}
+else if($api.getStorage('uroles')=='采区负责人')
+  {loadinfo_7(1);}
+
+else if($api.getStorage('uroles')=='采砂船船主')
+  {loadinfo_5(1);}
+else if($api.getStorage('uroles')=='运砂船船主')
+  {loadinfo_4(1);}
+else if($api.getStorage('uroles')=='砂场收货员')
+  {loadinfo_3(1);}
+  else if($api.getStorage('uroles')=='二级砂厂负责人')
+    {loadinfo_33(1);}
+    else if($api.getStorage('uroles')=='采运船主')
+      {loadinfo_8(1);}
+};
+
+</script>
+
+</html>

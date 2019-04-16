@@ -1,0 +1,327 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>砂石运单</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/style.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="../../css/scCss.css">
+    <script type="text/javascript" src="../../script/api.js"></script>
+    <script type="text/javascript" src="../../script/common.js"></script>
+    <script type="text/javascript" src="../../script/jquery.min.js"></script>
+    <script type="text/javascript" src="../../script/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../script/tuisong.js"></script>
+      <script type="text/javascript" src="../../script/upimg.js"></script>
+</head>
+<style>
+.mloading-container {
+  position: relative;
+  min-height: 70px;
+  -webkit-transition: height 0.6s ease-in-out;
+  -o-transition: height 0.6s ease-in-out;
+  transition: height 0.6s ease-in-out;
+}
+.mloading {
+  position: absolute;
+  background: #E9E9E8;
+  font: normal 12px/22px "Microsoft Yahei", "微软雅黑", "宋体";
+  display: none;
+  z-index: 1600;
+  background: rgba(233, 233, 232, 0);
+}
+.mloading.active {
+  display: block;
+}
+.mloading.mloading-mask {
+  background: rgba(233, 233, 232, 0.75);
+  filter: progid:DXImageTransform.Microsoft.Alpha(opacity=75);
+}
+.mloading-full {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+.mloading-container > .mloading {
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+}
+.mloading-body {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+.mloading-bar {
+  width: 250px;
+  min-height: 22px;
+  text-align: center;
+  background: #fff;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.27);
+  border-radius: 7px;
+  padding: 20px 15px;
+  font-size: 14px;
+  color: #999;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-left: -140px;
+  margin-top: -30px;
+  word-break: break-all;
+}
+@media (max-width: 300px) {
+  .mloading-bar {
+    width: 62px;
+    height: 56px;
+    margin-left: -30px !important;
+    margin-top: -30px !important;
+    padding: 0;
+    line-height: 56px;
+  }
+  .mloading-bar > .mloading-text {
+    display: none;
+  }
+}
+.mloading-bar-sm {
+  width: 62px;
+  height: 56px;
+  margin-left: -30px !important;
+  margin-top: -30px !important;
+  padding: 0;
+  line-height: 56px;
+}
+.mloading-bar-sm > .mloading-text {
+  display: none;
+}
+.mloading-icon {
+  width: 16px;
+  height: 16px;
+  vertical-align: middle;
+}
+.mloading-text {
+  margin-left: 10px;
+}
+
+
+</style>
+
+<body>
+  <div id="back_divbox01">
+<div class="mloading mloading-full mloading-mask active"><div class="mloading-body"><div class="mloading-bar" style="margin-top: -31px; margin-left: -140px;"><img class="mloading-icon" src="data:image/gif;base64,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"><span class="mloading-text">加载中...</span></div></div></div>
+
+  </div>
+  <div id="wrap" class="flex-wrap flex-vertical">
+    <div class="container grad" id="heada">
+        <div class="i20"></div>
+      <div class="row">
+        <div class="col-xs-3 font1" onClick="sliding()"> <img src="../../image/Drback.png"></div>
+        <div class="col-xs-6 font2"> 添加照片 </div>
+        <div class="col-xs-3 font3" onClick="gpwin()" style="display:none" id="gpwin"> <img src="../../image/sgp.png"> </div>
+      </div>
+      <div style="clear: both"></div>
+        <div class="i5"></div>
+    </div>
+    <div id="main" class="flex-con "  style=" background:#FFF" >
+
+
+<input type="hidden" id="uid">
+<input type="hidden" id="fy">
+     <span  style="width:100%; padding:0; margin:0">
+    <div class="tab-bg container ddxq-t" >
+      <div class="row" ><!--已发布、已签收的时候显示装载照片-->
+
+
+
+        <div class="row ddxq-picw" id="simg" style="padding:0; margin:0">
+<div class="col-xs-4"  onclick="takePhoto()" >  <a  class="ddxq-pic-cc"   ></a> </div>
+
+        </div>
+      </div>
+    </div>
+      </span>
+
+
+
+    </div>
+
+    <div id="footer" class="border-t">
+            <div class="ddxq-btn" id="ccyid"><!--点击改派按钮的时候显示确认改派按钮-->
+              <button type="button" onClick="subphoto()">上传照片</button>
+            </div>
+    </div>
+  </div>
+
+  </div>
+
+
+
+
+</body>
+</html>
+
+
+</body>
+<script>
+function subphoto()
+{
+ $("#back_divbox01").css("display","block");
+  var uid_el=document.getElementById("uid");
+    var fy_el=document.getElementById("fy");
+  var sid=  $api.val(uid_el);
+    var fy=  $api.val(fy_el);
+  var strArr_aa=document.getElementById("simg").getElementsByTagName('IMG');
+  if(strArr_aa.length==0)
+  {
+     api.alert({
+            msg: '请上传照片'
+        });
+    return false;
+  }
+  if(fy==1)
+  {
+s_updateimg_bc(sid);
+}
+if(fy==2)
+{
+s_updateimg_pz_bc(sid);
+}
+if(fy==22)
+{
+s_updateimg_pz_bc33(sid);
+}
+if(fy==222)
+{
+s_updateimg_pz_bc31(sid);
+}
+if(fy==3)
+{
+s_updateimg_kz_bc(sid);
+}
+if(fy==33)
+{
+s_updateimg_kz_bc33(sid);
+}
+}
+
+//开始按
+function gtouchstart(obj) {
+Htmls=obj;
+//alert(obj);
+  //  Htmls = $(obj).parent().html();
+      console.log(Htmls);
+    timeOutEvent = setTimeout(function() {
+      //  alert("清除了"); //因为页面弹动会导致元素一直处于按住的状态，所以超过700毫秒自动清空变量，避免点击其他元素触发事件
+
+      api.confirm({
+          title: '提示',
+          msg: '确定删除此图片吗？',
+          buttons: ['确定', '取消']
+      }, function(ret, err) {
+          var index = ret.buttonIndex;
+          console.log(index);
+          if(index==1)
+          {
+            console.log(obj);
+          var simga_el=document.getElementById(obj);
+
+            $api.remove(simga_el);
+          }
+      });
+
+
+
+        Htmls = "";
+    }, 500);
+    return false;
+};
+
+//手释放，取消长按事件
+function gtouchend() {
+    clearTimeout(timeOutEvent);
+//alert("addd");
+    Htmls = "";
+};
+
+//如果手指有移动，则取消所有事件，此时说明用户只是要移动而不是长按
+function gtouchmove() {
+    clearTimeout(timeOutEvent);
+    Htmls = "";
+};
+
+function takePhoto() {
+       api.getPicture({
+           sourceType: 'camera', //（可选项）图片源类型，从相册、图片库或相机获取图片
+           encodingType: 'jpg', //（可选项）返回图片类型，jpg或png
+           mediaValue: 'pic', //（可选项）媒体类型，图片或视频
+           destinationType: 'url', //（可选项）返回数据类型，指定返回图片地址或图片经过base64编码后的字符串
+           allowEdit: true,
+           quality: 100, //（可选项）图片质量，只针对jpg格式图片（0-100整数）
+          targetWidth: 800, //（可选项）压缩后的图片宽度，图片会按比例适配此宽度
+          //targetHeight: 800, //（可选项）压缩后的图片高度，图片会按比例适配此高度
+           saveToPhotoAlbum: true
+       }, function(ret, err) {
+           if (ret) {
+            //   alert(JSON.stringify(ret));
+               var imgSrc = ret.data;
+                 var simg_el=document.getElementById("simg");
+
+               var html='';
+               var simgid=$api.getStorage('imgid');
+                  // html+='<div class="col-xs-4" id="asimg0" >  <a  class="ddxq-pic" > <img src="../../image/sto.png" alt=""></a> <a onclick=removimg("asimg0")>删除</a></div>';
+            html+='<div class="col-xs-4" id="asimg'+simgid+'" >  <a  class="ddxq-pic" onclick=ondown_y("'+imgSrc+'")  ontouchstart=gtouchstart("asimg'+simgid+'") ontouchmove="gtouchmove()" ontouchend="gtouchend()"> <img src="'+imgSrc+'" alt=""></a> <a onclick=removimg("asimg'+simgid+'") style="display:none"><span class="glyphicon glyphicon-remove"></span></a></div>';
+
+               $api.append(simg_el,html);
+               simgid= simgid+1;
+                if(simgid==1)
+                {
+                  api.toast({
+                msg: '长按照片可删除',
+                duration: 2000,
+                location: 'middle'
+                });
+
+                }
+
+
+               $api.setStorage('imgid',simgid);
+
+
+
+           } else {
+
+             api.toast({
+           msg: '照片传输失败！请重试',
+           duration: 2000,
+           location: 'middle'
+           });
+
+
+           }
+       });
+   }
+
+
+function sliding()
+{
+  api.closeWin({
+    name:'order_orderphoto',
+    animation: {type:'none'}
+  });
+}
+apiready = function(){
+$api.setStorage('imgid',0);
+         var uid= api.pageParam.id;
+         var fy= api.pageParam.fy;
+         var uid_el=document.getElementById("uid");
+         var fy_el=document.getElementById("fy");
+         $api.val(uid_el,uid);
+          $api.val(fy_el,fy);
+      console.log("类型:"+fy);
+}
+</script>
+</html>

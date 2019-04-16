@@ -1,0 +1,316 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>砂石</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/style.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="../../css/scCss.css">
+    <script type="text/javascript" src="../../script/api.js"></script>
+    <script type="text/javascript" src="../../script/common.js"></script>
+    <script type="text/javascript" src="../../script/jquery.min.js"></script>
+    <script type="text/javascript" src="../../script/bootstrap.min.js"></script>
+      <script type="text/javascript" src="../../script/map.js"></script>
+      <script type="text/javascript" src="../../script/mapzh.js"></script>
+  <style>
+    a{ display:inline;}
+  </style>
+</head>
+<body>
+
+  <div id="wrap" class="flex-wrap flex-vertical">
+    <div class="container grad" id="ycydaa" style="display:none; z-index:9999">
+      <div class="i20"></div>
+      <div class="row">
+        <div class="col-xs-3 font1" >
+          <bdi id="fdw" style="display:none;" >
+          <div id="sdwa" onClick="opendw();" style="display:none"><img src="../../image/sdw.png" ></div>
+          <div id="sdwa1" onClick="opendw1();" style="display:none"><img src="../../image/vcredist.bmp" ></div>
+        </bdi>
+      </div>
+        <div class="col-xs-6 font2" id="jrydd"> 异常运单 </div>
+        <div class="col-xs-3 font3" onClick="fabu()"  id="fabu" style="display:none;"> <img src="../../image/stj.png"  style=" float:right; margin-right:10px;"> </div>
+      </div>
+      <div style="clear: both"></div>
+    </div>
+
+    <div class="container grad" id="yd">
+      <div class="i20"></div>
+      <div class="row">
+        <div class="col-xs-3 font1" >
+          <bdi id="fdw" style="display:none;" >
+          <div id="sdwa" onClick="opendw();" style="display:none"><img src="../../image/sdw.png" ></div>
+          <div id="sdwa1" onClick="opendw1();" style="display:none"><img src="../../image/vcredist.bmp" ></div>
+        </bdi>
+      </div>
+        <div class="col-xs-6 font2" id="jrydd"> 今日运单 </div>
+        <div class="col-xs-3 font3" onClick="fabu()"  id="fabu" style="display:none;"> <img src="../../image/stj.png"  style=" float:right; margin-right:10px;"> </div>
+      </div>
+      <div style="clear: both"></div>
+    </div>
+<style>
+#myTab .list_bar{
+    position: absolute;
+    z-index: 999;
+    bottom: 0;
+    left: 0%;
+    height: 2px;
+    width: 33.3%;
+    -webkit-transform: translateX(0%);
+            transform: translateX(0%);
+    -webkit-transition: all .25s ease;
+            transition: all .25s ease;
+
+}
+#myTab .list_bar .list_bar_inner{
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    /*top: 0;*/
+    bottom:0;
+    left: 50%;
+    background-color: #C50000;
+        background-color: #ffffff;
+    -webkit-transform: translateX(-50%);
+            transform: translateX(-50%);
+}
+</style>
+
+    <ul id="myTab" class="tab grad" style="padding-bottom:2px; position:relative">
+      <li class="active"  onClick="myorderstate(0)"> <a > 未完成 </a> </li>
+      <li  onClick="myorderstate(1)"><a >已完成</a></li>
+      <li  onClick="myorderstate(2)"><a >全部</a></li>
+      <li class="list_bar">
+                 <div class="list_bar_inner"></div>
+             </li>
+      <div style="clear: both"></div>
+    </ul>
+    <!--
+    <header >
+      <ul>
+        <li class="border-b active" >新闻详情<a class="menu" tapmode="" onClick="sliding()"></a></li>
+      </ul>
+    </header>
+  -->
+    <div id="main" class="flex-con" >
+
+      <div id="myTabContent" class="tab-content">
+        <div class="tab-pane fade in active" id="wwc">
+
+
+        </div>
+
+      </div>
+    </div>
+
+    <!--	底部菜单-->
+    <div id="footer7" class="border-t">
+      <ul class="flex-wrap" >
+        <li tapmode="hover" onClick="randomS7(0)" class="flex-con active  waves-effect  " >今日订单</li>
+        <li tapmode="hover" onClick="randomS7(1)" class="flex-con  waves-effect  " >历史订单</li>
+        <li tapmode="hover" onClick="randomS7(3)" class="flex-con  waves-effect  " >异常运单</li>
+        <li tapmode="hover" onClick="randomS7(2)" class="flex-con  waves-effect " >个人中心</li>
+
+      </ul>
+    </div>
+  </div>
+
+    <link rel="stylesheet" type="text/css" href="../../css/waves.css">
+      <script type="text/javascript" src="../../script/waves.min.js"></script>
+
+</body>
+</html>
+
+
+<script>
+   var listBar = $api.dom('#myTab .list_bar');
+$(document).on('ready', function () {
+
+           Waves.init();
+   });
+function myorderstate(type) {
+      eHeaderLis = $api.domAll('#myTab li');
+
+  switch(type)
+      {
+          case 0:
+          api.closeFrame({
+              name: 'order_order1'
+          });
+          api.closeFrame({
+              name: 'order_order2'
+          });
+
+              api.openFrame({
+                name : 'order_order0',
+                url : 'order0.html',
+                pageParam: {id: 1},
+              reload:true,
+              bounces:true,
+              animation:{
+
+                 type:"none",
+                 subType:"from_right",
+                 duration:300
+              },
+              rect: {
+                  x: 0,
+                  y: $api.dom('#yd').offsetHeight+$api.dom('#myTab').offsetHeight,
+                  w: api.winWidth,
+                  h: $api.dom('#main').offsetHeight
+              },
+                 })
+                 $api.removeCls(eHeaderLis[2], 'active');
+                 $api.removeCls(eHeaderLis[1], 'active');
+                 $api.addCls( eHeaderLis[0], 'active');
+                  listBar.style.webkitTransform = 'translateX('+0*100+'%)';
+          break;
+          case 1:
+          api.closeFrame({
+              name: 'order_order0'
+          });
+          api.closeFrame({
+              name: 'order_order2'
+          });
+          api.openFrame({
+            name : 'order_order1',
+            url : 'order1.html',
+              pageParam: {id: 2},
+              reload:true,
+              bounces:true,
+              animation:{
+
+                 type:"none",
+                 subType:"from_right",
+                 duration:300
+              },
+              rect: {
+                  x: 0,
+                        y: $api.dom('#yd').offsetHeight+$api.dom('#myTab').offsetHeight,
+                  w: api.winWidth,
+                  h: $api.dom('#main').offsetHeight
+              },
+             })
+             $api.removeCls(eHeaderLis[0], 'active');
+             $api.removeCls(eHeaderLis[2], 'active');
+             $api.addCls( eHeaderLis[1], 'active');
+             listBar.style.webkitTransform = 'translateX('+1*100+'%)';
+
+          break;
+          case 2:
+          api.closeFrame({
+              name: 'order_order0'
+          });
+          api.closeFrame({
+              name: 'order_order1'
+          });
+          api.openFrame({
+            name : 'order_order2',
+            url : 'order2.html',
+              pageParam: {id: 3},
+              reload:true,
+              bounces:true,
+              animation:{
+
+                 type:"none",
+                 subType:"from_right",
+                 duration:300
+              },
+              rect: {
+                  x: 0,
+                          y: $api.dom('#yd').offsetHeight+$api.dom('#myTab').offsetHeight,
+                  w: api.winWidth,
+                  h: $api.dom('#main').offsetHeight
+              },
+             })
+              $api.removeCls(eHeaderLis[0], 'active');
+              $api.removeCls(eHeaderLis[1], 'active');
+              $api.addCls( eHeaderLis[2], 'active');
+               listBar.style.webkitTransform = 'translateX('+2*100+'%)';
+          break;
+          default:
+          break;
+      }
+}
+
+function opendw()
+{
+
+$("#sdwa").css("display","none");
+$("#sdwa1").css("display","block");
+api.toast({
+   msg: '开始定位',
+   duration: 2000,
+   location: 'middle'
+});
+console.log(1);
+$api.setStorage('sy_uid',1);
+console.log($api.getStorage('sy_daa'));
+api.execScript({
+      name: 'root',
+script: 'mapdw();'
+});
+
+}
+
+function opendw1()
+{
+
+$("#sdwa").css("display","block");
+$("#sdwa1").css("display","none");
+api.toast({
+   msg: '结束定位',
+   duration: 2000,
+   location: 'middle'
+});
+$api.rmStorage('sy_uid');
+api.execScript({
+      name: 'root',
+script: 'closeroot();'
+});
+
+}
+
+
+
+function sliding() {
+
+  // GoToRefresh();
+  api.closeWin({
+    name:'order_myorder',
+    animation: {type:'none'}
+  });
+
+   }
+
+   apiready = function () {
+
+$api.fixTabBar($api.byId('footer'));
+
+$api.setStorage('sy_daa',1);
+    reportLocation = api.require('reportLocation');
+
+
+     var fabu_el=document.getElementById("fabu");
+ var fdw_el=document.getElementById("fdw");
+     if($api.getStorage('uroles')=='采砂船管理员')
+       {
+        $api.css(fabu_el,"display:block");
+  $api.css(fdw_el,"display:block");
+       }
+
+       if($api.getStorage('uroles')=='采区负责人')
+         {
+          // $api.css(fabu_el,"display:block");
+    $api.css(fdw_el,"display:block");
+         }
+
+      myorderstate(0);
+
+     };
+
+
+</script>

@@ -1,0 +1,88 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>砂石运单</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/style.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="../../css/scCss.css">
+    <script type="text/javascript" src="../../script/api.js"></script>
+    <script type="text/javascript" src="../../script/common.js"></script>
+    <script type="text/javascript" src="../../script/jquery.min.js"></script>
+    <script type="text/javascript" src="../../script/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../script/tuisong.js"></script>
+</head>
+
+
+<body>
+
+  <div id="wrap" class="flex-wrap flex-vertical">
+    <div class="container grad" id="heada">
+        <div class="i20"></div>
+      <div class="row">
+        <div class="col-xs-3 font1" onClick="sliding()"> <img src="../../image/Drback.png"></div>
+        <div class="col-xs-6 font2"> 流程图 </div>
+        <div class="col-xs-3 font3" onclick="gpwin()" style="display:none" id="gpwin"> <img src="../../image/sgp.png"> </div>
+      </div>
+      <div style="clear: both"></div>
+        <div class="i5"></div>
+    </div>
+    <div id="main" class="flex-con " style="padding:10px" >
+
+<div style="padding-bottom:10px;" id="lczt"></div>
+   <div id="order_detail">
+
+
+   </div>
+
+
+    </div>
+  </div>
+
+
+
+
+</body>
+</html>
+
+
+</body>
+<script>
+function sliding()
+{
+  api.closeWin({
+    name:'order_lct',
+    animation: {type:'none'}
+  });
+}
+apiready = function(){
+var uid= api.pageParam.id;
+         var imgu= api.pageParam.imgu;
+         var statusName=api.pageParam.statusName;
+         var order_detail_el=document.getElementById("order_detail");
+         var lczt_el=document.getElementById("lczt");
+      //   html2="流程状态:"+statusName;
+        html2='<div ><div style="float:left">流程状态:'+statusName+'</div><div style="float:right"><b><bdi class="af178" onclick="openczaa('+uid+')">操作记录</bdi></b></div></div><div style="height:5px;clear:both"></div>';
+         html='<img src='+imgu+' width="100%"/>';
+                   $api.html(order_detail_el,html);
+                   $api.html(lczt_el,html2);
+      console.log(imgu);
+}
+function openczaa(uid)
+{
+api.openWin({
+           name : 'order_czjl',
+           url : '../order/czjl.html',
+            reload:true,
+           slidBackEnabled:false,
+             pageParam: {
+               id: uid,
+             },
+
+       })
+     }
+</script>
+</html>

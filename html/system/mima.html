@@ -1,0 +1,247 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+<meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+<title>设置</title>
+<link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+<link rel="stylesheet" type="text/css" href="../../css/style.css"/>
+<link rel="stylesheet" type="text/css" href="../../css/bootstrap.css">
+<link rel="stylesheet" type="text/css" href="../../css/scCss.css">
+<script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/common.js"></script>
+<script type="text/javascript" src="../../script/jquery.min.js"></script>
+<script type="text/javascript" src="../../script/bootstrap.min.js"></script>
+</head>
+<style>
+.sz {
+	border-bottom: 1px solid #e1e1e1;
+}
+.sz-font1 {
+	font-size: 16px;
+	color: #178aff;
+	padding-top: 10px;
+}
+.sz-font2 {
+	font-size: 16px;
+	color: #212121;
+	padding-bottom: 10px;
+	padding-top: 10px;
+}
+.sz-font3 {
+	font-size: 12px;
+	color: #888888;
+	padding-bottom: 10px;
+}
+.sz-sx {
+	margin-top: 20%
+}
+.sz-color {
+	color: #ff0000;
+	border: none;
+}
+
+
+.sca{ padding: 0; margin: 0px 0 5px; position: relative;zoom:1; overflow: hidden;}
+.ca1{
+	/*padding:0; margin: 0; width: 20px; */
+	float: right;
+	height: 40px;line-height: 40px;
+	width: 20px;
+
+}
+/*.ca1 input[type="radio"]  {padding-top: 10px;
+}*/
+.ca2{  padding: 0; margin: 0; width: 80%;float:left; height: 40px; line-height: 40px;}
+.ca3{ width: 100%; padding: 0}
+</style>
+<body>
+<div id="wrap" class="flex-wrap flex-vertical">
+  <div class="container grad">
+		  <div class="i20"></div>
+    <div class="row">
+          <div class="col-xs-3 font1" onClick="sliding()"> <img src="../../image/Drback.png"></div>
+      <div class="col-xs-6 font2"> 设置 </div>
+      <div class="col-xs-3 font3"> </div>
+    </div>
+    <div style="clear: both"></div>
+  </div>
+  <div id="main" class="flex-con " >
+    <div class="login-bg container" style="padding-top:0; padding-bottom:0">
+<div style="height:20px;"></div>
+      <form class="bs-example bs-example-form" role="form">
+
+
+        <!-- <div class="input-group"> -->
+					<!-- <span class="input-group-addon"><img src="../../image/s02.png"></span> -->
+					  <input type="password" class="form-control" placeholder="原密码"  id="oldPsw" style="border:1px solid #edecec" >
+          <!-- <input type="password" class="form-control" placeholder="原密码"  id="oldPsw"  style="border-radius:0;width:100%;border:0;-webkit-box-shadow:0;box-shadow:0; line-height: 34px;height:34px; padding:5px; background:#fff;"> -->
+					<div  style="height:15px"></div>
+            <!-- <input type="text" class="form-control" placeholder="用户名" type="iphone" id="usera" > -->
+        <!-- </div> -->
+      <!-- <div class="input-group"> -->
+				<!-- <span class="input-group-addon"><img src="../../image/s02.png"></span> -->
+          <input type="password" id="newPsw" class="form-control" placeholder="新密码" style="border:1px solid #edecec" >
+            <!-- <input type="password" id="passa" class="form-control" placeholder="密码" > -->
+        <!-- </div> -->
+      </form>
+
+<style>
+.form-control{	outline: none;
+	/*border-color: transparent;*/
+	box-shadow: none;
+	appearance: none;
+	-webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+   -webkit-user-modify:read-write-plaintext-only;}
+.form-control:focus{ border:1px solid #edecec}
+</style>
+    <div class="gr-btn" id="dl">
+      <button type="button" onClick="submima()">确认</button>
+    </div>
+      <!-- 模态框1定位最小间隔  时间 -->
+
+
+
+    </div>
+  </div>
+</div>
+</body>
+</html>
+
+<script>
+function sliding()
+{
+  api.closeWin({
+    name:'system_mima',
+    animation: {type:'none'}
+  });
+}
+
+function submima()
+{
+  var oldPsw_el=document.getElementById("oldPsw");
+  var newPsw_el=document.getElementById("newPsw");
+  var  oldPsw=$api.val(oldPsw_el);
+  var newPsw=$api.val(newPsw_el);
+  //密码验证
+  if (oldPsw == '') {
+    api.alert({
+           msg: '原密码不能为空'
+       });
+      return false;
+  }
+  //密码验证
+  if (newPsw == '') {
+    api.alert({
+           msg: '新密码不能为空'
+       });
+      return false;
+  }
+  var is_oldPsw_true = verifyPassword(oldPsw);
+  if (is_oldPsw_true > 0) {
+      return false;
+  }
+  var is_newPsw_true = verifyPassword(newPsw);
+  if (is_newPsw_true > 0) {
+      return false;
+  }
+
+
+  api.ajax({
+      url: functionURL + "sysUserScreen/updatePswForApp.json",
+      method: 'post',
+			headers:
+			{
+
+				login_token:$api.getStorage('loginToken')
+			},
+      dataType:'text',
+      data: {
+          values: {
+              oldPsw:oldPsw,
+              newPsw:newPsw,
+              userId:$api.getStorage('usid')
+
+          },
+          files: {
+              file: 'fs://a.gif'
+          }
+      }
+  }, function(res, err) {
+console.log(JSON.stringify(res));
+
+             if (res > 0) {
+               api.alert({
+                      msg: '修改成功'
+                  });
+
+									api.closeWin({
+								    name:'system_mima',
+								    animation: {type:'none'}
+								  });
+                //   api.openFrame({
+                //     name : 'system_index',
+                //     url : '../system/index.html',
+                //  reload:true,
+                //  slidBackEnabled:false,
+                //  delay:100,
+                //  animation:{
+                //    type:"fade",
+                //    subType:"from_bottom",
+                //    }
+								 //
+                //     })
+
+             } else {
+               api.alert({
+                      msg: '修改失败'
+                  });
+
+             }
+
+  });
+
+}
+
+
+//验证密码
+function verifyPassword(password) {
+    var is_true = 0;
+    var min_length_str = 5;
+    if ($.trim(min_length_str) != "") {
+        var min_length = parseInt(min_length_str);
+    } else {
+        var min_length = 4;
+    }
+    if ($.trim(password) == "") {
+        is_true = 1;
+        api.alert({
+               msg: '密码不能为空'
+           });
+
+        return is_true;
+    }
+    if (min_length > 0) {
+        if (password.length < min_length) {
+            is_true = 1;
+            api.alert({
+                   msg: "密码最小长度为" + min_length
+               });
+
+            return is_true;
+        }
+
+    }
+    if (/.*[\u4e00-\u9fa5]+.*$/.test(password)) {
+        is_true = 1;
+        api.alert({
+               msg: "密码中不能包含汉字!"
+           });
+
+        return is_true;
+    }
+    return is_true;
+}
+
+</script>

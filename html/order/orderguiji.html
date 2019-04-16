@@ -1,0 +1,66 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>砂石运单</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/style.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="../../css/scCss.css">
+    <script type="text/javascript" src="../../script/api.js"></script>
+    <script type="text/javascript" src="../../script/common.js"></script>
+    <script type="text/javascript" src="../../script/jquery.min.js"></script>
+    <script type="text/javascript" src="../../script/bootstrap.min.js"></script>
+</head>
+
+<style>
+
+.y_sh{display:inline-block; width:40px; float:left; font-size:20px; line-height:40px; height:40px;}
+</style>
+<body style="background:#ffffff">
+
+
+
+  <div id="wrap" class="flex-wrap flex-vertical" style="position:relative; zoom:1; overflow:hidden">
+  <div style="position:absolute;bottom:20%;left:25px; z-index:999" onClick="sliding()"><span class="glyphicon glyphicon-circle-arrow-left" style="font-size:40px"></span></div>
+ <div class="i20" style="background:#1689fe"></div>
+
+    <div id="maina"  >
+
+      <iframe id="togj" style="width:100%;border:0px; height:100%"></iframe>
+    </div>
+  </div>
+</body>
+</html>
+
+
+</body>
+<script>
+function sliding()
+{
+  api.closeWin({
+    name:'order_orderguiji',
+    animation: {type:'none'}
+  });
+}
+
+
+apiready = function(){
+  var sid = api.pageParam.id;
+
+  //var uid_el=document.getElementById("uid");
+  //$api.val(uid_el,sid);
+var maina_el=document.getElementById("maina");
+var heaa=api.winHeight-25;
+$api.css(maina_el,'height:'+heaa+"px");
+  var url =functionURLimg+"/gcss/src/map.html?billNum="+sid;
+             var togj_el=document.getElementById("togj");
+             $api.attr(togj_el,'src',url);
+
+
+
+};
+</script>
+</html>

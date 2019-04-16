@@ -1,0 +1,287 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>砂石</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/style.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="../../css/scCss.css">
+    <link rel="stylesheet" type="text/css" href="../../css/glyindex.css">
+    <script type="text/javascript" src="../../script/api.js"></script>
+    <script type="text/javascript" src="../../script/common.js"></script>
+    <script type="text/javascript" src="../../script/jquery.min.js"></script>
+    <script type="text/javascript" src="../../script/bootstrap.min.js"></script>
+
+      <script type="text/javascript" src="../../script/gly.js"></script>
+          <script src="../../script/echarts.simple.min.js"></script>
+    <script src="../../script/week.js"></script>
+  <style>
+    a{ display:inline;}
+  </style>
+</head>
+<body>
+
+  <div id="wrap" class="flex-wrap flex-vertical">
+
+    <div class="container grad" id="yd">
+      <div class="i20"></div>
+      <div class="row">
+
+
+        <div id="show0" class=" font2 ashow actshow" align="center"> 首页 </div>
+        <div id="show1" class=" font2 ashow" align="center"> 运单统计 </div>
+        <div id="show2" class=" font2 ashow" align="center"> 运单查询 </div>
+        <div id="show3" class=" font2 ashow" align="center" style="position:relative"> 个人中心     <div class="col-xs-3 font3" onclick="opensz()" style="position:absolute; right: 20px; top:0px"> <img src="../../image/ssz.png"> </div></div>
+
+      </div>
+      <div style="clear: both"></div>
+    </div>
+
+    <div id="main" class="flex-con"  >
+
+    </div>
+
+
+
+    <div id="footer_gly" class="border-t">
+      <ul class="flex-wrap" >
+        <li tapmode="hover" onClick="randomSwitchBtn(0);" class="flex-con active  waves-effect  " >首页</li>
+        <li tapmode="hover" onClick="randomSwitchBtn(1);" class="flex-con  waves-effect  " >运单统计</li>
+        <li tapmode="hover" onClick="randomSwitchBtn(2);" class="flex-con  waves-effect " >运单查询</li>
+          <li tapmode="hover" onClick="randomSwitchBtn(4);" class="flex-con  waves-effect " >通讯录</li>
+        <li tapmode="hover" onClick="randomSwitchBtn(3);" class="flex-con  waves-effect " >个人中心</li>
+      </ul>
+    </div>
+  </div>
+
+    <link rel="stylesheet" type="text/css" href="../../css/waves.css">
+      <script type="text/javascript" src="../../script/waves.min.js"></script>
+
+</body>
+</html>
+
+
+<script>
+
+
+function hiddengroup()
+{
+
+  api.closeFrame({
+      name: 'glyydtj'
+  });
+  api.closeFrame({
+      name: 'glyydcx'
+  });
+
+  api.closeFrame({
+      name: 'systemglyindex'
+  });
+  api.closeFrame({
+      name: 'glyindex'
+  });
+
+  // api.closeWin({
+  //     name: 'glylisy'
+  // });
+
+
+//   api.setFrameGroupAttr({
+//     name: 'group',
+//     hidden: true
+// });
+//   api.setFrameGroupIndex({
+//       name: 'group',
+//       index: 0
+//   });
+}
+function opensz()
+{
+  api.openWin({
+
+                 name : 'system_sz',
+                 url : '../system/sz.html',
+                 slidBackEnabled:false,
+                 reload:true,
+              //    animation:{
+              //      type:"fade",
+              //      subType:"from_bottom",
+              //  }
+
+         });
+}
+$(document).on('ready', function () {
+
+           Waves.init();
+
+});
+
+
+   apiready = function () {
+ $api.fixTabBar($api.byId('footer_gly'));
+
+randomSwitchBtn(0)
+
+
+   }
+   function randomSwitchBtnindex()
+   {
+          var eFooterLis = $api.domAll('#footer_gly li');
+          $api.removeCls(eFooterLis[1], 'active');
+          $api.removeCls(eFooterLis[0], 'active');
+          $api.addCls( eFooterLis[2], 'active');
+    $api.removeCls( eFooterLis[3], 'active');
+
+          api.openFrame({
+            name : 'glyydcx',
+            url : '../order/glyydcx.html',
+              bounces: false,
+                 reload:true,
+              rect: {
+                      x: 0,
+                      y: 0,
+                      w: api.winWidth,
+                      h:  api.winHeight-$api.dom('#footer_gly').offsetHeight
+                  },
+
+          });
+   }
+   function randomSwitchBtn(tag) {
+     var eFooterLis = $api.domAll('#footer_gly li');
+     switch(tag)
+         {
+             case 0:
+
+   // api.closeFrame({
+   //     name: 'glyydtj'
+   // });
+   // api.closeFrame({
+   //     name: 'glyydcx'
+   // });
+   //
+   // api.closeFrame({
+   //     name: 'systemglyindex'
+   // });
+   $api.removeCls(eFooterLis[4], 'active');
+   $api.removeCls(eFooterLis[2], 'active');
+   $api.removeCls(eFooterLis[1], 'active');
+   $api.removeCls(eFooterLis[3], 'active');
+   $api.addCls( eFooterLis[0], 'active');
+                 api.openFrame({
+                 name : 'glyindex',
+                 url : '../order/glyindex.html',
+               //  reload:true,
+
+               rect: {
+                       x: 0,
+                       y: 0,
+                       w: api.winWidth,
+                       h:  api.winHeight-$api.dom('#footer_gly').offsetHeight
+                   },
+                    })
+
+             break;
+             case 1:
+                $api.removeCls(eFooterLis[4], 'active');
+             $api.removeCls(eFooterLis[2], 'active');
+             $api.removeCls(eFooterLis[0], 'active');
+             $api.addCls( eFooterLis[1], 'active');
+   		   $api.removeCls( eFooterLis[3], 'active');
+
+             api.openFrame({
+                   name : 'glyydtj',
+                   url : '../order/glyydtj.html',
+                 bounces: false,
+                 rect: {
+                         x: 0,
+                         y: 0,
+                         w: api.winWidth,
+                         h:  api.winHeight-$api.dom('#footer_gly').offsetHeight
+                     },
+
+             });
+
+
+
+             break;
+             case 2:
+   $api.removeCls(eFooterLis[4], 'active');
+             $api.removeCls(eFooterLis[1], 'active');
+             $api.removeCls(eFooterLis[0], 'active');
+             $api.addCls( eFooterLis[2], 'active');
+   	   $api.removeCls( eFooterLis[3], 'active');
+
+             api.openFrame({
+               name : 'glyydcx',
+               url : '../order/glyydcx.html',
+                 bounces: false,
+                 rect: {
+                         x: 0,
+                         y: 0,
+                         w: api.winWidth,
+                         h:  api.winHeight-$api.dom('#footer_gly').offsetHeight
+                     },
+
+             });
+
+
+
+             break;
+
+
+   		   case 3:
+   $api.removeCls(eFooterLis[3], 'active');
+             $api.removeCls(eFooterLis[1], 'active');
+             $api.removeCls(eFooterLis[0], 'active');
+   	   $api.removeCls( eFooterLis[2], 'active');
+         $api.addCls( eFooterLis[4], 'active');
+             api.openFrame({
+               name : 'systemglyindex',
+               url : '../system/systemglyindex.html',
+                 bounces: false,
+                 rect: {
+                         x: 0,
+                         y: 0,
+                         w: api.winWidth,
+                         h:  api.winHeight-$api.dom('#footer_gly').offsetHeight
+                     },
+
+             });
+
+
+
+             break;
+
+             case 4:
+       $api.removeCls(eFooterLis[4], 'active');
+                 $api.removeCls(eFooterLis[1], 'active');
+                 $api.removeCls(eFooterLis[0], 'active');
+            $api.removeCls( eFooterLis[2], 'active');
+             $api.addCls( eFooterLis[3], 'active');
+                 api.openFrame({
+                   name : 'systemtxl',
+                   url : '../system/systemtxl.html',
+                     bounces: false,
+                     rect: {
+                             x: 0,
+                             y: 0,
+                             w: api.winWidth,
+                             h:  api.winHeight-$api.dom('#footer_gly').offsetHeight
+                         },
+
+                 });
+
+
+
+                 break;
+
+             default:
+             break;
+         }
+   }
+
+
+</script>

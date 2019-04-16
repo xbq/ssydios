@@ -1,0 +1,1675 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>砂石运单</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/style.css"/>
+          <link rel="stylesheet" type="text/css" href="../../css/weui.min.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/bootstrap.css">
+<link rel="stylesheet" type="text/css" href="../../css/scCss.css">
+    <script type="text/javascript" src="../../script/api.js"></script>
+    <script type="text/javascript" src="../../script/common.js"></script>
+    <script type="text/javascript" src="../../script/jquery.min.js"></script>
+    <script type="text/javascript" src="../../script/bootstrap.min.js"></script>
+        <script type="text/javascript" src="../../script/upimg.js"></script>
+          <script type="text/javascript" src="../../script/tuisong.js"></script>
+              <script type="text/javascript" src="../../script/caogao.js"></script>
+</head>
+
+<style>
+
+a,
+a:link,a:focus,a:hover,
+a:visited {
+  color: #444444;
+}
+
+</style>
+<body>
+  <div id="wrap" class="flex-wrap flex-vertical">
+    <div class="container grad">
+      <div class="i20"></div>
+      <div class="row">
+        <div class="col-xs-3 font1" onClick="sliding()" > <img src="../../image/Drback.png"></div>
+        <div class="col-xs-6 font2"> 完善运单 </div>
+          <div class="col-xs-3 font3" onClick="takecgao()"> <img src="../../image/ats.png"> </div>
+
+      </div>
+      <div style="clear: both"></div>
+            <div class="i5"></div>
+    </div>
+    <div id="main" class="flex-con " >
+
+
+      <!-- 采区 -->
+  <script>
+  function ydinfofuncq()
+  {
+
+    $('#Memobox011').modal('hide');
+     var ipenboxbz_el=document.getElementById("ipenboxbz");
+      var sandboatRemark_el=document.getElementById("sandboatRemark");
+
+    // $api.val(ipenboxbz_el,"");
+  var htacchtml= $api.val(sandboatRemark_el)+"<span class='glyphicon glyphicon-pencil i-aapencil01'></span>";
+
+
+
+     $api.html(ipenboxbz_el,htacchtml);
+
+  }
+
+  function ydinfofuncqshow()
+  {
+
+    $('#Memobox011').modal('show');
+
+
+  }
+
+
+  </script>
+
+      <style>
+
+      #Memobox011{ top:5%; padding:10px; }
+      #Memobox011 h4{ padding:5px 0}
+      #Memobox011 textarea{ width:96%}
+      #Memobox011 .set-style { margin:5px 0; font-size:16px;}
+      #Memobox011 p.error { font-size:12px;}
+      #Memobox011  .modal-footer{ background:none;padding-top: 10px; padding-bottom: 10px;padding-top: 10px; padding-bottom: 10px;}
+      #Memobox011 button{ padding:2px 10px; margin-top:5px}
+      #Memobox011 .modal-header{ background: linear-gradient(to right, #17baff, #178aff); color: #fff; padding-top: 10px; padding-bottom: 10px;padding-top: 10px; padding-bottom: 10px;}
+      #Memobox011 .modal-body{ font-size: 16px;}
+      #Memobox011 .btcolor{ color: #178aff; border: 0; font-size: 16px;}
+
+        /*#Memobox011{ top:13%; padding:10px; }
+        #Memobox011 h4{ padding:5px 0}
+        #Memobox011 textarea{ width:96%}
+        #Memobox011 .set-style { margin:5px 0; font-size:16px;}
+        #Memobox011 p.error { font-size:12px;}
+        #Memobox011  .modal-footer{ background:none}
+        #Memobox011 button{ padding:2px 10px; margin-top:5px}*/
+        </style>
+      <div class="modal fade Memobox" id="Memobox011" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal"
+                  aria-hidden="true">×
+              </button>
+              <h4 class="modal-title" id="myModalLabel">
+                添加采区备注
+              </h4>
+            </div>
+            <div class="modal-body">
+
+            <div class="form-group">
+  <textarea class="form-control" rows="3" name="sandboatRemark" id="sandboatRemark" placeholder="添加采区备注"></textarea>
+
+
+              </div>
+
+
+            </div>
+            <div class="modal-footer"  >
+      <button type="button" class="btn btn-info btn-block" style="height:40px;lineHeight:40px;background:#0ea9ff"  onclick="ydinfofuncq()">提交</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- 采区 -->
+          <style>
+          #Memobox{ top:5%; padding:10px; }
+          #Memobox h4{ padding:5px 0}
+          #Memobox textarea{ width:96%}
+          #Memobox .set-style { margin:5px 0; font-size:16px;}
+          #Memobox p.error { font-size:12px;}
+          #Memobox  .modal-footer{ background:none;padding-top: 10px; padding-bottom: 10px;padding-top: 10px; padding-bottom: 10px;}
+          #Memobox button{ padding:2px 10px; margin-top:5px}
+          #Memobox .modal-header{ background: linear-gradient(to right, #17baff, #178aff); color: #fff; padding-top: 10px; padding-bottom: 10px;padding-top: 10px; padding-bottom: 10px;}
+          #Memobox .modal-body{ font-size: 16px;}
+          #Memobox .btcolor{ color: #178aff; border: 0; font-size: 16px;}
+            </style>
+                <div class="modal fade Memobox" id="Memobox" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                  <div class="modal-dialog">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <button type="button" class="close" data-dismiss="modal"
+                            aria-hidden="true">×
+                        </button>
+                        <h4 class="modal-title" id="myModalLabel">
+                          选择采区
+                        </h4>
+                      </div>
+                      <div class="modal-body" id="caiquid">
+
+                      </div>
+
+                      <div class="modal-footer">
+                     <a class="btn btn-default" data-dismiss="modal">关闭</a>
+                 </div>
+
+                    </div>
+                  </div>
+                </div>
+
+
+
+                                <!-- 砂厂 -->
+                              <script>
+                              function ydinfofunsq()
+                              {
+
+                              $('#Memobox012').modal('hide');
+                               var ipenboxbzsq_el=document.getElementById("ipenboxbzsq");
+                                var sandplantRemark_el=document.getElementById("sandplantRemark");
+
+                              // $api.val(ipenboxbz_el,"");
+                              var htacchtmlsq= $api.val(sandplantRemark_el)+"<span class='glyphicon glyphicon-pencil i-aapencil01'></span>";
+
+
+
+                               $api.html(ipenboxbzsq_el,htacchtmlsq);
+
+                              }
+
+                              function ydinfofunsqshow()
+                              {
+
+                              $('#Memobox012').modal('show');
+
+
+                              }
+
+
+                              </script>
+
+                              <style>
+
+                              #Memobox012{ top:5%; padding:10px; }
+                              #Memobox012 h4{ padding:5px 0}
+                              #Memobox012 textarea{ width:96%}
+                              #Memobox012 .set-style { margin:5px 0; font-size:16px;}
+                              #Memobox012 p.error { font-size:12px;}
+                              #Memobox012  .modal-footer{ background:none;padding-top: 10px; padding-bottom: 10px;padding-top: 10px; padding-bottom: 10px;}
+                              #Memobox012 button{ padding:2px 10px; margin-top:5px}
+                              #Memobox012 .modal-header{ background: linear-gradient(to right, #17baff, #178aff); color: #fff; padding-top: 10px; padding-bottom: 10px;padding-top: 10px; padding-bottom: 10px;}
+                              #Memobox012 .modal-body{ font-size: 16px;}
+                              #Memobox012 .btcolor{ color: #178aff; border: 0; font-size: 16px;}
+
+                                </style>
+                              <div class="modal fade Memobox" id="Memobox012" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                  <div class="modal-content">
+                                    <div class="modal-header">
+                                      <button type="button" class="close" data-dismiss="modal"
+                                          aria-hidden="true">×
+                                      </button>
+                                      <h4 class="modal-title" id="myModalLabel">
+                                        添加砂场备注
+                                      </h4>
+                                    </div>
+                                    <div class="modal-body">
+
+                                    <div class="form-group">
+                            <textarea class="form-control" rows="3" name="sandplantRemark" id="sandplantRemark" placeholder="添加砂场备注"></textarea>
+
+
+                                      </div>
+
+
+                                    </div>
+                                    <div class="modal-footer"  >
+                              <button type="button" class="btn btn-info btn-block" style="height:40px;lineHeight:40px;background:#0ea9ff"  onclick="ydinfofunsq()">提交</button>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+
+
+      <!-- 砂场 -->
+      <style>
+        #Memobox_s{ top:5%; padding:10px; }
+        #Memobox_s h4{ padding:5px 0}
+        #Memobox_s textarea{ width:96%}
+        #Memobox_s .set-style { margin:5px 0; font-size:16px;}
+        #Memobox_s p.error { font-size:12px;}
+        #Memobox_s  .modal-footer{ background:none}
+        #Memobox_s button{ padding:2px 10px; margin-top:5px}
+        </style>
+            <div class="modal fade Memobox" id="Memobox_s" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"
+                        aria-hidden="true">×
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">
+                      选择砂场
+                    </h4>
+                  </div>
+                  <div class="modal-body" id="shachangid">
+
+                  </div>
+
+                  <div class="modal-footer">
+                 <a class="btn btn-default" data-dismiss="modal">关闭</a>
+             </div>
+
+                </div>
+              </div>
+            </div>
+
+      <!-- 运单 -->
+
+      <style>
+        #Memobox_y{ top:13%; padding:10px; }
+        #Memobox_y h4{ padding:5px 0}
+        #Memobox_y textarea{ width:96%}
+        #Memobox_y .set-style { margin:5px 0; font-size:16px;}
+        #Memobox_y p.error { font-size:12px;}
+        #Memobox_y  .modal-footer{ background:none}
+        #Memobox_y button{ padding:2px 10px; margin-top:5px}
+        </style>
+      <div class="modal fade Memobox" id="Memobox_y" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal"
+                  aria-hidden="true">×
+              </button>
+              <h4 class="modal-title" id="myModalLabel">
+                添加运砂量
+              </h4>
+            </div>
+            <div class="modal-body">
+
+            <div class="form-group">
+
+      <input type="text" id="ydinfo" name="ydinfo" class="form-control" placeholder="运砂量(吨)">
+
+              </div>
+              <div class="form-group">
+
+                <input type="hidden"  id="sandtype" value="粗砂"/>
+                <ul id="sandtype_test">
+                    <li class="selected">粗砂</li>
+                    <li>细砂</li>
+                    <li>杂砂</li>
+                    <li>砾石</li>
+                </ul>
+
+
+            </div>
+            <div class="form-group" style="margin-bottom:0;">
+                        <div class="weu"  >
+                                      <label for="switchCP" class="weui-switch-cp">
+                                        <input id="switchCP" class="weui-switch-cp__input" type="checkbox" value="1">
+                                        <div class="weui-switch-cp__box"></div>
+                                      </label><span style="float:left; display:block; margin-right:10px;line-height:25px">减载</span>
+                        </div>
+                        <div id="cphtmaa" style="display:none; height:40px ">
+                            <div style="width:48%; float:left"><input type="text" id="eatWaterLine" name="eatWaterLine" class="form-control" placeholder="减载高度(cm)"></div>
+                            <div style="width:48%; float:right;"><input type="text" id="containWater" name="containWater" class="form-control" placeholder="含水系数（%）"></div>
+                        </div>
+
+            </div>
+
+
+            </div>
+            <script>
+
+            $("#switchCP").change(function() {
+              console.log("sda"+$api.getStorage('fxcccaogao'));
+              if($api.getStorage('fxcccaogao')==0)
+              {
+              $("#cphtmaa").css("display","block");
+                $api.setStorage('fxcccaogao',1);
+              }
+              else {
+                    $api.setStorage('fxcccaogao',0);
+              $("#cphtmaa").css("display","none");
+              }
+          });
+
+
+            </script>
+          <style>
+          .weui-switch-cp__input:checked~.weui-switch-cp__box, .weui-switch:checked {
+          border-color: #1690ff;
+          background-color: #1690ff;
+          }
+          .weui-switch-cp__box {
+          display: block;
+          }
+          .weui-switch, .weui-switch-cp__box {
+          position: relative;
+          width: 40px;
+          height: 24px;
+
+          }.weui-switch-cp__box:after, .weui-switch:after {
+
+          width: 22px;
+          height: 22px;
+
+          }
+
+          .weui-switch-cp__box:before, .weui-switch:before {
+
+          width: 38px;
+          height: 22px;
+
+          }
+
+          </style>
+
+            <div class="modal-footer"  >
+      <button type="button" class="btn btn-info btn-block" style="height:40px;lineHeight:40px;background:#0ea9ff" onClick="ydinfofun()">提交</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+      <!--发货方-->
+
+  	  <div class="tab-bg container tabboxaaa" id="tab-bg " >
+
+  		  <div class="row" style="overflow:hidden">
+  			  <div class="col-xs-4 ddxq-font1">
+  				  <div><span>发货方</span></div>
+  			  </div>
+          <div class="col-xs-8 ">
+            <div class="i-bzaa" onclick="ydinfofuncqshow()" ><span class="i-penbox" id="ipenboxbz" style=" display:none"><span class="glyphicon glyphicon-pencil i-aapencil"></span>添加采区备注</span></div>
+          </div>
+  		  </div>
+
+          <a href="#" data-toggle="modal" data-target="#Memobox" style="width:100%; padding:0; margin:0; position:relative; zoom:1;">
+  		  <div class="row i-baza01" style=" position:relative">
+
+  			  <div class="col-xs-10 ddxq-font1">
+            <strong  id="caiquid_sel"><img src="../../image/tj.png">添加采区信息<bdi id="caiqucao"></bdi></strong>
+  				  <!-- <strong>发货方：南赣3号</strong> -->
+  			  </div>
+  			  <div class="col-xs-2 gpdd-font3">
+  				  <span class="glyphicon glyphicon-chevron-right"></span>
+  			  </div>
+  		  </div>
+
+  <input type="hidden" id="from_district" class="form-control" readonly="readonly"/>
+
+      <div id="csq">
+  		  <!-- <div class="row">
+  			  <div class="col-xs-6 gpdd-font2">
+  				  采砂船：NC-123556
+  			  </div>
+  			  <div class="col-xs-6 gpdd-font2 gpdd-r">
+  				 南昌中支采区
+  			  </div>
+  		  </div> -->
+      </div>
+        </a>
+
+  	  </div>
+
+  	  <!--收货方-->
+  <!-- <a href="#" data-toggle="modal" data-target="#Memobox_s" style="width:100%; padding:0; margin:0"> -->
+
+  	  <div class="tab-bg container tabboxaaa" id="tab-bg " >
+
+
+  		  <div class="row" style="overflow:hidden">
+  			  <div class="col-xs-4 ddxq-font1">
+  				  <div><span>收货方</span></div>
+  			  </div>
+          <div class="col-xs-8 ">
+            <div class="i-bzaa" onclick="ydinfofunsqshow()" ><span class="i-penbox" id="ipenboxbzsq" style="display:none"><span class="glyphicon glyphicon-pencil i-aapencil"></span>添加砂场备注</span></div>
+          </div>
+  		  </div>
+  <a onClick="open_shac(2)" style="width:100%; padding:0; margin:0">
+  		  <div class="row">
+
+  			  <div class="col-xs-10 ddxq-font1">
+              <strong  id="shachang_sel"><img src="../../image/tj.png">添加砂场信息</strong>
+  				  <!-- <strong>收货单位：南昌赣昌砂场</strong> -->
+  			  </div>
+  			  <div class="col-xs-2 gpdd-font3">
+  				  <span class="glyphicon glyphicon-chevron-right"></span>
+  			  </div>
+  		  </div>
+
+          <input type="hidden" id="to_district" class="form-control" readonly="readonly"/>
+  		  <!-- <div class="row">
+  			  <div class="col-xs-6 gpdd-font2">
+  				  收货员：李四
+  			  </div>
+  			  <div class="col-xs-6 gpdd-font4">
+  				 13578951254
+  			  </div>
+  		  </div> -->
+</a>
+  	  </div>
+
+  	  <!--运砂船-->
+  <a onClick="open_ysc(2)" style="width:100%; padding:0; margin:0">
+
+  	  <div class="tab-bg container" id="tab-bg "  style="padding:0px auto; margin:0px auto 0px">
+
+
+        <div class="row">
+  			  <div class="col-xs-12 ddxq-font1">
+  				  <div><span>运砂船</span></div>
+  			  </div>
+  		  </div>
+
+  		  <div class="row">
+  			  <div class="col-xs-10 ddxq-font1">
+              <strong  id="ysqname"><img src="../../image/tj.png">添加运砂船信息</strong>
+  				   <!-- <a onclick="open_ysc()"><div><span>添加运砂船信息</span></div></a> -->
+  			  </div>
+
+          <div class="col-xs-2 gpdd-font3">
+            <span class="glyphicon glyphicon-chevron-right"></span>
+          </div>
+  		  </div>
+
+          <input type="hidden" id="boat_id" class="form-control" readonly="readonly"/>
+          <div id="ysq_tel_name" style="display:none">
+              <div class="row" >
+                <div class="col-xs-5 gpdd-font2" id="ysq_na_aa">船主:<bdi id="ysq_na_a"></bdi></div>
+              <div class="col-xs-7 gpdd-font2 gpdd-r" id="ysq_rel_aa">联系电话:<bdi id="ysq_rel_a"></bdi></div>
+              <!-- <div class="col-xs-6 gpdd-font2" id="ysq_na_a"></div>
+            <div class="col-xs-6 gpdd-font4" id="ysq_rel_a"></div> -->
+            </div>
+          </div>
+
+
+  	  </div>
+      </a>
+  	  <!--订单信息-->
+
+        <a href="#" data-toggle="modal" data-target="#Memobox_y" style="width:100%; padding:0; margin:0">
+
+
+  	  <div class="tab-bg container" style="padding:0px auto; margin:0px auto 0px">
+
+        <div class="row">
+  			  <div class="col-xs-12 ddxq-font1">
+  				  <div><span>订单信息</span></div>
+  			  </div>
+  		  </div>
+
+  		  <div class="row" style="position:relative">
+            <div style="position:absolute; right:12%; top:0px; line-height:30px" id="datarqsel"></div>
+  			  <div class="col-xs-10 ddxq-font1">
+              <strong  id="ydinfo_sel"><img src="../../image/tj.png">添加订单信息</strong>
+  				    <!-- <a href="#" data-toggle="modal" data-target="#Memobox_y"><span class="glyphicon glyphicon-plus"><div><span>订单信息</span></div></a> -->
+  			  </div>
+          <div class="col-xs-2 gpdd-font3">
+            <span class="glyphicon glyphicon-chevron-right"></span>
+          </div>
+<!--
+          <div class="col-xs-12" >
+            <div class="col-xs-12" id="datarqsel"></div>
+            </div>-->
+              <div class="col-xs-12" id="showjz_hs">
+                <div class="col-xs-5 gpdd-font2 " id="datajzsel"  style="display:none; padding-left:0; padding-right:0"></div>
+                <div class="col-xs-7 gpdd-font2 gpdd-r" id="datahssel" style="display:none;padding-left:0; padding-right:0"></div>
+          <!-- <div class="col-xs-6" id="datajzsel" style="display:none"></div>
+          <div class="col-xs-6" id="datahssel" style="display:none"></div> -->
+          </div>
+
+  		  </div>
+
+  		   <!-- <div class="row">
+  			  <div class="col-xs-10 ddxq-font2">
+  				  <strong>货物体积：52吨</strong>
+  			  </div>
+  			  <div class="col-xs-2 gpdd-font3">
+  				<span class="glyphicon glyphicon-chevron-right"></span>
+  			  </div>
+  		  </div>
+  		  <div class="row">
+  			  <div class="col-xs-12 gpdd-font2">
+  				  创建时间：11/02 10：00
+  			  </div>
+  		  </div> -->
+  	  </div>
+      </a>
+  	   <!--装载照片-->
+       <input type="hidden" name="uid" id="uid" value="" style="width:100px; margin:0 auto; height:20px; padding-left:50px; background:#f00"/>
+       <span  style="width:100%; padding:0; margin:0">
+  	  <div class="tab-bg container ddxq-t" style="padding:0px auto; margin:0px auto 0px">
+  		  <div class="row"><!--已发布、已签收的时候显示装载照片-->
+          <div class="col-xs-12 ddxq-font1">
+            <div><span>装载照片</span>
+              <!-- <span onclick="otj()">提交</span> -->
+            </div>
+          </div>
+
+
+          <div class="row ddxq-picw" id="simg"><div class="col-xs-4"  onclick="takePhoto()" >  <a  class="ddxq-pic-cc"   ></a> </div></div>
+        </div>
+  	  </div>
+        </span>
+  	  <div class="ddxq-btn" id="ccyid"><!--点击改派按钮的时候显示确认改派按钮-->
+        <button type="button" onClick="subtijiao()">提交</button>
+      </div>
+    </div>
+  </div>
+
+
+</body>
+
+
+
+
+<script>
+function testCreateTable(){
+  var sql = 'CREATE TABLE ssydlist(id integer PRIMARY KEY autoincrement, deliver varchar(255),from_district varchar(255),caiqu_name varchar(255), to_district varchar(255),shachang_name varchar(255),boat_id varchar(255),ysqname varchar(255),ysqa_name  varchar(255),ysqa_tel  varchar(255),weight varchar(255), eatWaterLine varchar(255),containWater varchar(255),sandtype varchar(255),postStr text,postStrcount varchar(255),fabu_time varchar(255))';
+
+//var sql = 'CREATE TABLE ssydlist(Id_P int, LastName varchar(255), FirstName varchar(255), Address varchar(255), City varchar(255))';
+db.executeSql({
+    name: database,
+    sql: sql
+}, function(ret, err){
+    if(ret.status){
+      //  api.alert({msg:'执行SQL成功'});
+    }else{
+      //  api.alert({msg:err.msg});
+    }
+
+    api.actionSheet({
+        buttons: ['保存草稿', '加载草稿']
+    }, function(ret, err) {
+
+
+      var eatWaterLine_el=document.getElementById("eatWaterLine");
+      var containWater_el=document.getElementById("containWater");
+
+      var sandtype_el=document.getElementById("sandtype");
+      var ydinfo_el=document.getElementById("ydinfo");
+      var boat_id_el=document.getElementById("boat_id");
+      var to_district_el=document.getElementById("to_district");
+      var from_district_el=document.getElementById("from_district");
+      var ysqname_el=document.getElementById("ysqname");
+
+
+  var shachang_sel_el=document.getElementById("shachang_sel");
+      var  shachang_name=  $api.html(shachang_sel_el);
+
+      if(shachang_name.indexOf("添加砂场信息")>=0)
+      {
+shachang_name="";
+      }
+      var caiqucao_el=document.getElementById("caiqucao");
+      var caiqu_name=$api.html(caiqucao_el);
+//   var caiquid_sel_el=document.getElementById("caiquid_sel");
+//       var caiqu_name=$api.html(caiquid_sel_el);
+//
+//       if(caiqu_name.indexOf("添加采区信息")>=0)
+//       {
+// caiqu_name="";
+//       }
+
+
+var sandplantRemark_el=document.getElementById("sandplantRemark");
+var sandboatRemark_el=document.getElementById("sandboatRemark");
+var sandplantRemark=$api.val(sandplantRemark_el);
+var sandboatRemark=$api.val(sandboatRemark_el);
+
+  var ysq_na_a_el=document.getElementById("ysq_na_a");
+  var ysq_rel_a_el=document.getElementById("ysq_rel_a");
+
+  var ysqname=$api.html(ysqname_el);
+
+  if(ysqname.indexOf("添加运砂船信息")>=0)
+  {
+ysqname="";
+  }
+
+  var  ysqa_name=  $api.html(ysq_na_a_el);
+
+  if(ysqa_name=="undefined")
+  {
+ysqa_name="";
+  }
+
+  var  ysqa_tel=  $api.html(ysq_rel_a_el);
+
+
+  if(ysqa_tel=="undefined")
+  {
+ysqa_tel="";
+  }
+
+
+   var eatWaterLine=$api.val(eatWaterLine_el);
+   var containWater=$api.val(containWater_el);
+   if(containWater=="undefined")
+   {
+ containWater="";
+   }
+
+   var sandtype=$api.val(sandtype_el);
+   var boat_id=$api.val(boat_id_el);
+   var from_district=$api.val(from_district_el);
+   var to_district=$api.val(to_district_el);
+   var deliver=$api.getStorage('usid');
+  // var sandboat_id=$api.getStorage('ucsc06id');
+   var weight=$api.val(ydinfo_el);
+
+   if(weight=="undefined")
+   {
+ weight="";
+   }
+
+   var strArr=document.getElementById("simg").getElementsByTagName('IMG');
+var postStrcount=0;
+   var postStr="";
+   if(strArr.length>0){
+      postStrcount=strArr.length;
+   for (i = 1; i <= strArr.length; i++) {
+                //console.log(strArr[i]);
+                postStr= postStr+strArr[i - 1].src+",";
+
+            }
+          }
+          postStr=(postStr.substring(postStr.length-1)==',')?postStr.substring(0,postStr.length-1):postStr;
+var fabu_time=$("#datarqsel").html();
+console.log(fabu_time);
+console.log(postStr);
+  console.log(deliver);
+  console.log(from_district);
+    console.log(caiqu_name);
+
+  console.log(to_district);
+    console.log(shachang_name);
+  console.log(boat_id);
+  console.log(weight);
+    console.log(eatWaterLine);
+  console.log(sandtype);
+  console.log(containWater);
+    console.log(ysqname);
+  console.log("1"+ysqa_name);
+  console.log(ysqa_tel);
+
+        var index = ret.buttonIndex;
+        console.log(index);
+        if(index==1)
+        {
+
+          db.executeSql({
+              name: database,
+            sql: 'INSERT INTO ssydlist(deliver,from_district,caiqu_name,to_district,shachang_name,boat_id,ysqname,ysqa_name,ysqa_tel,weight,eatWaterLine,containWater,sandtype,postStr,postStrcount,fabu_time) VALUES ("'+deliver+'","'+from_district+'","'+caiqu_name+'","'+to_district+'","'+shachang_name+'","'+boat_id+'","'+ysqname+'","'+ysqa_name+'","'+ysqa_tel+'","'+weight+'","'+eatWaterLine+'","'+containWater+'","'+sandtype+'","'+postStr+'","'+postStrcount+'","'+fabu_time+'")'
+
+          }, function(ret, err) {
+              if (ret.status) {
+                api.toast({
+                                 msg: '保存成功',
+                                 duration: 2000,
+                                 location: 'middle'
+                                 });
+
+
+                                 db.selectSql({
+                                     name: database,
+                                     sql: 'select max(id)  as sid from ssydlist'
+                                 }, function(ret, err) {
+                                   console.log("测试123"+JSON.stringify(ret));
+                                     if (ret.status) {
+                                          var scaogaoid=ret.data[0]['sid'];
+
+                                $api.setStorage('sandplantRemark'+scaogaoid,sandplantRemark);
+                                $api.setStorage('sandboatRemark'+scaogaoid,sandboatRemark);
+
+                                          console.log("获得ID"+scaogaoid);
+                                          console.log("存在砂场"+$api.getStorage('sandplantRemark'+scaogaoid));
+                                              console.log("存在采区"+$api.getStorage('sandboatRemark'+scaogaoid));
+                                          if (typeof($api.getStorage('scaogao'+scaogaoid)) == 'undefined')
+                                        //  if($api.getStorage('scaogao'+scaogaoid)=='undefined')
+                                          {
+                                            console.log("未定义");
+                                          }
+                                          else {
+                                            console.log("已定义");
+                                          }
+
+                                     } else {
+                                        // alert(JSON.stringify(err));
+                                     }
+                                 });
+
+            // alert(JSON.stringify(ret));
+              } else {
+              //    alert(JSON.stringify(err));
+              }
+          });
+        }
+        else if(index==2){
+
+          api.openWin({
+
+                     name : 'createcaogao',
+                     url : '../order/createcaogao.html',
+                     slidBackEnabled:false,
+                     reload:true,
+
+             });
+
+
+        }
+        else if(index==3) {
+
+
+
+        }
+
+    });
+});
+
+}
+function takecgao()
+{
+
+db.openDatabase({
+    name:database
+}, function(ret, err) {
+    if (ret.status) {
+     //alert(JSON.stringify(ret));
+     testCreateTable();
+
+    } else {
+      //  alert(JSON.stringify(err));
+    }
+});
+
+}
+
+function subtijiao()
+{
+   var eatWaterLine_el=document.getElementById("eatWaterLine");
+   var containWater_el=document.getElementById("containWater");
+   var eatWaterLine=$api.val(eatWaterLine_el);
+   var containWater=$api.val(containWater_el);
+
+   var ydinfo_el=document.getElementById("ydinfo");
+   var boat_id_el=document.getElementById("boat_id");
+   var to_district_el=document.getElementById("to_district");
+   var from_district_el=document.getElementById("from_district");
+var boat_id=$api.val(boat_id_el);
+var from_district=$api.val(from_district_el);
+var to_district=$api.val(to_district_el);
+var deliver=$api.getStorage('usid');
+var sandboat_id=$api.getStorage('ucsc06id');
+var weight=$api.val(ydinfo_el);
+
+
+var sandplantRemark_el=document.getElementById("sandplantRemark");
+var sandboatRemark_el=document.getElementById("sandboatRemark");
+var sandplantRemark=$api.val(sandplantRemark_el);
+var sandboatRemark=$api.val(sandboatRemark_el);
+
+if(boat_id=="")
+{
+ api.alert({
+        title: '请选择运砂船'
+    });
+return false;
+}
+
+if(from_district=="")
+{
+ api.alert({
+        title: '请选择采区信息'
+    });
+return false;
+}
+
+if(to_district=="")
+{
+ api.alert({
+        title: '请选砂场信息'
+    });
+return false;
+}
+
+if(weight=="")
+{
+ api.alert({
+        title: '请输入运砂量'
+    });
+return false;
+}
+
+
+  var strArr_aa=document.getElementById("simg").getElementsByTagName('IMG');
+  if(strArr_aa.length==0)
+  {
+     api.alert({
+            title: '请上传照片'
+        });
+    return false;
+  }
+  var ccyid_el=document.getElementById("ccyid");
+  $api.css(ccyid_el,"display:none");
+
+
+
+  var sandtype_el=document.getElementById("sandtype");
+var sandtype=$api.val(sandtype_el);
+
+
+var strArr=document.getElementById("simg").getElementsByTagName('IMG');
+// for (i=0;i<strArr.length;i++ )
+// {
+// //if(imglist[i].src.indexOf("loading.gif",0)!=-1){imglist[i].src="imgage/"+i+".gif";}
+// console.log(imglist[i].src); //测试成功
+// }
+var postStr="";
+for (i = 1; i <= strArr.length; i++) {
+             //console.log(strArr[i]);
+             if (i == 1) {
+                 postStr += '"input-id-' + i + '":"' + strArr[i - 1].src + '"';
+             } else {
+                 postStr += ',"input-id-' + i + '":"' + strArr[i - 1].src + '"';
+             }
+         }
+
+         postStr = "{" + postStr + "}";
+
+     var a = JSON.parse(postStr);
+console.log("开始");
+ console.log(postStr);
+console.log(boat_id);
+console.log(sandboat_id);
+console.log(from_district);
+console.log(to_district);
+console.log(deliver);
+console.log(weight);
+console.log(sandtype);
+console.log(strArr.length);
+console.log($api.getStorage('usid'));
+console.log("结束");
+
+api.showProgress({
+
+    animationType:'zoom',
+    modal: false
+});
+api.ajax({
+    url: functionURL + 'upLoadScreen/create.json',
+    method: 'post',
+    headers:
+    {
+
+      login_token:$api.getStorage('loginToken')
+    },
+
+    dataType:'text',
+    data: {
+        values: {
+            boat_id: boat_id,
+            sandboat_id: sandboat_id,
+            from_district: from_district,
+            to_district: to_district,
+            deliver: deliver,
+            weight: weight,
+            sandtype:sandtype,
+            fileCount: strArr.length,
+            userId: $api.getStorage('usid'),
+            eatWaterLine:eatWaterLine,
+            containWater:containWater,
+            sandplantRemark:sandplantRemark,
+            sandboatRemark:sandboatRemark
+
+
+        },
+      files: a
+    }
+}, function(ret, err) {
+  // api.hideProgress();
+  console.log("测试："+ret);
+  api.hideProgress();
+    if (ret) {
+      if(ret==1)
+      {
+      api.alert({ title: "添加成功" });
+
+
+
+   $api.css(ccyid_el,"display:none");
+//上传图片
+api.openWin({
+
+           name : 'order_orderlist',
+           url : '../order/orderlist.html',
+           slidBackEnabled:false,
+           reload:true,
+
+   });
+
+
+
+
+
+
+
+        }
+        else {
+
+          if(ret==-1)
+          {
+
+            api.alert({
+                title: '',
+                msg: '所选运砂船还有未完成运单',
+            }, function(ret, err) {
+
+            });
+            // api.alert({ msg: "所选运砂船还有未完成运单" });
+               $api.css(ccyid_el,"display:block");
+
+          }
+          else {
+            api.alert({  title: '', msg: "添加失败,请重新提交" });
+               $api.css(ccyid_el,"display:block");
+          }
+
+        }
+
+    } else {
+        api.alert({ title: '',msg: "连接错误,请重试" });
+           $api.css(ccyid_el,"display:block");
+    }
+});
+
+
+}
+function sliding()
+{
+  api.closeWin({
+    name:'createcaogaoinfo',
+    animation: {type:'none'}
+  });
+}
+
+function getNowDate() {
+ var date = new Date();
+ var sign1 = "-";
+ var sign2 = ":";
+ var year = date.getFullYear() // 年
+ var month = date.getMonth() + 1; // 月
+ var day  = date.getDate(); // 日
+ var hour = date.getHours(); // 时
+ var minutes = date.getMinutes(); // 分
+ var seconds = date.getSeconds() //秒
+ if (month >= 1 && month <= 9) {
+   month = "0" + month;
+  }
+  if (day >= 0 && day <= 9) {
+   day = "0" + day;
+  }
+  if (hour >= 0 && hour <= 9) {
+   hour = "0" + hour;
+  }
+  if (minutes >= 0 && minutes <= 9) {
+   minutes = "0" + minutes;
+  }
+  if (seconds >= 0 && seconds <= 9) {
+   seconds = "0" + seconds;
+  }
+ var currentdate = year + sign1 + month + sign1 + day + " " + hour + sign2 + minutes + sign2 + seconds;
+ $("#datarqsel").html(currentdate);
+ //return currentdate;
+}
+function ydinfofun()
+{
+
+
+
+  if($("#eatWaterLine").val()!=""||$("#containWater").val()!="")
+  {
+    $("#showjz_hs").css("display","block");
+  }
+  else {
+      $("#showjz_hs").css("display","none");
+  }
+
+
+   var ydinfo_el=document.getElementById("ydinfo");
+   var ydinfo_sel_el=document.getElementById("ydinfo_sel");
+
+var msaaa=0;
+   var reg=/(^[1-9]{1}[0-9]*$)|(^[0-9]*\.[0-9]*$)/
+          if(!reg.test($api.val(ydinfo_el))){
+
+
+            msaaa=1;
+                    //   return false;
+            $api.val(ydinfo_el,"");
+
+
+          }
+
+if($("#eatWaterLine").val()!="")
+{
+          if(!reg.test($("#eatWaterLine").val())){
+
+        msaaa=1;
+        $("#eatWaterLine").val("");
+          // return false;
+
+
+          }
+}
+if($("#containWater").val()!="")
+{
+          if(!reg.test($("#containWater").val())){
+
+        msaaa=1;
+            $("#containWater").val("");
+          // return false;
+
+
+          }
+}
+          if(msaaa==1)
+          {
+            api.toast({
+          msg: '请输入大于0的数字',
+          duration: 2000,
+          location: 'middle'
+          });
+        return false;
+          }
+  getNowDate();
+    $('#Memobox_y').modal('hide');
+
+    $("#datajzsel").html("减载高度:"+$("#eatWaterLine").val()+"(cm)");
+     $("#datahssel").html("含水系数:"+$("#containWater").val()+"%");
+
+      if($("#eatWaterLine").val()!="")
+    {
+
+      $("#datajzsel").css("display","block");
+    }
+    else {
+        $("#datajzsel").css("display","none");
+    }
+    if($("#containWater").val()!="")
+    {
+
+      $("#datahssel").css("display","block");
+    }
+    else {
+        $("#datahssel").css("display","none");
+    }
+
+
+
+   $api.html(ydinfo_sel_el,$api.val(ydinfo_el)+"吨"+"("+$("#sandtype").val()+")");
+}
+
+function shac_uid(name,uid)
+{
+
+
+  var to_district_el=document.getElementById("to_district");
+
+ var caiquid_sel_el=document.getElementById("shachang_sel");
+ $api.html(caiquid_sel_el,name);
+  $api.val(to_district_el,uid);
+$("#ipenboxbzsq").css("display","inline-block");
+}
+
+
+function ysq_uid(name,ownerId,ownerName,tel,uid)
+{
+
+    var ysqname_el=document.getElementById("ysqname");
+    var boat_id_el=document.getElementById("boat_id");
+   var ysq_tel_name_el=document.getElementById("ysq_tel_name");
+   $api.html(ysqname_el,name);
+   var html="";;
+   //html="<span>"+ownerName+"</span>"+"<span>"+tel+"</span>";
+   var ysq_na_a_el=document.getElementById("ysq_na_a");
+  var ysq_rel_a_el=document.getElementById("ysq_rel_a");
+$api.html(ysq_na_a_el,ownerName);
+$api.html(ysq_rel_a_el,tel);
+
+$api.css(ysq_tel_name_el,'display:block');
+
+
+    $api.val(boat_id_el,uid);
+}
+
+function open_ysc(sx)
+{
+
+  api.openWin({
+
+             name : 'order_ysq',
+             url : '../order/ysq.html',
+             slidBackEnabled:false,
+             reload:true,
+                pageParam: {id: sx},
+
+     });
+}
+
+function open_shac(sx)
+{
+
+  api.openWin({
+
+             name : 'order_shac',
+             url : '../order/shac.html',
+             slidBackEnabled:false,
+             reload:true,
+  pageParam: {id: sx},
+     });
+}
+
+
+function caiquid(name,uid)
+{
+
+ var caiquid_sel_el=document.getElementById("caiquid_sel");
+ var from_district_el=document.getElementById("from_district");
+  var csq_el=document.getElementById("csq");
+var html="";
+
+html+='<div class="row">';
+html+='<div class="col-xs-5 gpdd-font2">发货员:';
+html+=$api.getStorage('usname');
+html+='</div>';
+html+='<div class="col-xs-7 gpdd-font2 gpdd-r">联系电话:';
+html+=$api.getStorage('ucsc06tel');
+html+='</div>';
+html+='</div>';
+ $api.html(csq_el,html);
+
+ $api.html(caiquid_sel_el,"<bdi id='caiqucao'>"+name+"</bdi>("+$api.getStorage('ucsc06name')+")");
+  $api.val(from_district_el,uid);
+ $('#Memobox').modal('hide');
+
+  $api.css($api.byId('s-fhbox'),'display:none');
+ $("#ipenboxbz").css("display","inline-block");
+
+}
+function caiqu()
+{
+  api.ajax({
+
+    url: functionURL + 'districtScreen/getAll.json',
+      method: 'get',
+      headers:
+      {
+
+        login_token:$api.getStorage('loginToken')
+      },
+      data: {
+          values: {
+
+          },
+          files: {
+              file: 'fs://a.gif'
+          }
+      }
+  }, function(ret, err) {
+      if (ret) {
+
+
+       if( ret['data'].length>0)
+           {
+             var html = '';
+             var caiquid_el=document.getElementById("caiquid");
+
+             for (i = 0; i < ret['data'].length; i++) {
+               var item = ret['data'][i];
+
+                  html+='<div class="form-group" style=" width:100%" onclick=caiquid("'+item['name']+'",'+item['uid']+')>';
+                  html+='<span >'+item['name']+'</span>';
+                  html+='</div>';
+
+             }
+
+             $api.html(caiquid_el,html);
+
+           }
+
+
+      }
+      else {
+        caiqu()
+      }
+  });
+
+}
+
+function shachangid(name,uid)
+{
+
+  var to_district_el=document.getElementById("to_district");
+
+ var caiquid_sel_el=document.getElementById("shachang_sel");
+ $api.html(caiquid_sel_el,name);
+  $api.val(to_district_el,uid);
+ $('#Memobox_s').modal('hide');
+
+  $api.css($api.byId('s-fhbox_s'),'display:none');
+}
+
+function shachang()
+{
+  api.ajax({
+
+    url: functionURL + 'sandPlantScreen/getAll.json',
+      method: 'get',
+      headers:
+      {
+
+        login_token:$api.getStorage('loginToken')
+      },
+      data: {
+          values: {
+
+          },
+          files: {
+              file: 'fs://a.gif'
+          }
+      }
+  }, function(ret, err) {
+      if (ret) {
+
+
+       if( ret['data'].length>0)
+           {
+             var html = '';
+             var shachangid_el=document.getElementById("shachangid");
+
+             for (i = 0; i < ret['data'].length; i++) {
+               var item = ret['data'][i];
+
+                  html+='<div class="form-group" style=" width:100%" onclick=shachangid("'+item['name']+'",'+item['uid']+')>';
+                  html+='<span >'+item['name']+'</span>';
+                  html+='</div>';
+
+             }
+
+             $api.html(shachangid_el,html);
+
+           }
+
+
+      }
+      else {
+        shachang();
+      }
+  });
+
+}
+
+
+var Htmls = "";
+var timeOutEvent = 0;
+
+
+//开始按
+function gtouchstart(obj) {
+Htmls=obj;
+//alert(obj);
+  //  Htmls = $(obj).parent().html();
+      console.log(Htmls);
+    timeOutEvent = setTimeout(function() {
+      //  alert("清除了"); //因为页面弹动会导致元素一直处于按住的状态，所以超过700毫秒自动清空变量，避免点击其他元素触发事件
+
+      api.confirm({
+          title: '提示',
+          msg: '确定删除此图片吗？',
+          buttons: ['确定', '取消']
+      }, function(ret, err) {
+          var index = ret.buttonIndex;
+          console.log(index);
+          if(index==1)
+          {
+            console.log(obj);
+          var simga_el=document.getElementById(obj);
+
+            $api.remove(simga_el);
+          }
+      });
+
+
+
+        Htmls = "";
+    }, 500);
+    return false;
+};
+
+//手释放，取消长按事件
+function gtouchend() {
+    clearTimeout(timeOutEvent);
+//alert("addd");
+    Htmls = "";
+};
+
+//如果手指有移动，则取消所有事件，此时说明用户只是要移动而不是长按
+function gtouchmove() {
+    clearTimeout(timeOutEvent);
+    Htmls = "";
+};
+
+
+function takePhoto() {
+       api.getPicture({
+           sourceType: 'camera', //（可选项）图片源类型，从相册、图片库或相机获取图片
+           encodingType: 'jpg', //（可选项）返回图片类型，jpg或png
+           mediaValue: 'pic', //（可选项）媒体类型，图片或视频
+           destinationType: 'url', //（可选项）返回数据类型，指定返回图片地址或图片经过base64编码后的字符串
+           allowEdit: true,
+           quality: 100, //（可选项）图片质量，只针对jpg格式图片（0-100整数）
+          targetWidth: 800, //（可选项）压缩后的图片宽度，图片会按比例适配此宽度
+          //targetHeight: 800, //（可选项）压缩后的图片高度，图片会按比例适配此高度
+           saveToPhotoAlbum: true
+       }, function(ret, err) {
+           if (ret) {
+            //   alert(JSON.stringify(ret));
+               var imgSrc = ret.data;
+                 var simg_el=document.getElementById("simg");
+
+               var html='';
+               var simgid=$api.getStorage('imgid');
+                  // html+='<div class="col-xs-4" id="asimg0" >  <a  class="ddxq-pic" > <img src="../../image/sto.png" alt=""></a> <a onclick=removimg("asimg0")>删除</a></div>';
+            html+='<div class="col-xs-4" id="asimg'+simgid+'" >  <a  class="ddxq-pic" onclick=ondown_y("'+imgSrc+'") ontouchstart=gtouchstart("asimg'+simgid+'") ontouchmove="gtouchmove()" ontouchend="gtouchend()"> <img src="'+imgSrc+'" alt=""></a> <a onclick=removimg("asimg'+simgid+'") style="display:none"><span class="glyphicon glyphicon-remove"></span>删除</a></div>';
+
+               $api.append(simg_el,html);
+               simgid= simgid+1;
+
+               if(simgid==1)
+               {
+                 api.toast({
+               msg: '长按照片可删除',
+               duration: 2000,
+               location: 'middle'
+               });
+
+               }
+
+
+               $api.setStorage('imgid',simgid);
+
+
+
+           } else {
+
+             api.toast({
+           msg: '照片传输失败！请重试',
+           duration: 2000,
+           location: 'middle'
+           });
+
+           }
+       });
+   }
+
+
+function removimg(simga)
+{
+  console.log(simga);
+var simga_el=document.getElementById(simga);
+
+  $api.remove(simga_el);
+}
+function loadinfocaogao(sid)
+{
+
+  db.selectSql({
+      name: database,
+    sql: 'select * from ssydlist where id='+sid+' and deliver='+$api.getStorage('usid')
+
+  }, function(ret, err) {
+console.log(JSON.stringify(ret));
+      if (ret.status) {
+    // alert(JSON.stringify(ret));
+
+
+
+if( ret['data'].length>0){
+
+console.log(JSON.stringify(ret));
+    var item = ret['data'][0];
+$api.setStorage('imgid',item['postStrcount']);
+var postStr=item['postStr'];
+var strs= new Array();
+strs=postStr.split(","); //字符分割
+
+if(item['postStrcount']>0)
+{
+  var simg_el=document.getElementById("simg");
+  var htmlimg="";
+   for (i=0;i<item['postStrcount'];i++ )
+   {
+  htmlimg+='<div class="col-xs-4" id="asimg'+i+'" >  <a  class="ddxq-pic" onclick=ondown_y("'+strs[i]+'")  ontouchstart=gtouchstart("asimg'+i+'") ontouchmove="gtouchmove()" ontouchend="gtouchend()"> <img src="'+strs[i]+'" alt=""></a> <a onclick=removimg("asimg'+i+'") style="display:none"><span class="glyphicon glyphicon-remove"></span></a></div>';
+  }
+  $api.append(simg_el,htmlimg);
+}
+
+
+        // var boat_id_el=document.getElementById("boat_id");
+        // $api.val(boat_id_el,item['boat_id']);
+        //
+
+        var csq_el=document.getElementById("csq");
+      var htmlab="";
+
+      htmlab+='<div class="row">';
+      htmlab+='<div class="col-xs-5 gpdd-font2">发货员:';
+      htmlab+=$api.getStorage('usname');
+      htmlab+='</div>';
+      htmlab+='<div class="col-xs-7 gpdd-font2 gpdd-r">联系电话:';
+      htmlab+=$api.getStorage('ucsc06tel');
+      htmlab+='</div>';
+      htmlab+='</div>';
+       $api.html(csq_el,htmlab);
+      var ydinfo_sel_el=document.getElementById("ydinfo_sel");
+      if(item['weight']!="")
+      {
+      $api.html(ydinfo_sel_el,item['weight']+"吨("+item['sandtype']+")");
+    }
+        // var ydinfo_el=document.getElementById("ydinfo");
+        // $api.val(ydinfo_el,item['weight']);
+
+
+        $("#sandtype_test li").each(function() {
+          var text =$(this).text();
+          if(text==item['sandtype']) {
+            $(this).siblings('li').removeClass('selected');  // 删除其他兄弟元素的样式
+            $(this).addClass('selected');
+          }
+})
+
+              var eatWaterLine_el=document.getElementById("eatWaterLine");
+              var containWater_el=document.getElementById("containWater");
+
+              var sandtype_el=document.getElementById("sandtype");
+              var ydinfo_el=document.getElementById("ydinfo");
+              var boat_id_el=document.getElementById("boat_id");
+              var to_district_el=document.getElementById("to_district");
+              var from_district_el=document.getElementById("from_district");
+              var ysqname_el=document.getElementById("ysqname");
+
+
+              var sandplantRemark_el=document.getElementById("sandplantRemark");
+              var sandboatRemark_el=document.getElementById("sandboatRemark");
+
+              if (typeof($api.getStorage('sandboatRemark'+sid)) != 'undefined')
+              {
+                $api.val(sandboatRemark_el,$api.getStorage('sandboatRemark'+sid));
+
+          //      $('#Memobox012').modal('hide');
+                 var ipenboxbzsq_el=document.getElementById("ipenboxbz");
+              var htacchtmlsq='';
+                if($api.getStorage('sandboatRemark'+sid)!='')
+                {
+                    htacchtmlsq= $api.getStorage('sandboatRemark'+sid)+"<span class='glyphicon glyphicon-pencil i-aapencil01'></span>";
+$("#ipenboxbz").css("display","inline-block");
+                }
+                else
+                {
+                    htacchtmlsq="<span class='glyphicon glyphicon-pencil i-aapencil'></span>添加采区备注";
+                    $("#ipenboxbz").css("display","none");
+                }
+                $api.html(ipenboxbzsq_el,htacchtmlsq);
+
+              }
+
+              if (typeof($api.getStorage('sandplantRemark'+sid)) != 'undefined')
+              {
+                $api.val(sandplantRemark_el,$api.getStorage('sandplantRemark'+sid));
+
+
+                var ipenboxbz_el=document.getElementById("ipenboxbzsq");
+                var htacchtml='';
+                if($api.getStorage('sandplantRemark'+sid)!='')
+                {
+                   htacchtml= $api.getStorage('sandplantRemark'+sid)+"<span class='glyphicon glyphicon-pencil i-aapencil01'></span>";
+
+                   $("#ipenboxbzsq").css("display","inline-block");
+                }
+           else {
+                    htacchtml="<span class='glyphicon glyphicon-pencil i-aapencil'></span>添加砂场备注";
+                     $("#ipenboxbzsq").css("display","none");
+                }
+                $api.html(ipenboxbz_el,htacchtml);
+
+              }
+
+
+
+
+          var shachang_sel_el=document.getElementById("shachang_sel");
+
+          if(item['shachang_name']!="")
+          {
+                    $api.html(shachang_sel_el,item['shachang_name']);
+          }
+
+
+          var caiquid_sel_el=document.getElementById("caiquid_sel");
+
+          if(item['caiqu_name']!="")
+          {
+             $api.html(caiquid_sel_el,"<bdi id='caiqucao'>"+item['caiqu_name']+"</bdi>("+$api.getStorage('ucsc06name')+")");
+          //  $api.html(caiquid_sel_el,item['caiqu_name']+"("+$api.getStorage('ucsc06name')+")");
+          }
+
+
+          var ysq_na_a_el=document.getElementById("ysq_na_a");
+          var ysq_rel_a_el=document.getElementById("ysq_rel_a");
+
+
+    if(item['ysqname']!="")
+    {
+        $api.html(ysqname_el,item['ysqname']);
+    }
+if(item['ysqa_name']!="")
+{
+
+  $("#ysq_tel_name").css("display","block");
+}
+
+    if(item['ysqa_name']!="")
+    {
+      $api.html(ysq_na_a_el,item['ysqa_name']);
+    }
+
+    if(item['ysqa_tel']!="")
+    {
+          $api.html(ysq_rel_a_el,item['ysqa_tel']);
+    }
+
+
+    $api.val(eatWaterLine_el,item['eatWaterLine']);
+
+    $api.val(containWater_el,item['containWater']);
+
+
+       $("#datajzsel").html("减载高度:"+item['eatWaterLine']+"(cm)");
+        $("#datahssel").html("含水系数:"+item['containWater']+"%");
+    if(item['eatWaterLine']!="")
+  {
+
+    $("#datajzsel").css("display","block");
+  }
+  else {
+      $("#datajzsel").css("display","none");
+  }
+  if(item['containWater']!="")
+  {
+
+    $("#datahssel").css("display","block");
+  }
+  else {
+      $("#datahssel").css("display","none");
+  }
+
+
+$("#datarqsel").html(item['fabu_time']);
+    $api.val(sandtype_el,item['sandtype']);
+    $api.val(boat_id_el,item['boat_id']);
+    $api.val(from_district_el,item['from_district'])
+    $api.val(to_district_el,item['to_district'])
+    $api.val(ydinfo_el,item['weight']);
+
+
+
+
+}
+
+      } else {
+      //    alert(JSON.stringify(err));
+      }
+  });
+
+
+}
+
+apiready = function(){
+db = api.require('db');
+
+
+    $api.setStorage('fxcccaogao',0);
+caiqu();
+$api.setStorage('imgid',0);
+//$api.setStorage('imgid',0);
+
+  var sid = api.pageParam.id;
+  var uid_el=document.getElementById("uid");
+  $api.val(uid_el,sid);
+  console.log(sid);
+  loadinfocaogao(sid);
+
+
+};
+
+
+$(function(){
+    $("#sandtype_test li").click(function() {
+        $(this).siblings('li').removeClass('selected');  // 删除其他兄弟元素的样式
+        $(this).addClass('selected');                            // 添加当前元素的样式
+		$("#sandtype").val($(this).html());
+    });
+});
+</script>
+<style>#sandtype_test{ position: relative;; zoom:1; overflow: hidden;}
+#sandtype_test li{ float: left; width: 20%; padding: 4px 8px; border-radius: 10px;  border: 1px solid #dedede; text-align: center; margin-right: 10px; white-space:nowrap;}
+#sandtype_test li.selected{font-weight:bold; background: #0c8af8; color:#fff; border: 0px solid #dedede;}
+</style>
+</script>
+</html>

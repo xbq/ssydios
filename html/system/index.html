@@ -1,0 +1,1017 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>沙石运单</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/style.css"/>
+	<link rel="stylesheet" type="text/css" href="../../css/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../../css/scCss.css">
+  <script type="text/javascript" src="../../script/api.js"></script>
+<script type="text/javascript" src="../../script/common.js"></script>
+  <script type="text/javascript" src="../../script/jquery.min.js"></script>
+  <script type="text/javascript" src="../../script/bootstrap.min.js"></script>
+  <script type="text/javascript" src="../../script/map.js"></script>
+  <script type="text/javascript" src="../../script/mapzh.js"></script>
+      <script type="text/javascript" src="../../script/caogao.js"></script>
+</head>
+
+<style>
+
+
+</style>
+<body>
+
+ <style>
+
+      #Memobox011{ top:5%; padding:10px; }
+      #Memobox011 h4{ padding:5px 0}
+      #Memobox011 textarea{ width:96%}
+      #Memobox011 .set-style { margin:5px 0; font-size:16px;}
+      #Memobox011 p.error { font-size:12px;}
+      #Memobox011  .modal-footer{ background:none;padding-top: 10px; padding-bottom: 10px;padding-top: 10px; padding-bottom: 10px;}
+      #Memobox011 button{ padding:2px 10px; margin-top:5px}
+      #Memobox011 .modal-header{ background: linear-gradient(to right, #17baff, #178aff); color: #fff; padding-top: 10px; padding-bottom: 10px;padding-top: 10px; padding-bottom: 10px;}
+      #Memobox011 .modal-body{ font-size: 16px;}
+      #Memobox011 .btcolor{ color: #178aff; border: 0; font-size: 16px;}
+
+
+        </style>
+      <div class="modal fade Memobox" id="Memobox011" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal"
+                  aria-hidden="true">×
+              </button>
+              <h4 class="modal-title" id="myModalLabel">
+                修改电话号码
+              </h4>
+            </div>
+            <div class="modal-body">
+
+            <div class="form-group">
+<input type="text" class="form-control"  name="mobileRemark" id="mobileRemark" placeholder="请输入电话号码"></textarea>
+
+
+              </div>
+
+
+            </div>
+            <div class="modal-footer"  >
+      <button type="button" class="btn btn-info btn-block" style="height:40px;lineHeight:40px;background:#0ea9ff"  onclick="ydinfofuncq()">提交</button>
+            </div>
+          </div>
+        </div>
+      </div>
+<script>
+
+function ydinfofuncq()
+{
+
+  var mobileRemark_el=document.getElementById("mobileRemark");
+   var phoneedit_el=document.getElementById("phoneedit");
+   var mobileRemark=$api.val(mobileRemark_el);
+  var regBox = {
+      regEmail : /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/,//邮箱
+      regName : /^[a-z0-9_-]{3,16}$/,//用户名
+      regMobile : /^0?1[3|4|5|8][0-9]\d{8}$/,//手机
+      regTel : /^0[\d]{2,3}-[\d]{7,8}$/
+  }
+  var mflag = regBox.regMobile.test(mobileRemark);
+var tflag = regBox.regTel.test(mobileRemark);
+
+  var reg=/(^[1-9]{1}[0-9]*$)|(^[0-9]*\.[0-9]*$)/
+         if (!(mflag||tflag)) {
+
+           api.toast({
+         msg: '电话号码输入有误',
+         duration: 2000,
+         location: 'middle'
+         });
+         return false;
+
+         }
+    $('#Memobox011').modal('hide');
+
+
+console.log(mobileRemark);
+console.log($api.getStorage('usid'));
+      api.ajax({
+          url: functionURL + 'sysUserScreen/update.json',
+          method: 'post',
+          dataType:'text',
+          headers:
+          {
+
+            login_token:$api.getStorage('loginToken')
+          },
+          data: {
+              values: {
+        mobileRemark:mobileRemark,
+        userId:$api.getStorage('usid'),
+              },
+              files: {
+                  file: 'fs://a.gif'
+              }
+          }
+      }, function(ret, err) {
+
+              if(ret){
+
+$api.html(phoneedit_el,$api.val(mobileRemark_el));
+$api.setStorage('mobileRemark',$api.val(mobileRemark_el));
+
+          }
+      });
+
+
+
+}
+
+</script>
+  <!-- 采区 -->
+      <style>
+        #Memobox{ top:5%; padding:10px; }
+        #Memobox h4{ padding:5px 0}
+        #Memobox textarea{ width:96%}
+        #Memobox .set-style { margin:5px 0; font-size:16px;}
+        #Memobox p.error { font-size:12px;}
+        #Memobox  .modal-footer{ background:none;padding-top: 10px; padding-bottom: 10px;padding-top: 10px; padding-bottom: 10px;}
+        #Memobox button{ padding:2px 10px; margin-top:5px}
+        #Memobox .modal-header{ background: linear-gradient(to right, #17baff, #178aff); color: #fff; padding-top: 10px; padding-bottom: 10px;padding-top: 10px; padding-bottom: 10px;}
+        #Memobox .modal-body{ font-size: 16px;}
+        #Memobox .btcolor{ color: #178aff; border: 0; font-size: 16px;}
+        </style>
+            <div class="modal fade Memobox" id="Memobox" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"
+                        aria-hidden="true">×
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">
+                      绑定沙场负责人
+                    </h4>
+                  </div>
+                  <div class="modal-body" id="caiquid">
+
+                  </div>
+
+                  <div class="modal-footer">
+                 <a class="btn btn-default btcolor" data-dismiss="modal">取消</a>
+             </div>
+
+                </div>
+              </div>
+            </div>
+
+
+  <div id="wrap" class="flex-wrap flex-vertical">
+    <div class="container grad">
+        <div class="i20"></div>
+      <div class="row">
+        <div class="col-xs-3 font1"> </div>
+        <div class="col-xs-6 font2"> 个人中心 </div>
+        <div class="col-xs-3 font3" onClick="opensz()"> <img src="../../image/ssz.png"> </div>
+      </div>
+      <div style="clear: both"></div>
+      <div class="row gr-sx">
+      <style>
+      .spanboxa{ padding:0px 5px; margin-left:5px; background:#67c3ff;opacity:0.8;border-radius:5px;
+	  color:#fff;
+filter:alpha(opacity=80);
+}
+      </style>
+        <div style=" position: absolute; z-index:9; padding-left:15px; padding-top:5px; width:100%; z-index:298">
+            <div style="width:18%; float:left" onClick="aaaaa()">&nbsp;&nbsp;</div>
+            <div style="width:82%; float:left; color:#fff; ">
+            <div><span class="font311" id="usname" style=" float:left"></span><a href='#' data-toggle='modal' data-target='#Memobox011' style=' width:80%;color:#fff; display:none;   white-space:nowrap; overflow:hidden ' id="mobileRemarkxgbox" ><span class="spanboxa"  id="mobileRemarkxg"><bdi id="phoneedit" style="display:inline-block; white-space:nowrap;"></bdi><span class='glyphicon glyphicon-pencil i-aapencil01' style="color:#fff"></span></span></a></div><div style="clear:both; margin-top:4px"><span class="font311" style="font-size:14px; display:block  " id="ro_name"></span><span style="font-size:14px; white-space:nowrap; display:block " id="leaderddd"></span></div></div>
+        </div>
+
+        <div class="col-xs-6" style="padding-right:0; z-index:198">
+            <div style="width:35%;float:left;  z-index:1000000" onClick="aaaaa()"><img src="../../image/smy.png"   id="smyaaimg" style="width:100%; height:auto; max-width:50px"/></div>
+            <div style="width:65%;float:left; padding-top:5px;padding-left:5px; color:#fff; display:none"><span class="font311" id="usname"></span><br/><span class="font311" style="font-size:14px; " id="ro_name"></span><span style="font-size:14px; white-space:nowrap  " id="leaderddd"></span></div>
+        </div>
+        <div class="col-xs-6" onClick="opencsc()" style="padding-top:10px;padding-left:0; z-index:399"><span class="font4" id="uroles">砂场收货员11</span> </div>
+        <div style="height:10px; clear:both; overflow:hidden"></div>
+
+      </div>
+    </div>
+
+
+
+
+  	<div id="main" class="flex-con" >
+
+      <div id="shachuandetail" class="tab-bg container" style="padding-top:0px;margin-top:16px;padding-bottom:0px;margin-bottom:16px; display:none">
+        <div class="row gr-lb" onClick="openmimaysq()" >
+          <div class="col-xs-6">
+            <img src="../../image/sq001.png"><span id="dqbb">运砂船</span>
+          </div>
+          <div class="col-xs-6 gr-r">
+	<bdi id="ysqboatname">自052</bdi>
+          </div>
+        </div>
+      </div>
+
+      <div class="tab-bg container" style="padding-top:0px;margin-top:16px;padding-bottom:0px;margin-bottom:16px;">
+        <div class="row gr-lb" onClick="openmima()" >
+          <div class="col-xs-6">
+            <img src="../../image/s02.png"><span id="dqbb">修改密码</span>
+          </div>
+          <div class="col-xs-6 gr-r">
+
+          </div>
+        </div>
+      </div>
+
+  		<div class="tab-bg container">
+  			<div class="row gr-lb">
+  				<div class="col-xs-6" >
+  					<img src="../../image/sbb.png"><span id="dqbb">当前版本</span>
+  				</div>
+  				<div class="col-xs-6 gr-r" id="appVersion">
+  					1.0
+  				</div>
+  			</div>
+  			<div class="row gr-lb">
+  				<div class="col-xs-6 ">
+  					<img src="../../image/skf.png"><span>开发单位</span>
+  				</div>
+  				<div class="col-xs-6 gr-r">
+  					广州中海达
+  				</div>
+  			</div>
+  			<div class="row gr-lb">
+  				<div class="col-xs-6">
+  					<img src="../../image/syj.png"><span>意见反馈</span>
+  				</div>
+  				<div class="col-xs-6">
+  				</div>
+  			</div>
+  			<div class="row gr-lb">
+  				<div class="col-xs-6" onClick="opengy()">
+  					<img src="../../image/sgy.png"><span>关于应用</span>
+  				</div>
+  				<div class="col-xs-6">
+  				</div>
+  			</div>
+  		</div>
+  		<div class="gr-btn">
+  			<button type="button" onClick="tuicindex()">退出登录</button>
+  		</div>
+  	</div>
+
+    <!-- <div id="footer" class="border-t">
+       <ul class="flex-wrap" >
+         <li tapmode="hover" onClick="randomS(0)" class="flex-con " >今日订单</li>
+         <li tapmode="hover" onClick="randomS(1)" class="flex-con" >历史订单</li>
+         <li tapmode="hover" onClick="randomS(2)" class="flex-con active" >个人中心</li>
+       </ul>
+   </div> -->
+
+  </div>
+
+  <!-- <div id="wrap" class="flex-wrap flex-vertical">
+
+    <div id="header_s">
+        <ul>
+            <li class="border-b active" >个人中心</li>
+        </ul>
+    </div>
+
+
+    <div id="main" class="flex-con" >
+
+      <button type="button" class="btn btn-danger" onClick="subexits_sz()" style="color:#ffffff">注销</button>
+
+    </div>
+
+     <div id="footer" class="border-t">
+        <ul class="flex-wrap" >
+          <li tapmode="hover" onClick="randomS(0)" class="flex-con " >今日订单</li>
+          <li tapmode="hover" onClick="randomS(1)" class="flex-con" >历史订单</li>
+          <li tapmode="hover" onClick="randomS(2)" class="flex-con active" >个人中心</li>
+        </ul>
+    </div>
+
+</DIV> -->
+</body>
+</html>
+
+
+</body>
+<script>
+function tuicindex()
+{
+
+  db.closeDatabase({
+    name: database
+}, function(ret, err) {
+    if (ret.status) {
+        //alert(JSON.stringify(ret));
+    } else {
+        //alert(JSON.stringify(err));
+    }
+});
+  api.closeWin({
+      name: 'glylist'
+  });
+  api.closeWin({
+      name: 'order_csc08'
+  });
+  api.closeWin({
+      name: 'pqglylist'
+  });
+
+subexits_sz();
+
+
+}
+
+function opengy()
+{
+
+  api.openWin({
+
+                 name : 'system_gy',
+                 url : '../system/gy.html',
+                 slidBackEnabled:false,
+                 reload:true,
+              //    animation:{
+              //      type:"fade",
+              //      subType:"from_bottom",
+              //  }
+
+         });
+}
+
+function openmimaysq()
+{
+  api.openWin({
+
+                 name : 'system_ysq',
+                 url : '../system/ysq.html',
+                 slidBackEnabled:false,
+                 reload:true,
+              //    animation:{
+              //      type:"fade",
+              //      subType:"from_bottom",
+              //  }
+
+         });
+
+}
+
+function openmima()
+{
+  api.openWin({
+
+                 name : 'system_mima',
+                 url : '../system/mima.html',
+                 slidBackEnabled:false,
+                 reload:true,
+                 animation:{
+                   type:"fade",
+                   subType:"from_bottom",
+               }
+
+         });
+
+}
+
+function opencsc()
+{
+
+
+  if($api.getStorage('uroles')=='采砂船管理员')//采沙管理员
+  {
+     api.openWin({
+
+                    name : 'order_csc06',
+                    url : '../order/csc06.html',
+                    slidBackEnabled:false,
+                    reload:true,
+                    animation:{
+                      type:"fade",
+                      subType:"from_bottom",
+                  }
+
+            });
+
+  }
+
+ if($api.getStorage('uroles')=='采区负责人')//采区负责人
+  {
+     api.openWin({
+
+                    name : 'order_csc07',
+                    url : '../order/csc07.html',
+                    slidBackEnabled:false,
+                    reload:true,
+                    animation:{
+                      type:"fade",
+                      subType:"from_bottom",
+                  }
+
+            });
+
+  }
+
+   if($api.getStorage('uroles')=='砂场收货员')//沙场收货员
+  {
+     api.openWin({
+
+                    name : 'order_csc03',
+                    url : '../order/csc03.html',
+                    slidBackEnabled:false,
+                    reload:true,
+                    animation:{
+                      type:"fade",
+                      subType:"from_bottom",
+                  }
+
+            });
+
+  }
+
+}
+// function mapdw()
+// {
+// 	api.toast({
+// 			msg: '开始定位',
+// 			duration: 2000,
+// 			location: 'middle'
+// 	});
+// 	getLocation4(trace_interval, trace_accuracy, trace_filter,uid);
+// }
+function opensz()
+{
+  api.openWin({
+
+                 name : 'system_sz',
+                 url : '../system/sz.html',
+                 slidBackEnabled:false,
+                 reload:true,
+              //    animation:{
+              //      type:"fade",
+              //      subType:"from_bottom",
+              //  }
+
+         });
+}
+
+function getysqboat()
+{
+
+  api.ajax({
+     url: functionURL + 'sandCarrierScreen/getSandCarrierByUser.json',
+     method: 'get',
+     headers:
+     {
+
+       login_token:$api.getStorage('loginToken')
+     },
+     data: {
+         values: {
+userId:$api.getStorage('usid')
+         },
+         files: {
+             file: 'fs://a.gif'
+         }
+     }
+ }, function(ret, err) {
+         if(ret){
+var ysqboatname_el=document.getElementById("ysqboatname");
+ $api.html(ysqboatname_el,ret.data[0].name);
+
+     }
+ });
+
+}
+
+   apiready = function () {
+
+
+     if($api.getStorage('picturePath')!=null)
+     {
+
+
+       var imgurl=functionURLimg+$api.getStorage('picturePath');
+
+        api.imageCache({
+            url: imgurl,
+           // policy: 'cache_else_network'
+        }, function(ret, err) {
+            if (ret.status) {
+            console.log(ret.url);
+
+              document.getElementById("smyaaimg").src = ret.url;
+             //   ele_.src = ret.url;
+         //       $api.removeAttr(ele_, 'data-url');
+            }
+        });
+     }
+
+getysqboat();
+
+db = api.require('db');
+var phoneedit_el=document.getElementById("phoneedit");
+ $api.html(phoneedit_el,$api.getStorage('mobileRemark'));
+ caiqu();
+     $api.fixTabBar($api.byId('footer'));
+var appVersion = api.appVersion;
+     var appVersion_el=document.getElementById("appVersion");
+       $api.html(appVersion_el,appVersion);
+
+    //  console.log(   $api.getStorage('s_cid'));
+    //   console.log(  "aa");//登录ID);
+     var usname_el=document.getElementById("usname");
+     var uroles_el=document.getElementById("uroles");
+ var ro_name_el=document.getElementById("ro_name");
+ var leaderddd_el=document.getElementById("leaderddd");
+
+var mobileRemarkxgbox_el=document.getElementById("mobileRemarkxgbox");
+var shachuandetail_el=document.getElementById("shachuandetail");
+//$api.cssVal(shachuandetail_el,'display:block');
+//$api.cssVal(mobileRemarkxgbox_el,'display:block');
+  if($api.getStorage('uroles')=='采砂船管理员')//采沙管理员
+  {
+    $api.html(ro_name_el,$api.getStorage('ucsc06name'));
+
+  }
+
+  else if($api.getStorage('uroles')=='采砂船船主')//采沙船船主
+  {
+    $api.css(mobileRemarkxgbox_el,'display:block');
+$api.html(ro_name_el,$api.getStorage('sandboatName'));
+  }
+  else if($api.getStorage('uroles')=='采运船主')//采沙船船主
+  {
+        //$api.css(mobileRemarkxgbox_el,'display:block');
+$api.html(ro_name_el,$api.getStorage('sandboatName'));
+  }
+
+  else if($api.getStorage('uroles')=='运砂船船主')//运沙船船主
+  {
+    $api.css(mobileRemarkxgbox_el,'display:block');
+    $api.css(shachuandetail_el,'display:block');
+$api.html(ro_name_el,$api.getStorage('boatName'));
+  }
+  else if($api.getStorage('uroles')=='二级砂厂负责人')//采沙船船主
+  {
+    $api.css(mobileRemarkxgbox_el,'display:block');
+$api.html(ro_name_el,$api.getStorage('toDistrictname'));
+  }
+  else if($api.getStorage('uroles')=='采区负责人')//沙场收货员
+  {
+$api.html(ro_name_el,$api.getStorage('fromName'));
+//sysUserScreenfun();
+
+  }
+  else if($api.getStorage('uroles')=='砂场收货员')//沙场收货员
+  {
+$api.html(ro_name_el,$api.getStorage('toDistrictname'));
+//sysUserScreenfun();
+	console.log($api.getStorage('leaderName2'));
+    $api.html(usname_el,$api.getStorage('usname'));
+      $api.html(leaderddd_el,"<a href='#' data-toggle='modal' data-target='#Memobox' style='color:#fff'><bdi id='leaderName2ddd' >(负责人："+$api.getStorage('leaderName2')+")</a></bdi>");
+//<bdi id="leaderName2ddd"></bdi>
+  }
+
+  $api.html(usname_el,$api.getStorage('usname'));
+    $api.html(uroles_el,$api.getStorage('uroles'));
+   }
+   function sysUserScreenfun()
+   {
+
+
+   	api.ajax({
+   			url: functionURL + 'sysUserScreen/getSandplantOwner.json',
+   			method: 'get',
+   			headers:
+   			{
+
+   				login_token:$api.getStorage('loginToken')
+   			},
+   			data: {
+   					values: {
+sandplantId:$api.getStorage('toDistrict')
+   					},
+   					files: {
+   							file: 'fs://a.gif'
+   					}
+   			}
+   	}, function(ret, err) {
+   					if(ret){
+console.log("砂厂ID:"+$api.getStorage('toDistrict'));
+	console.log(JSON.stringify(ret));
+
+   			}
+   	});
+  }
+
+
+  function caiquid(name,uid)
+  {
+	console.log(JSON.stringify(uid));
+  	console.log($api.getStorage('toDistrict'));
+   var leaderName2ddd_el=document.getElementById("leaderName2ddd");
+$api.setStorage('leaderName2',name);//沙场
+   $api.html(leaderName2ddd_el,"(负责人："+$api.getStorage('leaderName2')+")");
+   $('#Memobox').modal('hide');
+   api.ajax({
+
+     url: functionURL + 'sandPlantScreen/bunding.json',
+       method: 'post',
+
+       headers:
+       {
+
+         login_token:$api.getStorage('loginToken')
+       },
+
+       data: {
+           values: {
+   sandplantId:$api.getStorage('toDistrict'),
+   userId:uid
+           },
+           files: {
+               file: 'fs://a.gif'
+           }
+       }
+   }, function(ret, err) {
+       if (ret) {
+
+   console.log(JSON.stringify(ret));
+
+
+
+       }
+
+   });
+
+
+  }
+  function caiqu()
+  {
+    api.ajax({
+
+      url: functionURL + 'sysUserScreen/getSandplantOwner.json',
+        method: 'get',
+
+        headers:
+        {
+
+          login_token:$api.getStorage('loginToken')
+        },
+
+        data: {
+            values: {
+sandplantId:$api.getStorage('toDistrict')
+            },
+            files: {
+                file: 'fs://a.gif'
+            }
+        }
+    }, function(ret, err) {
+        if (ret) {
+	//console.log("这里 "+JSON.stringify(ret));
+
+  checkfw(JSON.stringify(ret));
+         if( ret.length>0)
+             {
+               var html = '';
+               var caiquid_el=document.getElementById("caiquid");
+
+               for (i = 0; i < ret.length; i++) {
+                 var item = ret[i];
+
+                    html+='<div class="form-group" style=" width:100%" onclick=caiquid("'+item['real_name']+'",'+item['user_id']+')>';
+                    html+='<span >'+item['real_name']+'</span>';
+                    html+='</div>';
+
+               }
+
+               $api.html(caiquid_el,html);
+
+             }
+
+
+        }
+        else {
+          caiqu();
+        }
+    });
+
+  }
+
+</script>
+
+
+<script>
+function aaaaa()
+{
+  api.actionSheet({
+      title: '',
+      cancelTitle: '取消',
+      destructiveTitle: '',
+      buttons: ['拍照', '相册']
+  }, function(ret, err) {
+      var index = ret.buttonIndex;
+if(index==1)
+{
+   takePhoto();
+}
+else if(index==2){
+takePhotoxc();
+
+}
+
+
+  });
+}
+function takePhoto() {
+
+       api.getPicture({
+           sourceType: 'camera', //（可选项）图片源类型，从相册、图片库或相机获取图片
+           encodingType: 'jpg', //（可选项）返回图片类型，jpg或png
+           mediaValue: 'pic', //（可选项）媒体类型，图片或视频
+           destinationType: 'url', //（可选项）返回数据类型，指定返回图片地址或图片经过base64编码后的字符串
+           allowEdit: true,
+           quality: 100, //（可选项）图片质量，只针对jpg格式图片（0-100整数）
+          targetWidth: 800, //（可选项）压缩后的图片宽度，图片会按比例适配此宽度
+          //targetHeight: 800, //（可选项）压缩后的图片高度，图片会按比例适配此高度
+           saveToPhotoAlbum: true
+       }, function(ret, err) {
+           if (ret) {
+            //   alert(JSON.stringify(ret));
+var imgSrc = ret.data;
+var postStr = '"input-id-1":"' + imgSrc + '"';
+
+
+postStr = "{" + postStr + "}";
+ var a = JSON.parse(postStr);
+               console.log(JSON.stringify(a));
+ api.ajax({
+               url: functionURL + 'upLoadScreen/userPicture.json',
+               method: 'post',
+               headers:
+               {
+
+                 login_token:$api.getStorage('loginToken')
+               },
+               dataType: 'text',
+               data: {
+                   values: {
+                       fileCount: 1,
+                       userId: $api.getStorage('usid')
+                   },
+                   files: a
+               }
+           }, function(reta, err) {
+               if (reta) {
+
+
+
+
+                   //alert(JSON.stringify(ret));
+                   console.log(JSON.stringify(reta));
+
+
+ // //修改订单状态
+ if(reta==1){
+
+	//$api.setStorage('picturePath',ret['picturePath']);//登录ID
+ console.log("上传成功"+JSON.stringify(reta));
+  api.ajax({
+    url: functionURL + 'sysUserScreen/find.json',
+    method: 'post',
+    headers:
+    {
+
+      login_token:$api.getStorage('loginToken')
+    },
+    data: {
+        values: {
+            userId: $api.getStorage('usid')
+        },
+        files: {
+             file: 'fs://a.gif'
+         }
+    }
+  }, function(retsa, err) {
+
+     console.log("上传成功"+JSON.stringify(retsa));
+      if (retsa) {
+
+        if(retsa.picturePath!=null)
+        {
+
+          $api.setStorage('picturePath',retsa.picturePath);//登录ID
+
+          var imgurl=functionURLimg+$api.getStorage('picturePath');
+
+           api.imageCache({
+               url: imgurl,
+              // policy: 'cache_else_network'
+           }, function(ret, err) {
+               if (ret.status) {
+               console.log(ret.url);
+
+                 document.getElementById("smyaaimg").src = ret.url;
+                //   ele_.src = ret.url;
+            //       $api.removeAttr(ele_, 'data-url');
+               }
+           });
+        }
+
+      } else {
+
+      }
+  });
+
+
+
+
+ }
+ else {
+   api.toast({
+ msg: '照片传输失败！请重试',
+ duration: 2000,
+ location: 'middle'
+ });
+ }
+ // //修改订单状态
+
+
+               } else {
+
+                 api.toast({
+               msg: '照片传输失败！请重试',
+               duration: 2000,
+               location: 'middle'
+               });
+                 //  alert(JSON.stringify(err));
+               }
+           });
+
+           } else {
+
+             api.toast({
+           msg: '照片传输失败！请重试',
+           duration: 2000,
+           location: 'middle'
+           });
+
+
+               //alert(JSON.stringify(err));
+           }
+       });
+   }
+
+
+   function takePhotoxc() {
+
+          api.getPicture({
+              sourceType: 'album', //（可选项）图片源类型，从相册、图片库或相机获取图片
+              encodingType: 'jpg', //（可选项）返回图片类型，jpg或png
+              mediaValue: 'pic', //（可选项）媒体类型，图片或视频
+              destinationType: 'url', //（可选项）返回数据类型，指定返回图片地址或图片经过base64编码后的字符串
+              allowEdit: true,
+              quality: 100, //（可选项）图片质量，只针对jpg格式图片（0-100整数）
+             targetWidth: 800, //（可选项）压缩后的图片宽度，图片会按比例适配此宽度
+             //targetHeight: 800, //（可选项）压缩后的图片高度，图片会按比例适配此高度
+              saveToPhotoAlbum: true
+          }, function(ret, err) {
+              if (ret) {
+               //   alert(JSON.stringify(ret));
+   var imgSrc = ret.data;
+   var postStr = '"input-id-1":"' + imgSrc + '"';
+
+
+   postStr = "{" + postStr + "}";
+    var a = JSON.parse(postStr);
+                  console.log(JSON.stringify(a));
+    api.ajax({
+                  url: functionURL + 'upLoadScreen/userPicture.json',
+                  method: 'post',
+                  headers:
+                  {
+
+                    login_token:$api.getStorage('loginToken')
+                  },
+                  dataType: 'text',
+                  data: {
+                      values: {
+                          fileCount: 1,
+                          userId: $api.getStorage('usid')
+                      },
+                      files: a
+                  }
+              }, function(reta, err) {
+                  if (reta) {
+
+
+
+
+                      //alert(JSON.stringify(ret));
+                      console.log(JSON.stringify(reta));
+
+
+    // //修改订单状态
+    if(reta==1){
+
+   	//$api.setStorage('picturePath',ret['picturePath']);//登录ID
+    console.log("上传成功"+JSON.stringify(reta));
+     api.ajax({
+       url: functionURL + 'sysUserScreen/find.json',
+       method: 'post',
+       headers:
+       {
+
+         login_token:$api.getStorage('loginToken')
+       },
+       data: {
+           values: {
+               userId: $api.getStorage('usid')
+           },
+           files: {
+                file: 'fs://a.gif'
+            }
+       }
+     }, function(retsa, err) {
+
+        console.log("上传成功"+JSON.stringify(retsa));
+         if (retsa) {
+
+           if(retsa.picturePath!=null)
+           {
+
+             $api.setStorage('picturePath',retsa.picturePath);//登录ID
+
+             var imgurl=functionURLimg+$api.getStorage('picturePath');
+
+              api.imageCache({
+                  url: imgurl,
+                 // policy: 'cache_else_network'
+              }, function(ret, err) {
+                  if (ret.status) {
+                  console.log(ret.url);
+
+                    document.getElementById("smyaaimg").src = ret.url;
+                   //   ele_.src = ret.url;
+               //       $api.removeAttr(ele_, 'data-url');
+                  }
+              });
+           }
+
+         } else {
+
+         }
+     });
+
+
+
+
+    }
+    else {
+      api.toast({
+    msg: '照片传输失败！请重试',
+    duration: 2000,
+    location: 'middle'
+    });
+    }
+    // //修改订单状态
+
+
+                  } else {
+
+                    api.toast({
+                  msg: '照片传输失败！请重试',
+                  duration: 2000,
+                  location: 'middle'
+                  });
+                    //  alert(JSON.stringify(err));
+                  }
+              });
+
+              } else {
+
+                api.toast({
+              msg: '照片传输失败！请重试',
+              duration: 2000,
+              location: 'middle'
+              });
+
+
+                  //alert(JSON.stringify(err));
+              }
+          });
+      }
+
+</script>
+</html>

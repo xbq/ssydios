@@ -1,0 +1,165 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+<title></title>
+
+<style>
+	/*html {height: 100%;}
+	body {height: 100%;background: #f0f0f0;}
+*/
+</style>
+</head>
+<body >
+
+</body>
+<script type="text/javascript" src="./script/api.js"></script>
+<script type="text/javascript" src="./script/common.js"></script>
+<script type="text/javascript" src="./script/map.js"></script>
+<script type="text/javascript" src="./script/mapzh.js"></script>
+<script type="text/javascript" src="./script/tuisong.js"></script>
+<!-- <script type="text/javascript" src="./script/jquery.cookie.js"></script> -->
+<script>
+function closecheck()
+{
+
+  api.closeFrame({
+  	name:'index_check',
+
+  });
+}
+var myVar12 = setInterval(function(){ checkline() }, 2000);
+
+ function checkline()
+
+ {
+
+	 if(api.connectionType == 'none'){
+console.log("网络类型"+api.connectionType);
+api.toast({
+		msg: '网络错误',
+		duration: 2000,
+		location: 'middle',
+		global:true
+});
+
+// if($api.getStorage('dy'+$api.getStorage('usid'))==1)
+// {
+// api.execScript({
+//       name: 'root',
+// script: 'closeroot();'
+// });
+//  $api.setStorage('webnetjt',1);
+//  }
+
+				 }
+ }
+   var myVar = setInterval(function(){ myTimer() }, 5000);
+	 	 var privacy;
+   function myTimer()
+
+   {
+checkf();
+checkfqx();
+
+   }
+
+apiready = function () {
+   privacy = api.require('privacy');
+}
+function checkfqx()
+{
+	console.log("定位");
+
+	privacy.camera(function(ret, err) {
+    if (ret.status) {
+        //alert(JSON.stringify(ret));
+
+				privacy.location(function(ret, err) {
+						if (ret.status) {
+							//  alert(JSON.stringify(ret));
+						} else {
+							 //alert(JSON.stringify(err));
+							 if($api.getStorage('uroles')=='运砂船船主' ||$api.getStorage('uroles')=='砂场收货员' ||$api.getStorage('uroles')=='二级砂厂负责人' ||$api.getStorage('uroles')=='采运船主' )
+								{
+							api.toast({
+									msg: '为保证正常使用, 请您打开定位功能',
+									duration: 2000,
+									location: 'middle',
+										global:true
+							});
+								}
+						}
+				});
+
+    } else {
+			api.toast({
+		msg: '为保证正常使用, 请您打开相机权限',
+		duration: 2000,
+		location: 'middle',
+			global:true
+});
+    }
+});
+
+}
+function checkf()
+{
+  console.log("check");
+  api.ajax({
+      //url: 'http://122.112.238.143:8080/ncgc2/districtScreen/getAll.json',
+      url:functionURL + 'districtScreen/getAll.json',
+      method: 'get',
+
+      headers:
+      {
+
+        login_token:$api.getStorage('loginToken')
+      },
+      data: {
+          values: {
+
+          },
+          files: {
+              file: 'fs://a.gif'
+          }
+      }
+  }, function(ret, err) {
+          if(ret){
+//console.log(JSON.stringify(ret));
+if(ret.msg=="非法访问")
+{
+  console.log("");
+//  closecheck();
+api.toast({
+                         msg: '登录过期!请重新登录',
+                          duration: 2000,
+                       location: 'middle',
+											 		global:true
+});
+
+api.sendEvent({
+                        name: 'myEventtcjson',
+                        extra: {
+
+
+                        }
+                    });
+
+setTimeout(function(){
+api.closeFrame({
+  name:'index_check',
+
+});
+},150);
+
+}
+
+      }
+
+  });
+}
+//getLocation411();
+</script>
+</html>

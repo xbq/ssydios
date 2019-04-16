@@ -1,0 +1,290 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>采砂船</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/style.css"/>
+	<link rel="stylesheet" type="text/css" href="../../css/bootstrap.css">
+  <link rel="stylesheet" type="text/css" href="../../css/DriverCss.css">
+  <script type="text/javascript" src="../../script/api.js"></script>
+    <script type="text/javascript" src="../../script/jquery.min.js"></script>
+    <script type="text/javascript" src="../../script/common.js"></script>
+    <!-- <script type="text/javascript" src="../../script/jquery.cookie.js"></script> -->
+
+</head>
+
+<style>
+.mloading-container {
+  position: relative;
+  min-height: 70px;
+  -webkit-transition: height 0.6s ease-in-out;
+  -o-transition: height 0.6s ease-in-out;
+  transition: height 0.6s ease-in-out;
+}
+.mloading {
+  position: absolute;
+  background: #E9E9E8;
+  font: normal 12px/22px "Microsoft Yahei", "微软雅黑", "宋体";
+  display: none;
+  z-index: 1600;
+  background: rgba(233, 233, 232, 0);
+}
+.mloading.active {
+  display: block;
+}
+.mloading.mloading-mask {
+  background: rgba(233, 233, 232, 0.75);
+  filter: progid:DXImageTransform.Microsoft.Alpha(opacity=75);
+}
+.mloading-full {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  top: 0;
+  left: 0;
+}
+.mloading-container > .mloading {
+  top: 0px;
+  left: 0px;
+  width: 100%;
+  height: 100%;
+}
+.mloading-body {
+  width: 100%;
+  height: 100%;
+  position: relative;
+}
+.mloading-bar {
+  width: 250px;
+  min-height: 22px;
+  text-align: center;
+  background: #fff;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.27);
+  border-radius: 7px;
+  padding: 20px 15px;
+  font-size: 14px;
+  color: #999;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-left: -140px;
+  margin-top: -30px;
+  word-break: break-all;
+}
+@media (max-width: 300px) {
+  .mloading-bar {
+    width: 62px;
+    height: 56px;
+    margin-left: -30px !important;
+    margin-top: -30px !important;
+    padding: 0;
+    line-height: 56px;
+  }
+  .mloading-bar > .mloading-text {
+    display: none;
+  }
+}
+.mloading-bar-sm {
+  width: 62px;
+  height: 56px;
+  margin-left: -30px !important;
+  margin-top: -30px !important;
+  padding: 0;
+  line-height: 56px;
+}
+.mloading-bar-sm > .mloading-text {
+  display: none;
+}
+.mloading-icon {
+  width: 16px;
+  height: 16px;
+  vertical-align: middle;
+}
+.mloading-text {
+  margin-left: 10px;
+}
+
+
+</style>
+<body>
+  <div id="back_divbox01">
+<div class="mloading mloading-full mloading-mask active"><div class="mloading-body"><div class="mloading-bar" style="margin-top: -31px; margin-left: -140px;"><img class="mloading-icon" src="data:image/gif;base64,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"><span class="mloading-text">加载中...</span></div></div></div>
+
+  </div>
+<div id="back_div"></div>
+<div id="back_divbox">
+  <div class="i-item-head">选择采砂船</div>
+  <div class="i-item-head-box" id="box_html">
+
+</div>
+
+</div
+</body>
+</html>
+
+<script>
+function openym(name,ownerId,uid,tel)
+
+{
+$("#back_divbox01").css("display","block");
+  $api.setStorage('ucsc06id',uid);//采沙船
+$api.setStorage('ucsc06name',name);
+$api.setStorage('ucsc06ownerId',ownerId);
+$api.setStorage('ucsc06tel',tel);
+
+
+
+         api.ajax({
+             url: functionURL + "sysUserScreen/update.json",
+             method: 'post',
+             headers:
+             {
+
+               login_token:$api.getStorage('loginToken')
+             },
+             dataType:'text',
+             data: {
+                 values: {
+                     remark:1,
+                     workId:uid,
+                     userId:$api.getStorage('usid')
+
+                 },
+                 files: {
+                     file: 'fs://a.gif'
+                 }
+             }
+         }, function(res, err) {
+
+
+           api.closeWin({
+               name: 'order_orderlist'
+           });
+
+//console.log("沙船:"+console.log(JSON.stringify(res)));
+           api.openWin({
+
+                          name : 'order_orderlist',
+                          url : '../order/orderlist.html',
+                          slidBackEnabled:false,
+                          reload:true,
+                          animation:{
+                            type:"fade",
+                            subType:"from_bottom",
+                        }
+
+                  });
+
+         });
+
+}
+
+function cookiefun(sss)
+{
+  console.log("cookie");
+  var sssa=sss.replace(/tmp0=/, "");
+//  console.log(sssa);
+  // $.cookie('tmp0',sssa,{
+  //     expires:7,
+  //     path:'/ncgctest',
+  //     domain:'47.96.165.26',
+  //     secure:true
+  // })
+      //    $.cookie('tmp0', sssa, { expires: 7, path: '/' });
+  //$.cookie('tmp0', sssa);
+//$.cookie('cookieName', 'cookieValue');
+}
+// $.cookie('tmp0','eNrzYPMI....',{
+//     expires:7,
+//     path:'/ncgctest',
+//     domain:'47.96.165.26',
+//     secure:true
+// })
+
+
+apiready = function () {
+  api.showProgress({
+      // title: '努力加载中...',
+      // text: '先喝杯茶...',
+      animationType:'zoom',
+      modal: false
+  });
+getlist06();
+ };
+
+
+ function getlist06()
+
+{
+  // var sa=  $api.getStorage('SetCookie').split(";");
+  // console.log(sa[0]);
+
+// cookiefun($api.getStorage('SetCookie'));
+// console.log($.cookie('tmp0'));
+// console.log($.cookie('cookieName'));
+  //console.log($api.getStorage('SetCookie'));
+  api.ajax({
+      url: functionURL + 'sandBoatScreen/getList.json',
+      method: 'get',
+
+      // encode:false,
+      headers:
+      {
+
+        login_token:$api.getStorage('loginToken')
+      },
+      // beforeSend: function(xhr) {
+      //                xhr.withCredentials = true;
+      //            }
+      // timeout:10,
+      data: {
+          values: {
+
+          },
+          files: {
+              file: 'fs://a.gif'
+          }
+      }
+  }, function(ret, err) {
+// alert(ret);
+    //console.log($api.getStorage('SetCookie'));
+
+//  var sa=  $api.getStorage('SetCookie').split(";");
+//  console.log(sa[0]);
+    api.hideProgress();
+          if(ret){
+
+             var html = '';
+             var box_html_el=document.getElementById("box_html");
+              if( ret['data'].length>0)
+              {
+                for (i = 0; i < ret['data'].length; i++) {
+                  var item = ret['data'][i];
+
+//console.log(  JSON.stringify(item));
+                  // $api.setStorage('ucsc06id',ret['uid']);//采沙船
+                //$api.setStorage('ucsc06name',ret['name']);//采沙船name
+
+                  //console.log(item['name']);
+                  //console.log(item['uid']);
+
+                  html+='<div class="i-item" onclick=openym("'+item['name']+'",'+item['ownerId']+','+item['uid']+',"'+item['tel']+'")>';
+                  html+=item['name'];
+                  html+='</div>';
+                }
+
+
+                $api.html(box_html_el,html);
+              }
+      }
+      else {
+        getlist06();
+      }
+  });
+
+}
+
+ </script>

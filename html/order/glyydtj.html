@@ -1,0 +1,1112 @@
+<!doctype html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+    <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+    <title>运单统计</title>
+    <link rel="stylesheet" type="text/css" href="../../css/api.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/style.css"/>
+    <link rel="stylesheet" href="../../css/weui.css"/>
+    <link rel="stylesheet" href="../../css/jquery-weui.css"/>
+    <link rel="stylesheet" type="text/css" href="../../css/bootstrap.css">
+    <link rel="stylesheet" type="text/css" href="../../css/scCss.css">
+    <link rel="stylesheet" type="text/css" href="../../css/glyindex.css">
+    <script type="text/javascript" src="../../script/api.js"></script>
+    <script type="text/javascript" src="../../script/common.js"></script>
+    <script type="text/javascript" src="../../script/jquery.min.js"></script>
+    <script type="text/javascript" src="../../script/bootstrap.min.js"></script>
+    <script type="text/javascript" src="../../script/jweixin-1.0.0.js"></script>
+    <script src="../../script/weui.min.js"></script>
+      <script type="text/javascript" src="../../script/gly.js"></script>
+          <script src="../../script/echarts.simple.min.js"></script>
+    <script src="../../script/week.js"></script>
+  <style>
+    a{ display:inline;}
+  </style>
+</head>
+<body>
+<div class="s-zd" id="s-zd"></div>
+  <div id="wrap" class="flex-wrap flex-vertical">
+    <div class="container grad" id="yd">
+      <div class="i20"></div>
+      <div class="row">
+        <div class="col-xs-3 font1" > </div>
+        <div class="col-xs-6 font2"> 运单统计 </div>
+        <div class="col-xs-3 font3"  style="font-size:16px;  padding-left:0; padding-right:20px;  padding-top:5px; display:block;" > <span onclick="openexcelwin()">导出表格</span></div>
+        <!-- <div class=" font2" align="center"> 运单统计 </div> -->
+
+      </div>
+      <div style="clear: both"></div>
+    </div>
+
+
+
+    <div id="main" class="flex-con"  style="position:relative; z-index:3">
+
+
+<div class="s-ydtj">
+<div class="s-clear"></div>
+   <div class="s-ydtj1"><span><img src="../../image/g6.png" ></span>选择时段</div>
+   <div class="s-ydtj2">
+   <span id="sbybd">本周
+
+   </span>
+      <ul id="sby">
+     <li><a  onClick="sectime(1,'本周')">本周</a></li>
+     <li><a  onClick="sectime(2,'本月')">本月</a></li>
+     <li><a  onClick="sectime(3,'本季')">本季</a></li>
+     <li><a  onClick="sectime(4,'本年')">本年</a></li>
+     <li><a  onClick="sectime(5,'自定义')">自定义</a></li>
+   </ul>
+   </div>
+   <div class="s-ydtj3">
+       <ul>
+          <li><span id="ftime" ></span></li>
+          <li style="width:10px; text-align:center">-</li>
+          <li><span id="totime" ></span></li>
+       </ul>
+   </div>
+
+</div>
+
+<script>
+
+function openexcelwin()
+{
+  api.openWin({
+      name : 'order_yddc',
+      url : '../order/yddc.html',
+      slidBackEnabled:false,
+        hideHomeIndicator:true
+    });
+}
+function sectime(num,stra)
+{
+	var ftimenum,totimenum;
+
+	totimenum=getday();
+	switch(num)
+	{
+		case 1:
+	ftimenum=getmonday();
+  fffdistrict(ftimenum,totimenum,$api.getStorage('gly01'),$api.getStorage('gly011'));
+  fffsandplant(ftimenum,totimenum,$api.getStorage('gly02'),$api.getStorage('gly021'));
+		  break;
+		case 2:
+	ftimenum=getCurrentMonth();
+  fffdistrict(ftimenum,totimenum,$api.getStorage('gly01'),$api.getStorage('gly011'));
+  fffsandplant(ftimenum,totimenum,$api.getStorage('gly02'),$api.getStorage('gly021'));
+    break;
+		case 3:
+	ftimenum=getFirstDayOfSeason();
+  fffdistrict(ftimenum,totimenum,$api.getStorage('gly01'),$api.getStorage('gly011'));
+  fffsandplant(ftimenum,totimenum,$api.getStorage('gly02'),$api.getStorage('gly021'));
+    break;
+		case 4:
+	ftimenum=getFirstDayOfYear();
+  fffdistrict(ftimenum,totimenum,$api.getStorage('gly01'),$api.getStorage('gly011'));
+  fffsandplant(ftimenum,totimenum,$api.getStorage('gly02'),$api.getStorage('gly021'));
+		  break;
+      case 5:
+        break;
+		default:
+
+	}
+
+$("#ftime").html(ftimenum);
+$("#totime").html(totimenum);
+$("#sby").hide();
+$("#sbybd").html(stra);
+// console.log("选择");
+// console.log($api.getStorage('gly01'));
+// console.log($api.getStorage('gly011'));
+// console.log($api.getStorage('gly02'));
+// console.log($api.getStorage('gly021'));
+
+
+
+}
+
+</script>
+
+<div class="mainaa" id="mainaa" style=" position:relative; z-index:1">
+
+<div class="s-clear"></div>
+<div class="s-content">
+    <ul>
+      <li><span>运单量</span><p><bdi id="count"></bdi> 单<p></li>
+      <li><span>运砂量</span><p><bdi id="sum"></bdi> 吨<p></li>
+    </ul>
+</div>
+<div class="s-clear"></div>
+
+
+<div class="s-tb" style="position:relative">
+
+
+  <div class="s-tb-t"  style="position:relative;z-index:998;" >
+  <h1>采区统计</h1>
+  <div class="s-selname" id="s-selname" style="height:40px; overflow:hidden;position:relative;"><span id="sys">运单量(单)</span></div>
+
+  <div class="s-sel" id="s-sel">
+   <ul>
+     <li onClick="tabs(1)">运单量(单)</li>
+     <li onClick="tabs(2)">运砂量(吨)</li>
+   </ul>
+  </div>
+  </div>
+  <div style="height: 320px; position:absolute; top:0; left:0;z-index:10; width:100%; "></div>
+  <!-- <div   style="height: 20px;  position:absolute; bottom:0; left:0;z-index:10; width:100%;"></div> -->
+  <div class="s-tb-c" id="s-tb-c"  style="width:98%; overflow-x:scroll;margin-left:2%; z-index:9;-webkit-overflow-scrolling : touch;">
+  <div id="cqtj" style="width:auto;height:300px; position:relative; z-index:9;margin-top:-20px;   -webkit-overflow-scrolling : touch;"></div>
+  </div>
+
+
+
+</div>
+<div class="s-clear"></div>
+
+    <div class="s-tb" style="position:relative">
+
+
+          <div class="s-tb-t" style="position:relative;z-index:998;" >
+          <h1>砂场统计</h1>
+          <div class="s-selname_a" id="s-selname_a" style="height:40px; overflow:hidden; position:relative;  "><span id="sys_a">运单量(单)</span></div>
+
+          <div class="s-sel_a" id="s-sel_a" >
+           <ul>
+             <li onClick="tabs_a(1)"><a href="#">运单量(单)</a></li>
+             <li onClick="tabs_a(2)">运砂量(吨)</li>
+           </ul>
+
+          </div>
+          </div>
+
+ <div style="height:320px;  position:absolute; top:0; left:0;z-index:10; width:100%;  "></div>
+<!--<div   style="height: 0px; position:absolute; bottom:0; left:0;z-index:10; width:100%;"></div> -->
+            <div class="s-tb-c sctja" id="s-tb-c"  ontouchstart=gtouchstart("sctj") ontouchmove="gtouchmove()" ontouchend="gtouchend()" style="width:98%; position:relative; margin-left:2%; z-index:9;-webkit-overflow-scrolling : touch; overflow-x:scroll;">
+
+
+              <div id="sctj" style="width:auto;height:300px; position:relative; z-index:9;margin-top:-20px; -webkit-overflow-scrolling : touch;"></div>
+              </div>
+
+            </div>
+
+
+<div style="height:10px; clear:both; background:#fff"></div>
+    </div>
+
+ </div>
+
+
+  </div>
+
+
+
+    <link rel="stylesheet" type="text/css" href="../../css/waves.css">
+      <script type="text/javascript" src="../../script/waves.min.js"></script>
+
+</body>
+</html>
+
+
+<script>
+function gtouchstart()
+{
+	document.getElementById('onc').style.background = "linear-gradient(to right, #c0ecfe, #17baff )";
+}
+function gtouchend()
+{
+	  setTimeout(function() {
+  	document.getElementById('onc').style.background = "linear-gradient(to right, #17baff, #178aff )";
+  }, 150) ;
+
+}
+$(document).on('ready', function () {
+
+     Waves.init();
+     $("#s-selname").click(function(){
+ $("#s-zd").show();
+    // $("#s-selname").hide();
+	  $("#s80").show();
+     $("#s-sel").show();
+
+
+
+});
+
+     $("#s-selname_a").click(function(){
+ $("#s-zd").show();
+    // $("#s-selname_a").hide();
+	  $("#s80a").show();
+     $("#s-sel_a").show();
+
+
+
+
+});
+
+     $("#sbybd").click(function(){
+     $("#sby").show();
+});
+
+     $("#mainaa").click(function(){
+     $("#sby").hide();
+
+});
+
+     $("#s-zd").click(function(){
+
+  $("#s-selname_a").show();
+   $("#s-selname").show();
+  $("#s-sel_a").hide();
+  $("#s-sel").hide();
+  $("#s-zd").hide();
+});
+
+   });
+
+   function tabs(num)
+
+   {
+     console.log("tabs");
+     var begintime=$("#ftime").html();
+
+     var endtime=$("#totime").html();
+
+      $("#s-zd").hide();
+    if(num==1)
+		 {
+       $("#sys").html("运单量(单)");
+      // fffdistrict(begintime,endtime,"district",0);
+ huatu1($api.getStorage("a_myarray1"),$api.getStorage("a_myarray2"));
+       $api.setStorage('gly01','district');//district
+       $api.setStorage('gly011',0);//
+
+     }
+		 else
+		 {
+       $("#sys").html("运砂量(吨)");
+        huatu1($api.getStorage("a_myarray1"),$api.getStorage("a_myarray3"));
+    //   fffdistrict(begintime,endtime,"district",1);
+       $api.setStorage('gly01','district');//district
+       $api.setStorage('gly011',1);//
+
+     }
+
+         $("#s-sel").hide();
+
+	}
+
+   function tabs_a(num)
+
+   {
+      console.log("tabs_a");
+     var begintime=$("#ftime").html();
+
+     var endtime=$("#totime").html();
+
+	     $("#s-zd").hide();
+    if(num==1)
+		 {
+       $("#sys_a").html("运单量(单)");
+ huatu2($api.getStorage("a_myarraya1"),$api.getStorage("a_myarraya2"));
+  //  fffsandplant(begintime,endtime,"sandplant",0);
+    $api.setStorage('gly02','sandplant');//sandplant
+    $api.setStorage('gly021',0);//
+     }
+		 else
+		 {
+       $("#sys_a").html("运砂量(吨)");
+  huatu2($api.getStorage("a_myarraya1"),$api.getStorage("a_myarraya3"));
+  //       fffsandplant(begintime,endtime,"sandplant",1);
+         $api.setStorage('gly02','sandplant');//sandplant
+         $api.setStorage('gly021',1);//
+     }
+
+         $("#s-sel_a").hide();
+
+
+	}
+
+function huatu1(myarray1,myarray2)
+{
+  console.log(myarray1);console.log(myarray2);
+  var worldc1 = document.getElementById('cqtj');
+  var myarray1 = myarray1.split(",");
+   var myarray2 = myarray2.split(",");
+var length=myarray1.length;
+      worldc1.style.width = length*70+'px';
+
+  var myChart1 = echarts.init(worldc1);
+
+
+  var myarray3 = myarray2;
+    // myChart1.setOption({
+    //     series:{data:[ ]}
+    // });
+  var stt=Math.max.apply(null, myarray2);
+  var myarray3=new Array(myarray2.length);
+
+
+  for (i = 0; i < myarray2.length; i++) {
+  myarray3[i]=stt;
+  }
+
+  myChart1.setOption({
+      xAxis : {data :myarray1},
+    series:[{data:myarray3},{data:myarray2}]
+  });
+
+console.log("画图1");
+//  window.onresize = function () {
+      myChart1.resize();
+
+//}
+}
+
+function huatu2(myarraya1,myarraya2)
+{
+//  console.log(myarraya1);console.log(myarraya2);
+  var worldc2 = document.getElementById('sctj');
+
+ var myarray1 = myarraya1.split(",");
+  var myarray2 = myarraya2.split(",");
+var length=myarray1.length;
+      worldc2.style.width =length*70+'px';
+
+  var myChart2 = echarts.init(worldc2);
+
+  var myarray3 = myarray2;
+    // myChart1.setOption({
+    //     series:{data:[ ]}
+    // });
+  var stt=Math.max.apply(null, myarray2);
+  var myarray3=new Array(myarray2.length);
+
+
+  for (i = 0; i < myarray2.length; i++) {
+  myarray3[i]=stt;
+  }
+
+  myChart2.setOption({
+        xAxis : {data :myarray1},
+        series:[{data:myarray3},{data:myarray2}]
+
+  });
+console.log("画图2");
+//  window.onresize = function () {
+      myChart2.resize();
+//}
+
+}
+function getNewline(str) {
+  console.log(str);
+  var result="";
+  var curlen=0;
+   len=8;
+  var patten= /.*[\u4e00-\u9fa5]+.*$/;
+  for(var i=0;i<str.length;i++){
+      if(patten.test(str[i])){
+          curlen+=2;
+      }else{
+          curlen++;
+      }
+      if(curlen>len){
+          curlen=0;
+          result+="\n";
+
+      }
+      result+=str[i];
+  }
+    return result;
+}
+var worldc1 = document.getElementById('cqtj');
+var worldc2 = document.getElementById('sctj');
+
+var resizeWorldMapContainer1 = function (length) {
+
+  if(length>0)
+  {
+    console.log("长度："+length);
+        worldc1.style.height ='300px';
+    worldc1.style.width = length*70+'px';
+    //	worldc2.style.width = length*30+'px';
+
+  }
+  else {
+    worldc1.style.height ='300px';
+    worldc1.style.width = 10*40+'px';
+  //	worldc2.style.width = 20*30+'px';
+  }
+
+
+};
+
+var resizeWorldMapContainer2 = function (length) {
+
+  if(length>0)
+  {
+
+  worldc2.style.height = '300px';
+  worldc2.style.width = length*70+'px';
+
+  }
+  else {
+  worldc2.style.height = '300px';
+	worldc2.style.width = 10*40+'px';
+  }
+
+
+};
+resizeWorldMapContainer1(0);
+resizeWorldMapContainer2(0);
+var myChart1 = echarts.init(worldc1);
+var myChart2 = echarts.init(worldc2);
+
+myChart1.setOption({
+    title : {
+        text: '运砂量[吨]',
+        show:false
+    },
+    // color: ['#3398DB'],
+    color: ['#18bbfe'],
+    // tooltip : {
+    //     trigger: 'axis',
+    //     axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+    //         type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+    //     }
+    // },
+    grid: {
+      left: '0%',
+      right: '0%',
+      bottom: '3%',
+
+        containLabel: false
+    },
+    xAxis : [
+        {
+            position:'top',
+            axisLine: {show:false},
+            axisTick: {show:false},
+            // axisLabel: {show:false},
+            splitArea: {show:false},
+            splitLine: {show:false},
+            axisLabel: {
+                interval:0,
+                formatter: function(data){
+            var newStr = getNewline(data);
+            return newStr;
+          }
+          },
+            type : 'category',
+            data : [],
+            axisTick: {
+                alignWithLabel: true
+            }
+        }
+
+    ],
+    yAxis : [
+        {
+			 show : false,
+            type : 'value',
+            offset:0,
+            nameTextStyle:{
+              // fontSize:9,
+              align: 'left',
+              // width:'100%',
+              // padding: 4
+            },
+              name:'运砂量[吨]',
+              nameLocation:'middle',
+              nameGap:40,
+        }
+    ],
+    series : [
+      {
+          // name:'成绩',
+
+          type:'bar',
+          // xAxisIndex:1,
+             barWidth: '60px',
+               barGap: '-100%', // Make series be overlap
+          //颜色需要有透明度
+           itemStyle: {normal: {color:'rgba(102, 102, 102,0.1)'}},
+          //data填你需要的背景的值
+          data:[]
+      },
+        {
+
+          itemStyle: {
+            color: new echarts.graphic.LinearGradient(
+                     0, 0, 0, 1,
+                     [
+                         {offset: 0, color: '#1789ff'},
+                         {offset: 1, color: '#17baff'},
+
+                     ]
+                 )
+                       },
+                          barMinHeight:20,
+          label: {normal: {
+
+               show: true,
+               position: 'insideTop',
+               textStyle: {
+                              // fontWeight:'bolder',
+                              fontSize : '14',
+                              color:'#ffffff',
+
+                              // fontFamily : '微软雅黑',
+                          }
+
+           }},
+            name:'合计',
+            type:'bar',
+            barWidth: '60px',
+            data:[]
+        }
+    ]
+});
+myChart1.showLoading();
+myChart1.setOption({
+    xAxis : {data:[ ]},
+    series:[{data:[ ]},{data:[ ]}]
+});
+myChart1.hideLoading();
+
+
+myChart2.setOption({
+    title : {
+        text: '运砂量[吨]',
+          show:false
+    },
+    // color: ['#3398DB'],
+    color: ['#18bbfe'],
+    // tooltip : {
+    //     trigger: 'axis',
+    //     axisPointer : {            // 坐标轴指示器，坐标轴触发有效
+    //         type : 'shadow'        // 默认为直线，可选为：'line' | 'shadow'
+    //     }
+    // },
+    grid: {
+      left: '0%',
+      right: '0%',
+      bottom: '3%',
+
+        containLabel: false
+    },
+    xAxis : [
+      {
+          position:'top',
+          axisLine: {show:false},
+          axisTick: {show:false},
+          // axisLabel: {show:false},
+          splitArea: {show:false},
+          splitLine: {show:false},
+          axisLabel: {
+              interval:0,
+              formatter: function(data){
+      		var newStr = getNewline(data);
+          return newStr;
+      	}
+        },
+          type : 'category',
+          data : [],
+          axisTick: {
+              alignWithLabel: true
+          }
+      }
+    ],
+    yAxis : [
+        {
+			 show : false,
+            type : 'value',
+            offset:0,
+            nameTextStyle:{
+              // fontSize:9,
+              align: 'left',
+              // width:'100%',
+              // padding: 4
+            },
+              name:'运砂量[吨]',
+              nameLocation:'middle',
+              nameGap:40,
+        }
+    ],
+    series : [
+      {
+          // name:'成绩',
+
+          type:'bar',
+          // xAxisIndex:1,
+             barWidth: '60px',
+               barGap: '-100%', // Make series be overlap
+          //颜色需要有透明度
+           itemStyle: {normal: {color:'rgba(102, 102, 102,0.1)'}},
+          //data填你需要的背景的值
+          data:[]
+      },
+
+        {
+
+          itemStyle: {
+            color: new echarts.graphic.LinearGradient(
+                     0, 0, 0, 1,
+                     [
+                         {offset: 0, color: '#1789ff'},
+                         {offset: 1, color: '#17baff'},
+
+                     ]
+                 )
+                       },
+                        barMinHeight:20,
+          label: {normal: {
+
+               show: true,
+               position: 'insideTop',
+               textStyle: {
+                              // fontWeight:'bolder',
+                              fontSize : '14',
+                              color:'#ffffff',
+
+                              // fontFamily : '微软雅黑',
+                          }
+
+           }},
+            name:'合计',
+            type:'bar',
+            barWidth: '60px',
+            data:[]
+        }
+    ]
+});
+myChart2.showLoading();
+myChart2.setOption({
+    xAxis : {data:[ ]},
+    series:[{data:[ ]},{data:[ ]}]
+});
+myChart2.hideLoading();
+
+
+
+$('#totime').on('click', function () {
+
+    weui.datePicker({
+        start: 1990,
+        end: new Date().getFullYear(),
+        defaultValue:[new Date().getFullYear(),(new Date().getMonth())+1,new Date().getDate()],
+        onChange: function (result) {
+            console.log(result);
+        },
+        onConfirm: function (result) {
+              str=JSON.stringify(result);
+      				str=str.replace("[","");
+      				str=str.replace("]","");
+
+      				str=str.split(",");
+              var sa=str[0]+'-'+str[1]+'-'+str[2];
+
+              	$('#totime').html(sa);
+                var ftime_el=document.getElementById("ftime");
+              var ftimenum=$api.html(ftime_el);
+              console.log("开始"+ftimenum);
+                console.log("结束"+sa);
+                $("#sbybd").html("自定义");
+                fffdistrict(ftimenum,sa,$api.getStorage('gly01'),$api.getStorage('gly011'));
+                fffsandplant(ftimenum,sa,$api.getStorage('gly02'),$api.getStorage('gly021'));
+        }
+    });
+});
+
+$('#ftime').on('click', function () {
+
+    weui.datePicker({
+        start: 1990,
+        end: new Date().getFullYear(),
+        defaultValue:[new Date().getFullYear(),(new Date().getMonth())+1,new Date().getDate()],
+        onChange: function (result) {
+            console.log(result);
+        },
+        onConfirm: function (result) {
+              str=JSON.stringify(result);
+      				str=str.replace("[","");
+      				str=str.replace("]","");
+
+      				str=str.split(",");
+              var sa=str[0]+'-'+str[1]+'-'+str[2];
+
+              	$('#ftime').html(sa);
+
+                var totime_el=document.getElementById("totime");
+              var totimenum=$api.html(totime_el);
+              console.log("开始"+sa);
+                console.log("结束"+totimenum);
+                  $("#sbybd").html("自定义");
+                fffdistrict(sa,totimenum,$api.getStorage('gly01'),$api.getStorage('gly011'));
+                fffsandplant(sa,totimenum,$api.getStorage('gly02'),$api.getStorage('gly021'));
+        }
+    });
+});
+
+function sliding() {
+
+  // GoToRefresh();
+  api.closeWin({
+    name:'glyindex',
+    animation: {type:'none'}
+  });
+
+   }
+
+   apiready = function () {
+//sectime(1,'本周');
+$api.fixTabBar($api.byId('footer'));
+getdistrict();
+getsandplant();
+
+$api.setStorage('gly01','district');//district
+$api.setStorage('gly011',0);//
+$api.setStorage('gly02','sandplant');//sandplant
+$api.setStorage('gly021',0);//
+
+   }
+function getdistrict()
+{
+  var begintime=getmonday();
+  var endtime=getday();
+  $("#ftime").html(begintime);
+  $("#totime").html(endtime);
+
+var group='district';
+  api.ajax({
+      url: functionURL + 'wayBillScreen/countForApp.json',
+      method: 'get',
+
+      headers:
+      {
+
+        login_token:$api.getStorage('loginToken')
+      },
+      data: {
+          values: {
+              begintime:begintime,
+              endtime:endtime,
+              group:group
+          },
+          files: {
+              file: 'fs://a.gif'
+          }
+      }
+  }, function(ret, err) {
+          if(ret){
+            var myarray1=new Array(ret['data'].length);
+            var myarray2=new Array(ret['data'].length);
+            var myarray3=new Array(ret['data'].length);
+            if( ret['data'].length>0)
+            {
+
+
+              for (i = 0; i < myarray1.length; i++) {
+              myarray1[i]=0;
+              }
+              for (i = 0; i < myarray2.length; i++) {
+              myarray2[i]=0;
+              }
+              for (i = 0; i < myarray3.length; i++) {
+              myarray3[i]=0;
+              }
+
+              for (i = 0; i < ret['data'].length; i++) {
+                var item = ret['data'][i];
+
+                  myarray1[i]=item['from_name'];
+                  myarray2[i]=item['count'];
+                  myarray3[i]=item['sum'];
+
+              }
+            }
+             var count_el=document.getElementById("count");
+             var sum_el=document.getElementById("sum");
+
+             $api.html(count_el,ret['count']);
+             $api.html(sum_el,ret['sum']);
+            console.log("测试:"+JSON.stringify(myarray1));
+huatu1(myarray1.toString(),myarray2.toString());
+          //  districtff(myarray1,myarray2);
+$api.setStorage('a_myarray1',myarray1.toString())
+$api.setStorage('a_myarray2',myarray2.toString());
+$api.setStorage('a_myarray3',myarray3.toString());
+
+      }
+      else {
+        getdistrict();
+      }
+  });
+}
+
+function getsandplant()
+{
+  var begintime=getmonday();
+  var endtime=getday();
+var group='sandplant';
+  api.ajax({
+      url: functionURL + 'wayBillScreen/countForApp.json',
+      method: 'get',
+
+      headers:
+      {
+
+        login_token:$api.getStorage('loginToken')
+      },
+      data: {
+          values: {
+              begintime:begintime,
+              endtime:endtime,
+              group:group
+          },
+          files: {
+              file: 'fs://a.gif'
+          }
+      }
+  }, function(ret, err) {
+          if(ret){
+            var myarraya1=new Array(ret['data'].length);
+            var myarraya2=new Array(ret['data'].length);
+            var myarraya3=new Array(ret['data'].length);
+            if( ret['data'].length>0)
+            {
+
+
+              for (i = 0; i < myarraya1.length; i++) {
+              myarraya1[i]=0;
+              }
+              for (i = 0; i < myarraya2.length; i++) {
+              myarraya2[i]=0;
+              }
+              for (i = 0; i < myarraya3.length; i++) {
+              myarraya3[i]=0;
+              }
+
+              for (i = 0; i < ret['data'].length; i++) {
+                var item = ret['data'][i];
+
+                  myarraya1[i]=item['to_name'];
+                  myarraya2[i]=item['count'];
+                  myarraya3[i]=item['sum'];
+
+              }
+
+            }
+
+      huatu2(myarraya1.toString(),myarraya2.toString());
+
+      $api.setStorage('a_myarraya1',myarraya1.toString())
+      $api.setStorage('a_myarraya2',myarraya2.toString());
+      $api.setStorage('a_myarraya3',myarraya3.toString());
+      }
+      else {
+        getsandplant();
+      }
+  });
+}
+
+function districtff(myarray1,myarray2)
+
+{
+
+  var myarray3 = myarray2.split(",");
+    // myChart1.setOption({
+    //     series:{data:[ ]}
+    // });
+  var stt=Math.max.apply(null, myarray2);
+  var myarray3=new Array(myarray2.length);
+
+
+  for (i = 0; i < myarray2.length; i++) {
+  myarray3[i]=stt;
+  }
+
+  myChart1.setOption({
+      xAxis : {
+        data :myarray1
+      },
+          series:[{data:myarray3},{data:myarray2}]
+
+  });
+
+  resizeWorldMapContainer1(myarray1.length);
+  window.onresize = function () {
+
+      myChart1.resize();
+  };
+
+
+}
+
+
+
+function fffdistrict(begintime,endtime,group,fnum)
+{
+
+console.log("调用到1："+begintime);
+console.log("调用到1："+endtime);
+console.log("调用到1："+group);
+console.log("调用到1："+fnum);
+
+  api.ajax({
+      url: functionURL + 'wayBillScreen/countForApp.json',
+      method: 'get',
+
+      headers:
+      {
+
+        login_token:$api.getStorage('loginToken')
+      },
+      data: {
+          values: {
+              begintime:begintime,
+              endtime:endtime,
+              group:group
+          },
+          files: {
+              file: 'fs://a.gif'
+          }
+      }
+  }, function(ret, err) {
+          if(ret){
+
+            var count_el=document.getElementById("count");
+            var sum_el=document.getElementById("sum");
+            var s_sum=0;
+            var s_count=0;
+            var myarray1=new Array(ret['data'].length);
+            var myarray2=new Array(ret['data'].length);
+            var myarray3=new Array(ret['data'].length);
+            if( ret['data'].length>0)
+            {
+
+
+              for (i = 0; i < myarray1.length; i++) {
+              myarray1[i]=0;
+              }
+              for (i = 0; i < myarray2.length; i++) {
+              myarray2[i]=0;
+              }
+              for (i = 0; i < myarray3.length; i++) {
+              myarray3[i]=0;
+              }
+              for (i = 0; i < ret['data'].length; i++) {
+                var item = ret['data'][i];
+
+                  myarray1[i]=item['from_name'];
+                  myarray2[i]=item['count'];
+                  myarray3[i]=item['sum'];
+
+              }
+
+
+
+                  s_sum=ret['sum'];
+                  s_count=ret['count'];
+              // $api.html(count_el,ret['count']);
+              // $api.html(sum_el,ret['sum']);
+            }
+            $api.html(count_el,s_count);
+            $api.html(sum_el,s_sum);
+            if(fnum==0)
+            {
+            huatu1(myarray1.toString(),myarray2.toString());
+            }
+            else {
+              huatu1(myarray1.toString(),myarray3.toString());
+            }
+            $api.setStorage('a_myarray1',myarray1.toString())
+            $api.setStorage('a_myarray2',myarray2.toString());
+            $api.setStorage('a_myarray3',myarray3.toString());
+      }
+      else {
+        fffdistrict(begintime,endtime,group,fnum);
+      }
+  });
+}
+
+function fffsandplant(begintime,endtime,group,fnum)
+{
+  console.log("调用到2："+begintime);
+  console.log("调用到2："+endtime);
+  console.log("调用到2："+group);
+  console.log("调用到2："+fnum);
+
+
+
+  api.ajax({
+      url: functionURL + 'wayBillScreen/countForApp.json',
+      method: 'get',
+
+      headers:
+      {
+
+        login_token:$api.getStorage('loginToken')
+      },
+      data: {
+          values: {
+              begintime:begintime,
+              endtime:endtime,
+              group:group
+          },
+          files: {
+              file: 'fs://a.gif'
+          }
+      }
+  }, function(ret, err) {
+          if(ret){
+            var myarraya1=new Array(ret['data'].length);
+            var myarraya2=new Array(ret['data'].length);
+            var myarraya3=new Array(ret['data'].length);
+            if( ret['data'].length>0)
+            {
+
+
+              for (i = 0; i < myarraya1.length; i++) {
+              myarraya1[i]=0;
+              }
+              for (i = 0; i < myarraya2.length; i++) {
+              myarraya2[i]=0;
+              }
+              for (i = 0; i < myarraya3.length; i++) {
+              myarraya3[i]=0;
+              }
+              for (i = 0; i < ret['data'].length; i++) {
+                var item = ret['data'][i];
+
+                  myarraya1[i]=item['to_name'];
+                  myarraya2[i]=item['count'];
+                  myarraya3[i]=item['sum'];
+
+              }
+              console.log(myarraya1.toString());
+                console.log(myarraya2.toString());
+                  console.log(myarraya3.toString());
+
+            }
+            if(fnum==0)
+            {
+            huatu2(myarraya1.toString(),myarraya2.toString());
+            }
+            else {
+              huatu2(myarraya1.toString(),myarraya3.toString());
+            }
+            $api.setStorage('a_myarraya1',myarraya1.toString())
+            $api.setStorage('a_myarraya2',myarraya2.toString());
+            $api.setStorage('a_myarraya3',myarraya3.toString());
+      }
+      else {
+        fffsandplant(begintime,endtime,group,fnum);
+      }
+  });
+}
+
+</script>

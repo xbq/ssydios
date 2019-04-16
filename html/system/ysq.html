@@ -1,0 +1,152 @@
+
+  <html>
+  <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="maximum-scale=1.0,minimum-scale=1.0,user-scalable=0,width=device-width,initial-scale=1.0"/>
+  <meta name="format-detection" content="telephone=no,email=no,date=no,address=no">
+
+  	<link rel="stylesheet" type="text/css" href="../../css/bootstrap.css">
+      <link rel="stylesheet" type="text/css" href="../../css/scCss.css">
+      <script type="text/javascript" src="../../script/api.js"></script>
+    <script type="text/javascript" src="../../script/common.js"></script>
+      <script type="text/javascript" src="../../script/jquery.min.js"></script>
+      <script type="text/javascript" src="../../script/bootstrap.min.js"></script>
+
+  </head>
+
+
+<body>
+  <div id="wrap" class="flex-wrap flex-vertical">
+    <div class="container grad">
+  		  <div class="i20"></div>
+      <div class="row">
+            <div class="col-xs-3 font1" onClick="sliding()"> <img src="../../image/Drback.png"></div>
+        <div class="col-xs-6 font2"> 运砂船信息 </div>
+        <div class="col-xs-3 font3"> </div>
+      </div>
+      <div style="clear: both"></div>
+    </div>
+  	<div id="main" class="flex-con" >
+
+
+  		<div class="tab-bg container">
+  			<div class="row gr-lb">
+  				<div class="col-xs-6">
+  				   <span id="dqbb">运砂船号</span>
+  				</div>
+  				<div class="col-xs-6 gr-r" >
+  					<bdi id="name"></bdi>
+  				</div>
+  			</div>
+  			<div class="row gr-lb">
+  				<div class="col-xs-6 ">
+  				   <span>船型</span>
+  				</div>
+  				<div class="col-xs-6 gr-r">
+  							<bdi id="model"></bdi>
+  				</div>
+  			</div>
+  			<div class="row gr-lb">
+  				<div class="col-xs-6">
+  					  <span>吨位(吨)</span>
+  				</div>
+  				<div class="col-xs-6 gr-r">
+            	<bdi id="weight"></bdi>
+  				</div>
+  			</div>
+  			<div class="row gr-lb">
+  				<div class="col-xs-6 " >
+  					<span>船长(m)</span>
+  				</div>
+  				<div class="col-xs-6 gr-r">
+                	<bdi id="boatlength"></bdi>
+  				</div>
+  			</div>
+
+        <div class="row gr-lb">
+  				<div class="col-xs-6" >
+  					  <span>船宽(m)</span>
+  				</div>
+  				<div class="col-xs-6 gr-r">
+              	<bdi id="boatwidth"></bdi>
+  				</div>
+  			</div>
+
+        <div class="row gr-lb">
+  				<div class="col-xs-6" >
+  					  <span>船高(m)</span>
+  				</div>
+  				<div class="col-xs-6 gr-r">
+            	<bdi id="boatdeep"></bdi>
+  				</div>
+  			</div>
+
+  		</div>
+
+
+
+  	</div>
+</div>
+
+
+</body>
+</html>
+
+
+</body>
+<script type="text/javascript">
+
+function sliding()
+{
+  api.closeWin({
+    name:'system_ysq',
+    animation: {type:'none'}
+  });
+}
+
+function getysqboatname()
+{
+
+  api.ajax({
+     url: functionURL + 'sandCarrierScreen/getSandCarrierByUser.json',
+     method: 'get',
+     headers:
+     {
+
+       login_token:$api.getStorage('loginToken')
+     },
+     data: {
+         values: {
+userId:$api.getStorage('usid')
+         },
+         files: {
+             file: 'fs://a.gif'
+         }
+     }
+ }, function(ret, err) {
+   console.log(JSON.stringify(ret));
+         if(ret){
+var name_el=document.getElementById("name");
+var model_el=document.getElementById("model");
+var weight_el=document.getElementById("weight");
+var boatlength_el=document.getElementById("boatlength");
+var boatwidth_el=document.getElementById("boatwidth");
+var boatdeep_el=document.getElementById("boatdeep");
+     $api.html(name_el,ret.data[0].name);
+     $api.html(model_el,ret.data[0].model);
+     $api.html(weight_el,ret.data[0].weight);
+     $api.html(boatlength_el,ret.data[0].boatlength);
+     $api.html(boatwidth_el,ret.data[0].boatwidth);
+     $api.html(boatdeep_el,ret.data[0].boatdeep);
+     }
+ });
+
+}
+   apiready = function () {
+     console.log(111);
+getysqboatname();
+
+   }
+
+</script>
+</html>
